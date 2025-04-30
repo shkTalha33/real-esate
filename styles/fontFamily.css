@@ -1,0 +1,77 @@
+/* Poppins */
+.poppins_light {
+  font-family: var(--font-poppins);
+  font-weight: 300;
+}
+
+.poppins_regular {
+  font-family: var(--font-poppins);
+  font-weight: 400;
+}
+
+.poppins_medium {
+  font-family: var(--font-poppins);
+  font-weight: 500;
+}
+
+.poppins_semibold {
+  font-family: var(--font-poppins);
+  font-weight: 600;
+}
+
+.poppins_bold {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+}
+
+/* Roboto */
+.roboto_light {
+  font-family: var(--font-roboto);
+  font-weight: 300;
+}
+
+.roboto_regular {
+  font-family: var(--font-roboto);
+  font-weight: 400;
+}
+
+.roboto_medium {
+  font-family: var(--font-roboto);
+  font-weight: 500;
+}
+
+.roboto_bold {
+  font-family: var(--font-roboto);
+  font-weight: 700;
+}
+
+/* Nunito */
+.nunito_light {
+  font-family: var(--font-nunito);
+  font-weight: 300;
+}
+
+.nunito_regular {
+  font-family: var(--font-nunito);
+  font-weight: 400;
+}
+
+.nunito_medium {
+  font-family: var(--font-nunito);
+  font-weight: 500;
+}
+
+.nunito_semibold {
+  font-family: var(--font-nunito);
+  font-weight: 600;
+}
+
+.nunito_bold {
+  font-family: var(--font-nunito);
+  font-weight: 700;
+}
+
+.nunito_extrabold {
+  font-family: var(--font-nunito);
+  font-weight: 800;
+}
