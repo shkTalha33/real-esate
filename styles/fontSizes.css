@@ -1,0 +1,33 @@
+html {
+  font-size: 16px; /* Default for large desktops */
+}
+
+@media (max-width: 1200px) {
+  html {
+    font-size: 15px; /* Large tablets, small desktops */
+  }
+}
+
+@media (max-width: 992px) {
+  html {
+    font-size: 14px; /* Tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 13px; /* Small tablets / large phones */
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 12px; /* Small phones */
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 10px; /* ex Small phones */
+  }
+}

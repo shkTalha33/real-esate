@@ -12,12 +12,16 @@ const config = {
       // colors
       colors: {
         brand: {
+          white: "#fff",
+          black: "#000",
           light: "#f8fafc",
           dark: "#0f172a",
           primary: "#4f46e5",
-          secondary: "#9333ea",
+          secondary: "#c4c3d0",
           accent: "#06b6d4",
           muted: "#64748b",
+          warning: "#f59e0b", // Golden Yellow
+          warningdark: "#d97706",
         },
       },
       // box shadow
@@ -45,7 +49,7 @@ const config = {
       },
       // media screens
       screens: {
-        xs: "360px", // Custom mobile breakpoint (smaller than 'sm')
+        xs: "400px", // Custom mobile breakpoint (smaller than 'sm')
         sm: "640px", // Tailwind's default 'sm' breakpoint
         md: "768px", // Tailwind's default 'md' breakpoint
         lg: "1024px", // Tailwind's default 'lg' breakpoint

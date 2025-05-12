@@ -1,4 +1,4 @@
-/* Poppins */
+/*---------------------------------------------- Poppins -------------------------------------------- */
 .poppins_light {
   font-family: var(--font-poppins);
   font-weight: 300;
@@ -24,7 +24,7 @@
   font-weight: 700;
 }
 
-/* Roboto */
+/*----------------------------------------------- Roboto -------------------------------------------- */
 .roboto_light {
   font-family: var(--font-roboto);
   font-weight: 300;
@@ -45,7 +45,7 @@
   font-weight: 700;
 }
 
-/* Nunito */
+/* --------------------------------------------- Nunito --------------------------------------------- */
 .nunito_light {
   font-family: var(--font-nunito);
   font-weight: 300;
@@ -73,5 +73,36 @@
 
 .nunito_extrabold {
   font-family: var(--font-nunito);
+  font-weight: 800;
+}
+
+/* ------------------------------------------- Montserrat------------------------------------------- */
+.montserrat_light {
+  font-family: var(--font-montserrat);
+  font-weight: 300;
+}
+
+.montserrat_regular {
+  font-family: var(--font-montserrat);
+  font-weight: 400;
+}
+
+.montserrat_medium {
+  font-family: var(--font-montserrat);
+  font-weight: 500;
+}
+
+.montserrat_semibold {
+  font-family: var(--font-montserrat);
+  font-weight: 600;
+}
+
+.montserrat_bold {
+  font-family: var(--font-montserrat);
+  font-weight: 700;
+}
+
+.montserrat_extrabold {
+  font-family: var(--font-montserrat);
   font-weight: 800;
 }
