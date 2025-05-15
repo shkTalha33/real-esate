@@ -18,6 +18,7 @@ import {
 
 export default function Login() {
   const [isVisible, setIsVisible] = useState(false);
+  const [loginType, setLoginType] = useState("email");
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const schema = Yup.object().shape({
@@ -34,7 +35,18 @@ export default function Login() {
   });
 
   const onSubmit = (data) => {
-    console.log("data", data);
+    const endpoint = "";
+    if (loginType === "email") {
+      endpoint = "";
+    } else if (loginType === "facebook") {
+      endpoint = "";
+    } else if (loginType === "google") {
+      endpoint = "";
+    } else if (loginType === "github") {
+      endpoint = "";
+    } else {
+      return;
+    }
     const response = fetch("http://localhost:8000/api/v1/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -167,6 +179,7 @@ export default function Login() {
               <Button
                 type="submit"
                 className="w-full bg-gradient-to-r bg-brand-warning hover:bg-brand-warningdark text-white nunito_medium py-3 rounded-medium transition-all duration-300 hover:shadow-lg"
+                onClick={() => setLoginType("email")}
               >
                 Sign In
               </Button>
@@ -179,19 +192,28 @@ export default function Login() {
 
               <div className="grid grid-cols-3 gap-3">
                 {/* Facebook Button */}
-                <Button className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-medium transition-all gap-1 duration-300 hover:shadow-md">
+                <Button
+                  className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-medium transition-all gap-1 duration-300 hover:shadow-md"
+                  onClick={() => setLoginType("facebook")}
+                >
                   <LuFacebook size={20} />
                   Facebook
                 </Button>
 
                 {/* GitHub Button */}
-                <Button className="flex items-center justify-center bg-black hover:bg-gray-900 text-white p-3 rounded-medium transition-all gap-1 duration-300 hover:shadow-md">
+                <Button
+                  className="flex items-center justify-center bg-black hover:bg-gray-900 text-white p-3 rounded-medium transition-all gap-1 duration-300 hover:shadow-md"
+                  onClick={() => setLoginType("github")}
+                >
                   <LuGithub size={20} />
                   Github
                 </Button>
 
                 {/* Google Button */}
-                <Button className="flex items-center gap-1 justify-center bg-red-500 hover:bg-red-600 text-white p-3 rounded-medium transition-all duration-300 hover:shadow-md">
+                <Button
+                  className="flex items-center gap-1 justify-center bg-red-500 hover:bg-red-600 text-white p-3 rounded-medium transition-all duration-300 hover:shadow-md"
+                  onClick={() => setLoginType("google")}
+                >
                   <SiGoogle size={18} />
                   Google
                 </Button>
