@@ -4,9 +4,8 @@ import clsx from "clsx";
 
 import Providers from "./providers";
 
+import { montserrat, nunito, poppins, roboto } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
-import { poppins, roboto, nunito, montserrat } from "@/config/fonts";
-import NavHeader from "@/components/navHeader";
 
 export const metadata = {
   title: {
@@ -42,7 +41,7 @@ export default function RootLayout({ children }) {
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col h-screen">
             {/* <NavHeader /> */}
-            <main className="lg:container w-full mx-auto">{children}</main>
+            <main className="w-full mx-auto">{children}</main>
             {/* <footer className="w-full flex items-center justify-center py-3">
               <Link
                 isExternal

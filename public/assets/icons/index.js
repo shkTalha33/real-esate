@@ -1,5 +1,11 @@
 import { RiEyeCloseLine } from "react-icons/ri";
-import { HiOutlineMail } from "react-icons/hi";
+import {
+  HiOutlineGlobe,
+  HiOutlineLocationMarker,
+  HiOutlineMail,
+  HiOutlinePhone,
+  HiOutlineUser,
+} from "react-icons/hi";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { LuGithub, LuFacebook, LuGoogle } from "react-icons/lu";
 import { SiGoogle } from "react-icons/si";
@@ -12,4 +18,8 @@ export {
   LuFacebook,
   LuGoogle,
   SiGoogle,
+  HiOutlineUser,
+  HiOutlinePhone,
+  HiOutlineGlobe,
+  HiOutlineLocationMarker,
 };

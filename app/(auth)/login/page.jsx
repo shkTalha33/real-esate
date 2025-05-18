@@ -1,25 +1,69 @@
 "use client";
-import React, { useState } from "react";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Input, Form, Button, Divider } from "@/components/ui/index";
-import { Controller, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { house14 } from "@/public/assets/images";
-import Image from "next/image";
+import { login } from "@/components/api/apiEndpoints";
+import ApiFunction from "@/components/api/apiFunction";
+import { handleError } from "@/components/api/errorHandler";
+import { Button, Form, Input } from "@/components/ui/index";
 import {
   HiOutlineMail,
-  LuFacebook,
   LuGithub,
   MdOutlineRemoveRedEye,
   RiEyeCloseLine,
   SiGoogle,
 } from "@/public/assets/icons/index";
+import { house14 } from "@/public/assets/images";
+import {
+  setAccessToken,
+  setLogin,
+  setRefreshToken,
+  setUserData,
+} from "@/redux/slices/loginSlice";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Divider } from "antd";
+import Image from "next/image";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 
 export default function Login() {
   const [isVisible, setIsVisible] = useState(false);
-  const [loginType, setLoginType] = useState("email");
+  const [isLoading, setIsLoading] = useState("");
+  const { post } = ApiFunction();
+  const [isMounted, setIsMounted] = useState(false);
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state?.auth?.isLogin);
+  const searchParams = useSearchParams();
+
   const toggleVisibility = () => setIsVisible(!isVisible);
+
+  // Fix for hydration errors - only run client-side code after component mounts
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Only handle URL params after component is mounted on client
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const error = searchParams.get("error");
+    if (error) {
+      const timer = setTimeout(() => {
+        toast.error(decodeURIComponent(error));
+
+        // Clean up URL after showing error
+        if (typeof window !== "undefined") {
+          const url = new URL(window.location.href);
+          url.searchParams.delete("error");
+          window.history.replaceState({}, "", url);
+        }
+      }, 100); // Small delay to ensure client hydration completes
+
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams, isMounted]);
 
   const schema = Yup.object().shape({
     identifier: Yup.string().required("Username or Email is required"),
@@ -32,42 +76,55 @@ export default function Login() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      identifier: "",
+      password: "",
+    },
   });
 
-  const onSubmit = (data) => {
-    const endpoint = "";
-    if (loginType === "email") {
-      endpoint = "";
-    } else if (loginType === "facebook") {
-      endpoint = "";
-    } else if (loginType === "google") {
-      endpoint = "";
-    } else if (loginType === "github") {
-      endpoint = "";
-    } else {
-      return;
-    }
-    const response = fetch("http://localhost:8000/api/v1/users/signin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    console.log("response", response);
+  const onSubmit = async (data) => {
+    setIsLoading("email");
+    await post(login, data)
+      .then((response) => {
+        if (response?.success) {
+          dispatch(setLogin(true));
+          dispatch(setAccessToken(response?.data?.accessToken));
+          dispatch(setRefreshToken(response?.data?.refreshToken));
+          localStorage.setItem(
+            "estate_loop_token",
+            response?.data?.accessToken
+          );
+          toast.success(response?.message);
+        }
+      })
+      .catch((err) => handleError(err))
+      .finally(() => setIsLoading(""));
   };
 
+  // Modified error handler to prevent duplicate toasts
   const onError = (errors) => {
-    const firstError = Object.values(errors)[0]?.message;
-    if (firstError) {
-      toast.error(firstError);
+    console.error("Form validation errors:", errors);
+  };
+
+  // Handle social login by redirecting to the auth endpoints
+  const handleSocialLogin = (provider) => {
+    if (isLoading) return; // Prevent multiple clicks
+    setIsLoading(provider);
+
+    if (typeof window !== "undefined") {
+      window.location.href = `http://localhost:8000/api/v1/users/auth/${provider}`;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-light to-white dark:from-brand-dark dark:to-gray-900">
+    <div className="min-h-screen login bg-gradient-to-br from-brand-light to-white dark:from-brand-dark dark:to-gray-900">
       <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
         {/* Left Side - Image */}
         <div className="relative hidden md:block overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/40 to-brand-secondary/40 z-10"></div>
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/20 z-10"></div>
+
+          {/* Image */}
           <Image
             src={house14}
             alt="Luxury Real Estate"
@@ -75,9 +132,11 @@ export default function Login() {
             className="object-cover transition-transform duration-3000 hover:scale-105"
             priority
           />
+
+          {/* Text Content */}
           <div className="absolute inset-0 flex flex-col justify-center items-center z-20 px-10">
             <div className="backdrop-blur-sm bg-white/10 p-8 rounded-xl shadow-2xl border border-white/20 max-w-md">
-              <h2 className="text-4xl poppins_semibold text-white mb-4">
+              <h2 className="text-[2rem] poppins_semibold text-white mb-4">
                 Find Your Dream Home
               </h2>
               <p className="text-white/90 text-lg">
@@ -89,20 +148,20 @@ export default function Login() {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="flex items-center justify-center p-6 md:p-12">
-          <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 md:p-10 border border-gray-100 dark:border-gray-700">
-            <div className="mb-8 text-center">
-              <h1 className="text-[1.5rem] md:text-4xl roboto_bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent mb-2">
+        <div className="flex items-center justify-center w-full p-2 md:p-6">
+          <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
+            <div className="mb-4 text-center">
+              <h1 className="text-[2.25rem]  roboto_bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent mb-1">
                 Welcome Back
               </h1>
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400 text-sm">
                 Sign in to continue to your account
               </p>
             </div>
 
             <Form
               onSubmit={handleSubmit(onSubmit, onError)}
-              className="space-y-6"
+              className="space-y-3"
             >
               <Controller
                 control={control}
@@ -111,10 +170,10 @@ export default function Login() {
                   field: { name, value, onChange },
                   fieldState: { invalid, error },
                 }) => (
-                  <div className="space-y-2 w-full">
+                  <div className="space-y-1 w-full">
                     <Input
                       endContent={
-                        <HiOutlineMail className="text-brand-primary dark:text-brand-accent text-xl" />
+                        <HiOutlineMail className="text-brand-primary dark:text-brand-accent text-lg" />
                       }
                       errorMessage={error?.message}
                       isInvalid={invalid}
@@ -122,9 +181,9 @@ export default function Login() {
                       name={name}
                       onChange={onChange}
                       labelPlacement="outside"
-                      size="lg"
+                      size="md"
                       placeholder="Enter Username or Email"
-                      value={value}
+                      value={value || ""}
                       className="dark:text-white text-gray-800 w-full focus:border-brand-primary"
                     />
                   </div>
@@ -138,13 +197,13 @@ export default function Login() {
                   field: { name, value, onChange },
                   fieldState: { invalid, error },
                 }) => (
-                  <div className="space-y-2 w-full">
+                  <div className="space-y-1 w-full">
                     <Input
                       errorMessage={error?.message}
                       isInvalid={invalid}
                       label="Password"
                       name={name}
-                      size="lg"
+                      size="md"
                       onChange={onChange}
                       type={isVisible ? "text" : "password"}
                       placeholder="Enter Password"
@@ -154,14 +213,14 @@ export default function Login() {
                           className="cursor-pointer"
                         >
                           {isVisible ? (
-                            <RiEyeCloseLine className="text-2xl text-brand-primary dark:text-brand-accent" />
+                            <RiEyeCloseLine className="text-lg text-brand-primary dark:text-brand-accent" />
                           ) : (
-                            <MdOutlineRemoveRedEye className="text-2xl text-brand-primary dark:text-brand-accent" />
+                            <MdOutlineRemoveRedEye className="text-lg text-brand-primary dark:text-brand-accent" />
                           )}
                         </div>
                       }
                       labelPlacement="outside"
-                      value={value}
+                      value={value || ""}
                       className="dark:text-white text-gray-800 rounded-medium focus:border-brand-primary"
                     />
                     <div className="flex justify-end">
@@ -176,58 +235,64 @@ export default function Login() {
                 )}
               />
 
+              {/* Submit Button */}
               <Button
+                isLoading={isLoading === "email"}
+                loadingText="Signing in..."
                 type="submit"
-                className="w-full bg-gradient-to-r bg-brand-warning hover:bg-brand-warningdark text-white nunito_medium py-3 rounded-medium transition-all duration-300 hover:shadow-lg"
-                onClick={() => setLoginType("email")}
+                className="w-full bg-brand-warning hover:bg-brand-warningdark text-white nunito_medium text-[1rem] py-2 rounded-medium transition-all duration-300 hover:shadow-lg mt-2"
+                disabled={isLoading}
               >
                 Sign In
               </Button>
 
               <Divider
-                orientation="horizontal"
-                title="Talha"
-                className="text-white dark:bg-brand-secondary"
-              />
+                orientation="center"
+                style={{ borderColor: "#FBFBFB" }}
+                className="dark:text-gray-500 text-brand-black poppins_medium !text-[1.2rem] my-2"
+              >
+                OR{" "}
+              </Divider>
 
-              <div className="grid grid-cols-3 gap-3">
-                {/* Facebook Button */}
-                <Button
-                  className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-medium transition-all gap-1 duration-300 hover:shadow-md"
-                  onClick={() => setLoginType("facebook")}
-                >
-                  <LuFacebook size={20} />
-                  Facebook
-                </Button>
-
+              <div className="flex flex-row gap-2 w-full">
                 {/* GitHub Button */}
                 <Button
-                  className="flex items-center justify-center bg-black hover:bg-gray-900 text-white p-3 rounded-medium transition-all gap-1 duration-300 hover:shadow-md"
-                  onClick={() => setLoginType("github")}
+                  className={`w-full flex items-center justify-center bg-black ${
+                    !isLoading ? "hover:bg-gray-900" : ""
+                  } text-white p-2 rounded-medium transition-all gap-1 duration-300 hover:shadow-md disabled:opacity-50`}
+                  onClick={() => handleSocialLogin("github")}
+                  type="button"
+                  isLoading={isLoading === "github"}
+                  disabled={isLoading}
                 >
-                  <LuGithub size={20} />
-                  Github
+                  <LuGithub className="text-[1rem]" />
+                  <span className="poppins_medium text-sm">Github</span>
                 </Button>
 
                 {/* Google Button */}
                 <Button
-                  className="flex items-center gap-1 justify-center bg-red-500 hover:bg-red-600 text-white p-3 rounded-medium transition-all duration-300 hover:shadow-md"
-                  onClick={() => setLoginType("google")}
+                  className={`w-full flex items-center justify-center bg-red-500 ${
+                    !isLoading ? "hover:bg-red-600" : ""
+                  } text-white p-2 rounded-medium transition-all gap-1 duration-300 hover:shadow-md disabled:opacity-50`}
+                  onClick={() => handleSocialLogin("google")}
+                  type="button"
+                  isLoading={isLoading === "google"}
+                  disabled={isLoading}
                 >
-                  <SiGoogle size={18} />
-                  Google
+                  <SiGoogle className="text-[1rem]" />
+                  <span className="poppins_medium text-sm">Google</span>
                 </Button>
               </div>
 
-              <div className="text-center mt-8">
-                <p className="text-gray-600 dark:text-gray-400">
+              <div className="text-center mt-4">
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
                   Don't have an account?{" "}
-                  <a
-                    href="#"
+                  <Link
+                    href="/signup"
                     className="text-brand-primary dark:text-brand-accent nunito_medium hover:underline"
                   >
                     Create Account
-                  </a>
+                  </Link>
                 </p>
               </div>
             </Form>

@@ -1,8 +1,10 @@
-.login{
-    .login-bg {
-        background-image: url("/assets/images/house14.jpg");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+.login {
+  .bg-overlay {
+    background-color: black;
+    opacity: 70%;
+    min-height: 100vh;
+    min-width: 100%;
+    object-fit: cover;
+    position: absolute;
+  }
 }

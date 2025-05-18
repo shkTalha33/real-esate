@@ -28,6 +28,6 @@ html {
 
 @media (max-width: 480px) {
   html {
-    font-size: 10px; /* ex Small phones */
+    font-size: 11px; /* ex Small phones */
   }
 }

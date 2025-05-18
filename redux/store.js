@@ -5,9 +5,11 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage
 import { generalApiSlice } from "./slices";
+import authSlice from "./slices/loginSlice";
 
 // Define the root reducer
 const rootReducer = combineReducers({
+  auth: authSlice,
   [generalApiSlice.reducerPath]: generalApiSlice.reducer,
 });
 
