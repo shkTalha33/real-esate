@@ -13,6 +13,11 @@ import house12 from "./house12.jpg";
 import house13 from "./house13.jpg";
 import house14 from "./house14.jpg";
 import house15 from "./house15.jpg";
+import team1 from "./team1.jpg";
+import team2 from "./team2.jpg";
+import contact from "./contact.jpg";
+import privacy from "./privacy.jpg";
+import terms from "./terms.jpg";
 
 export {
   house1,
@@ -30,4 +35,9 @@ export {
   house13,
   house14,
   house15,
+  team1,
+  team2,
+  contact,
+  privacy,
+  terms,
 };

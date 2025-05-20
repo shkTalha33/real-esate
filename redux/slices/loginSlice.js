@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
     isLogin: false,
-    tempData: null,
     accessToken: "",
     refreshToken: "",
     userData: null,
@@ -16,9 +16,6 @@ export const authSlice = createSlice({
     setUserData: (state, action) => {
       state.userData = action.payload;
     },
-    setTempData: (state, action) => {
-      state.tempData = action.payload;
-    },
     setRefreshToken: (state, action) => {
       state.refreshToken = action.payload;
     },
@@ -27,11 +24,11 @@ export const authSlice = createSlice({
     },
     setLogout: (state, action) => {
       state.isLogin = false;
-      state.tempData = null;
       state.accessToken = "";
       state.refreshToken = "";
       state.userData = null;
       localStorage.removeItem("estate_loop_token");
+      Cookies.remove("estate_loop_token");
     },
     handleLogin: (state, action) => {
       state.userData = action.payload;
@@ -46,7 +43,6 @@ export const {
   setLogin,
   handleLogin,
   setLogout,
-  setTempData,
   setAccessToken,
   setRefreshToken,
   handleUserData,

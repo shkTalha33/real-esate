@@ -21,49 +21,42 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Divider } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState("");
   const { post } = ApiFunction();
-  const [isMounted, setIsMounted] = useState(false);
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state?.auth?.isLogin);
   const searchParams = useSearchParams();
+  const router = useRouter()
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  // Fix for hydration errors - only run client-side code after component mounts
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Only handle URL params after component is mounted on client
-  useEffect(() => {
-    if (!isMounted) return;
-
     const error = searchParams.get("error");
+
     if (error) {
       const timer = setTimeout(() => {
         toast.error(decodeURIComponent(error));
 
-        // Clean up URL after showing error
-        if (typeof window !== "undefined") {
-          const url = new URL(window.location.href);
-          url.searchParams.delete("error");
-          window.history.replaceState({}, "", url);
-        }
-      }, 100); // Small delay to ensure client hydration completes
+        // Rebuild the current path without the error param
+        const params = new URLSearchParams(searchParams.toString());
+        params.delete("error");
+
+        // Replace the current route without reloading the page
+        router.replace(`?${params.toString()}`);
+      }, 100);
 
       return () => clearTimeout(timer);
     }
-  }, [searchParams, isMounted]);
+  }, [searchParams, router]);
 
   const schema = Yup.object().shape({
     identifier: Yup.string().required("Username or Email is required"),
@@ -94,6 +87,7 @@ export default function Login() {
             "estate_loop_token",
             response?.data?.accessToken
           );
+          Cookies.set("estate_loop_token", response?.data?.accessToken, { expires: 1 });
           toast.success(response?.message);
         }
       })
@@ -112,7 +106,7 @@ export default function Login() {
     setIsLoading(provider);
 
     if (typeof window !== "undefined") {
-      window.location.href = `http://localhost:8000/api/v1/users/auth/${provider}`;
+      window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/auth/${provider}`;
     }
   };
 
@@ -271,8 +265,7 @@ export default function Login() {
 
                 {/* Google Button */}
                 <Button
-                  className={`w-full flex items-center justify-center bg-red-500 ${
-                    !isLoading ? "hover:bg-red-600" : ""
+                  className={`w-full flex items-center justify-center bg-red-500 ${!isLoading ? "hover:bg-red-600" : ""
                   } text-white p-2 rounded-medium transition-all gap-1 duration-300 hover:shadow-md disabled:opacity-50`}
                   onClick={() => handleSocialLogin("google")}
                   type="button"

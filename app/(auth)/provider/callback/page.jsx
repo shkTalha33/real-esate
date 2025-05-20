@@ -1,29 +1,36 @@
 "use client";
-import { setLogin, setUserData } from "@/redux/slices/loginSlice";
-import { useRouter } from "next/navigation";
+import {
+  setAccessToken,
+  setLogin,
+  setRefreshToken,
+  setUserData,
+} from "@/redux/slices/loginSlice";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
 export default function AuthCallback() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const accessToken = params.get("accessToken");
-    const refreshToken = params.get("refreshToken");
-    const user = params.get("user");
 
+    const accessToken = searchParams.get("accessToken");
+    const refreshToken = searchParams.get("refreshToken");
     if (accessToken && refreshToken) {
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-      dispatch(setUserData(user));
+      dispatch(setAccessToken(accessToken));
+      dispatch(setRefreshToken(refreshToken));
+      localStorage.setItem("estate_loop_token", accessToken);
+      Cookies.set("estate_loop_token", accessToken, { expires: 1 });
       dispatch(setLogin(true));
       router.push("/");
     } else {
       console.error("Authentication failed - missing tokens");
     }
-  }, []);
+  }, [dispatch, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-light to-white dark:from-brand-dark dark:to-gray-900">

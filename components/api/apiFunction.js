@@ -2,6 +2,8 @@ import { axiosInstance } from "./axiosInstance";
 import { setLogout } from "@/redux/slices/loginSlice";
 import { useRouter } from "next/navigation";
 import { fileUpload } from "./apiEndpoints";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const ApiFunction = () => {
   const router = useRouter();
@@ -14,17 +16,26 @@ const ApiFunction = () => {
     "Content-Type": "multipart/form-data",
   };
 
-  //logout fucntion
-  const handleUserLogout = () => {
-    dispatch(setLogout());
-    router.replace("/login");
-    toast.info("Your session is expire, please login");
-  };
+ //logout function - updated to clear cookies too
+ const handleUserLogout = () => {
+  // Clear localStorage
+  localStorage.removeItem("estate_loop_token");
+  
+  // Also clear cookies
+  Cookies.remove("estate_loop_token");
+  
+  // Update Redux state
+  dispatch(setLogout());
+  
+  // Redirect
+  router.replace("/login");
+  toast.error("Your session has expired, please login");
+};
 
   // GET request
   const get = async (endpoint) => {
     const apiResponse = axiosInstance
-      .get(endpoint, { headers: header1 })
+    .get(endpoint, { headers: header1 })
       .then((response) => response?.data)
       .catch((error) => {
         console.error("Error in GET request:", error);

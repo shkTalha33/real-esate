@@ -6,10 +6,12 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage
 import { generalApiSlice } from "./slices";
 import authSlice from "./slices/loginSlice";
+import propertyFiltersReducer from "./slices/propertyFilterSlice";
 
 // Define the root reducer
 const rootReducer = combineReducers({
   auth: authSlice,
+  propertyFilters: propertyFiltersReducer,
   [generalApiSlice.reducerPath]: generalApiSlice.reducer,
 });
 
@@ -17,7 +19,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"], //  only persist auth slice
+  whitelist: ["auth"], // Only persist auth slice
 };
 
 // Create the persisted reducer

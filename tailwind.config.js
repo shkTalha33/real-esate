@@ -16,6 +16,7 @@ const config = {
           black: "#000",
           light: "#f8fafc",
           dark: "#0f172a",
+          deepdark: "#0a0f1a",
           primary: "#4f46e5",
           secondary: "#c4c3d0",
           accent: "#06b6d4",
