@@ -180,7 +180,7 @@ export default function Signup() {
     setIsLoading(provider);
 
     if (typeof window !== "undefined") {
-      window.location.href = `http://localhost:8000/api/v1/users/auth/${provider}`;
+      window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/auth/${provider}`;
     }
   };
 
