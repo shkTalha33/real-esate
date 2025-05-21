@@ -4,7 +4,14 @@ import { topSellers } from "@/data/properties";
 import { house7 } from "@/public/assets/images";
 import Image from "next/image";
 import SectionHeading from "../common/sectionHeading";
-import { FaPhoneAlt, FaEnvelope, FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+} from "react-icons/fa";
+import { Button } from "@/components/ui";
 
 export default function TopSellers() {
   return (
@@ -34,13 +41,22 @@ export default function TopSellers() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
                   <div className="w-full p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                     <div className="flex justify-center space-x-3">
-                      <a href="#" className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white flex items-center justify-center transition-all hover:-translate-y-1">
+                      <a
+                        href="#"
+                        className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white flex items-center justify-center transition-all hover:-translate-y-1"
+                      >
                         <FaFacebookF size={14} />
                       </a>
-                      <a href="#" className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white flex items-center justify-center transition-all hover:-translate-y-1">
+                      <a
+                        href="#"
+                        className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white flex items-center justify-center transition-all hover:-translate-y-1"
+                      >
                         <FaTwitter size={14} />
                       </a>
-                      <a href="#" className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white flex items-center justify-center transition-all hover:-translate-y-1">
+                      <a
+                        href="#"
+                        className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white flex items-center justify-center transition-all hover:-translate-y-1"
+                      >
                         <FaLinkedinIn size={14} />
                       </a>
                     </div>
@@ -59,7 +75,7 @@ export default function TopSellers() {
                 <p className="text-brand-primary roboto_medium mb-4">
                   {agent.role}
                 </p>
-                
+
                 {/* Rating */}
                 <div className="flex items-center justify-center mb-4">
                   <div className="flex">
@@ -91,18 +107,17 @@ export default function TopSellers() {
                   </div>
                   <div className="flex items-center justify-center text-gray-600 dark:text-gray-300">
                     <FaEnvelope className="text-brand-primary mr-2" size={14} />
-                    <span className="text-sm truncate">contact@example.com</span>
+                    <span className="text-sm truncate">
+                      contact@example.com
+                    </span>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
                 <div className="flex space-x-3">
-                  <button className="flex-1 bg-brand-primary hover:bg-brand-primary/90 text-white py-2 px-4 rounded-lg transition-all hover:shadow-lg hover:-translate-y-0.5">
-                    Contact
-                  </button>
-                  <button className="flex-1 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-brand-primary border border-brand-primary py-2 px-4 rounded-lg transition-all">
+                  <Button className="flex-1 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-brand-primary hover border border-brand-primary py-2 px-4 rounded-lg transition-all roboto_medium">
                     View Listings
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>

@@ -2,9 +2,17 @@
 
 import PropertyFilters from "@/components/properties/PropertyFilters";
 import PropertyList from "@/components/properties/PropertyList";
-import { Select, SelectItem } from "@/components/ui";
+import {
+  Card,
+  CardBody,
+  Container,
+  Select,
+  SelectItem,
+  Skeleton,
+} from "@/components/ui";
 import { house9 } from "@/public/assets/images";
 import { setSortOption } from "@/redux/slices/propertyFilterSlice";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -56,53 +64,72 @@ export default function PropertiesPage() {
 
   // Skeleton loader component
   const PropertySkeleton = () => (
-    <div className="bg-white dark:bg-brand-deepdark rounded-xl overflow-hidden shadow-md">
-      <div className="h-56 bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
-      <div className="p-5">
-        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4 animate-pulse"></div>
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-6 animate-pulse"></div>
-        <div className="grid grid-cols-3 gap-4 my-4 py-3">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="flex flex-col items-center">
-              <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full mb-2 animate-pulse"></div>
-              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-between items-center mt-6">
-          <div>
-            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mb-1 animate-pulse"></div>
-            <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded w-20 animate-pulse"></div>
+    <Card className="w-full">
+      <Skeleton className="h-56 w-full rounded-none" />
+      <CardBody className="p-5">
+        <div className="space-y-4">
+          <Skeleton className="h-6 w-3/4 rounded-md" />
+          <Skeleton className="h-4 w-1/2 rounded-md" />
+          <div className="grid grid-cols-3 gap-4 my-4 py-3">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="flex flex-col items-center">
+                <Skeleton className="w-10 h-10 rounded-full mb-2" />
+                <Skeleton className="h-3 w-3/4 rounded-md" />
+              </div>
+            ))}
           </div>
-          <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded-lg w-24 animate-pulse"></div>
+          <div className="flex justify-between items-center mt-6">
+            <div className="space-y-1">
+              <Skeleton className="h-3 w-16 rounded-md" />
+              <Skeleton className="h-2.5 w-20 rounded-md" />
+            </div>
+            <Skeleton className="h-10 w-24 rounded-lg" />
+          </div>
         </div>
-      </div>
-    </div>
+      </CardBody>
+    </Card>
   );
 
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-brand-dark">
-      {/* Hero Section */}
-      <div
-        className="relative bg-cover bg-center text-white py-28"
-        style={{ backgroundImage: `url(${house9.src})` }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/60"></div>
+  // Animation variants
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
 
-        {/* Content */}
-        <div className="relative container mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl poppins_semibold mb-4">
-            Find Your <span className="text-brand-warning">Dream Property</span>
-          </h1>
-          <p className="text-lg text-white/90 nunito_regular">
-            Browse our exclusive collection of premium properties
-          </p>
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  return (
+    <div className="min-h-screen container mx-auto bg-gray-50 dark:bg-brand-dark">
+      {/* Hero Section */}
+      <div className="relative h-96 overflow-hidden">
+        <Image
+          src={house9.src}
+          alt="Properties Background"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+          <div className="text-center lg:container">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+              Find Your <span className="text-yellow-400">Dream Property</span>
+            </h1>
+            <p className="text-lg text-white/90">
+              Browse our exclusive collection of premium properties
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="py-12">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters */}
           <div className="w-full lg:w-80 flex-shrink-0">
@@ -112,53 +139,50 @@ export default function PropertiesPage() {
           {/* Property List */}
           <div className="flex-1">
             {/* Sort and Results Count */}
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-4">
-                <h2 className="text-2xl poppins_semibold text-dark-900 dark:text-white">
-                  {isLoading
-                    ? "Loading..."
-                    : `${filteredProperties.length} Properties Found`}
-                </h2>
-                <div className="flex items-center">
-                  <label
-                    htmlFor="sort"
-                    className="text-sm text-gray-600 dark:text-gray-300 mr-2"
-                  >
-                    Sort by:
-                  </label>
-                  <Select
-                    id="sort"
-                    className="w-[200px]"
-                    classNames={{
-                      trigger:
-                        "h-10 min-h-10 bg-white dark:bg-brand-deepdark border-gray-300 dark:border-gray-700",
-                      value: "text-sm text-gray-700 dark:text-white",
-                    }}
-                    selectedKeys={[sortOption]}
-                    onChange={(e) => dispatch(setSortOption(e.target.value))}
-                  >
-                    <SelectItem key="latest" value="latest">
-                      Newest First
-                    </SelectItem>
-                    <SelectItem key="oldest" value="oldest">
-                      Oldest First
-                    </SelectItem>
-                    <SelectItem key="price-high-low" value="price-high-low">
-                      Price: High to Low
-                    </SelectItem>
-                    <SelectItem key="price-low-high" value="price-low-high">
-                      Price: Low to High
-                    </SelectItem>
-                    <SelectItem key="name-asc" value="name-asc">
-                      Name: A to Z
-                    </SelectItem>
-                    <SelectItem key="name-desc" value="name-desc">
-                      Name: Z to A
-                    </SelectItem>
-                  </Select>
+            <Card className="mb-8">
+              <CardBody>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <h2 className="text-2xl font-bold text-foreground">
+                    {isLoading ? (
+                      <Skeleton className="h-8 w-48 rounded-md" />
+                    ) : (
+                      `${filteredProperties.length} Properties Found`
+                    )}
+                  </h2>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-foreground-500">
+                      Sort by:
+                    </span>
+                    <Select
+                      size="sm"
+                      className="min-w-[180px]"
+                      selectedKeys={[sortOption]}
+                      onChange={(e) => dispatch(setSortOption(e.target.value))}
+                    >
+                      <SelectItem key="latest" value="latest">
+                        Newest First
+                      </SelectItem>
+                      <SelectItem key="oldest" value="oldest">
+                        Oldest First
+                      </SelectItem>
+                      <SelectItem key="price-high-low" value="price-high-low">
+                        Price: High to Low
+                      </SelectItem>
+                      <SelectItem key="price-low-high" value="price-low-high">
+                        Price: Low to High
+                      </SelectItem>
+                      <SelectItem key="name-asc" value="name-asc">
+                        Name: A to Z
+                      </SelectItem>
+                      <SelectItem key="name-desc" value="name-desc">
+                        Name: Z to A
+                      </SelectItem>
+                    </Select>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardBody>
+            </Card>
 
             {/* Loading State */}
             {isLoading ? (

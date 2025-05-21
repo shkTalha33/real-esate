@@ -1,25 +1,26 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
+  Avatar,
   Button,
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Avatar,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
 } from "@/components/ui";
-import { usePathname } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { BsMoonStarsFill, IoMdSunny } from "@/public/assets/icons/index";
 import { setLogout } from "@/redux/slices/loginSlice";
-import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const AcmeLogo = () => {
   return (
@@ -41,6 +42,12 @@ export default function App() {
   const router = useRouter();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state?.auth?.isLogin);
+  const { theme, setTheme } = useTheme();
+  console.log("theme", theme);
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   const handleLogout = () => {
     dispatch(setLogout());
@@ -77,7 +84,10 @@ export default function App() {
         />
         <NavbarBrand>
           <AcmeLogo />
-          <Link href={"/"} className="font-bold text-inherit cursor-pointer">
+          <Link
+            href={"/"}
+            className="poppins_semibold text-inherit cursor-pointer"
+          >
             Estate Loop
           </Link>
         </NavbarBrand>
@@ -107,13 +117,33 @@ export default function App() {
       </NavbarContent>
 
       <NavbarContent justify="end">
+        <NavbarItem>
+          <Button
+            isIconOnly
+            variant="light"
+            aria-label="Toggle theme"
+            onClick={toggleTheme}
+            className="text-default-500 hover:text-foreground"
+          >
+            {theme === "dark" ? (
+              <IoMdSunny size={20} />
+            ) : (
+              <BsMoonStarsFill size={20} />
+            )}
+          </Button>
+        </NavbarItem>
         {!isLogin ? (
           <>
             <NavbarItem className="hidden lg:flex">
               <Link href="/login">Login</Link>
             </NavbarItem>
             <NavbarItem>
-              <Button as={Link} color="warning" href="/signup" variant="flat">
+              <Button
+                as={Link}
+                className="bg-brand-primary hover:bg-brand-primary/80 text-brand-white"
+                href="/signup"
+                variant="flat"
+              >
                 Sign Up
               </Button>
             </NavbarItem>
@@ -132,18 +162,15 @@ export default function App() {
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
-              <DropdownItem key="profile" className="h-14 gap-2">
-                <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">zoey@example.com</p>
+              <DropdownItem
+                key="profile"
+                className="gap-2"
+                onClick={() => router.push("/profile")}
+              >
+                Profile
               </DropdownItem>
-              <DropdownItem key="settings">My Settings</DropdownItem>
-              <DropdownItem key="team_settings">Team Settings</DropdownItem>
-              <DropdownItem key="analytics">Analytics</DropdownItem>
-              <DropdownItem key="system">System</DropdownItem>
-              <DropdownItem key="configurations">Configurations</DropdownItem>
-              <DropdownItem key="help_and_feedback">
-                Help & Feedback
-              </DropdownItem>
+              <DropdownItem key="settings">Favorites</DropdownItem>
+              <DropdownItem key="team_settings"> My Properties</DropdownItem>
               <DropdownItem onClick={handleLogout} key="logout" color="danger">
                 Log Out
               </DropdownItem>

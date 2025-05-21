@@ -4,13 +4,20 @@ import { recentlySold } from "@/data/properties";
 import { house6 } from "@/public/assets/images";
 import Image from "next/image";
 import SectionHeading from "../common/sectionHeading";
-import { FaBed, FaBath, FaRulerCombined, FaCalendarAlt, FaTag, FaClock } from "react-icons/fa";
+import {
+  FaBed,
+  FaBath,
+  FaRulerCombined,
+  FaCalendarAlt,
+  FaTag,
+  FaClock,
+} from "react-icons/fa";
 
 export default function RecentlySold() {
   // Function to format date
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-US', options);
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    return new Date(dateString).toLocaleDateString("en-US", options);
   };
 
   return (
@@ -46,14 +53,27 @@ export default function RecentlySold() {
                   <div className="flex justify-between items-end">
                     <div>
                       <p className="text-xs text-white/80 mb-1">Sold For</p>
-                      <p className="text-xl font-bold text-white">{property.soldPrice}</p>
+                      <p className="text-xl font-bold text-white">
+                        {property.soldPrice}
+                      </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-white/80 line-through mb-1">Listed at {property.price}</p>
+                      <p className="text-xs text-white/80 line-through mb-1">
+                        Listed at {property.price}
+                      </p>
                       <p className="text-xs text-brand-warning font-medium">
                         <FaTag className="inline mr-1" />
-                        {Math.round((1 - parseFloat(property.soldPrice.replace(/[^0-9.]/g, '')) / 
-                          parseFloat(property.price.replace(/[^0-9.]/g, ''))) * 100)}% Below Ask
+                        {Math.round(
+                          (1 -
+                            parseFloat(
+                              property.soldPrice.replace(/[^0-9.]/g, "")
+                            ) /
+                              parseFloat(
+                                property.price.replace(/[^0-9.]/g, "")
+                              )) *
+                            100
+                        )}
+                        % Below Ask
                       </p>
                     </div>
                   </div>
@@ -109,7 +129,9 @@ export default function RecentlySold() {
                       <FaCalendarAlt className="text-brand-warning" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">Sold On</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Sold On
+                      </p>
                       <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
                         {formatDate(property.dateSold)}
                       </p>
@@ -121,8 +143,12 @@ export default function RecentlySold() {
                         <FaClock className="text-brand-primary" />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">On Market</p>
-                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">14 days</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          On Market
+                        </p>
+                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                          14 days
+                        </p>
                       </div>
                     </div>
                   </div>

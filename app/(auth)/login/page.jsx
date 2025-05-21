@@ -35,7 +35,7 @@ export default function Login() {
   const { post } = ApiFunction();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
-  const router = useRouter()
+  const router = useRouter();
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -83,11 +83,14 @@ export default function Login() {
           dispatch(setLogin(true));
           dispatch(setAccessToken(response?.data?.accessToken));
           dispatch(setRefreshToken(response?.data?.refreshToken));
+          router.push("/");
           localStorage.setItem(
             "estate_loop_token",
             response?.data?.accessToken
           );
-          Cookies.set("estate_loop_token", response?.data?.accessToken, { expires: 1 });
+          Cookies.set("estate_loop_token", response?.data?.accessToken, {
+            expires: 1,
+          });
           toast.success(response?.message);
         }
       })
@@ -265,7 +268,8 @@ export default function Login() {
 
                 {/* Google Button */}
                 <Button
-                  className={`w-full flex items-center justify-center bg-red-500 ${!isLoading ? "hover:bg-red-600" : ""
+                  className={`w-full flex items-center justify-center bg-red-500 ${
+                    !isLoading ? "hover:bg-red-600" : ""
                   } text-white p-2 rounded-medium transition-all gap-1 duration-300 hover:shadow-md disabled:opacity-50`}
                   onClick={() => handleSocialLogin("google")}
                   type="button"

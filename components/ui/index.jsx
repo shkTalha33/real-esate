@@ -20,6 +20,11 @@ import {
   DropdownTrigger,
 } from "@heroui/dropdown";
 import { Avatar } from "@heroui/avatar";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Tabs, Tab } from "@heroui/tabs";
+import { Tooltip } from "@heroui/tooltip";
+import { Slider } from "@heroui/slider";
+import { Skeleton } from "@heroui/skeleton";
 
 export {
   Button,
@@ -43,4 +48,13 @@ export {
   DropdownTrigger,
   Avatar,
   Textarea,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Tabs,
+  Tab,
+  Tooltip,
+  Slider,
+  Skeleton,
 };

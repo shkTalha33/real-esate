@@ -54,8 +54,9 @@ export default function FeaturedProperties() {
                         {property.price}
                       </p>
                     </div>
-                    <div className="flex items-center bg-gradient-to-r from-brand-warning  px-3 py-1 rounded-full roboto_regular">
-                      <FaStar className="text-brand-white mr-1" /> Featured
+                    <div className="flex items-center bg-gradient-to-r text-white from-brand-warning  px-3 py-1 rounded-full roboto_regular">
+                      <FaStar className="dark:text-brand-white text-brand-white mr-1" />{" "}
+                      <span className="dark:text-brand-white">Featured</span>
                     </div>
                   </div>
                 </div>
