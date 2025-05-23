@@ -15,12 +15,18 @@ import {
   NavbarMenuToggle,
 } from "@/components/ui";
 import { BsMoonStarsFill, IoMdSunny } from "@/public/assets/icons/index";
-import { setLogout } from "@/redux/slices/loginSlice";
+import { setLogout, setUserData } from "@/redux/slices/loginSlice";
+import debounce from "debounce";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { currentUser } from "./api/apiEndpoints";
+import ApiFunction from "./api/apiFunction";
+import { handleError } from "./api/errorHandler";
+import GoogleTranslate from "./googleTranslate";
+import { HiGlobe } from "react-icons/hi";
 
 export const AcmeLogo = () => {
   return (
@@ -43,7 +49,9 @@ export default function App() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state?.auth?.isLogin);
   const { theme, setTheme } = useTheme();
-  console.log("theme", theme);
+  const [showTranslate, setShowTranslate] = useState(false);
+  const translateRef = useRef(null);
+  const { get } = ApiFunction();
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -54,7 +62,45 @@ export default function App() {
     router.push("/login");
   };
 
+  const getCurrentUser = debounce(async () => {
+    await get(currentUser)
+      .then((res) => {
+        if (res?.success) {
+          dispatch(setUserData(res?.data));
+        }
+      })
+      .catch((err) => {
+        handleError(err);
+      });
+  }, 300);
+
+  // Handle click outside to close translate widget
   useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        translateRef.current &&
+        !translateRef.current.contains(event.target)
+      ) {
+        const clickedOnGlobeIcon = event.target.closest(
+          "button, .goog-te-menu-value"
+        );
+        if (!clickedOnGlobeIcon) {
+          setShowTranslate(false);
+        }
+      }
+    }
+
+    if (showTranslate) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showTranslate]);
+
+  useEffect(() => {
+    getCurrentUser();
     setIsActive(pathname);
   }, [pathname]);
 
@@ -71,134 +117,141 @@ export default function App() {
   ];
 
   return (
-    <Navbar
-      isBordered
-      isMenuOpen={isMenuOpen}
-      shouldHideOnScroll
-      onMenuOpenChange={setIsMenuOpen}
-    >
-      <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
-        <NavbarBrand>
-          <AcmeLogo />
-          <Link
-            href={"/"}
-            className="poppins_semibold text-inherit cursor-pointer"
-          >
-            Estate Loop
-          </Link>
-        </NavbarBrand>
-      </NavbarContent>
-
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem isActive={isActive === "/properties"}>
-          <Link aria-current="page" href="/properties">
-            Properties
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive={isActive === "/about"}>
-          <Link color="foreground" href="/about">
-            About
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive={isActive === "/contact"}>
-          <Link color="foreground" href="/contact">
-            Contact
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/mortgage-calculator">
-            Mortgage
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-
-      <NavbarContent justify="end">
-        <NavbarItem>
-          <Button
-            isIconOnly
-            variant="light"
-            aria-label="Toggle theme"
-            onClick={toggleTheme}
-            className="text-default-500 hover:text-foreground"
-          >
-            {theme === "dark" ? (
-              <IoMdSunny size={20} />
-            ) : (
-              <BsMoonStarsFill size={20} />
-            )}
-          </Button>
-        </NavbarItem>
-        {!isLogin ? (
-          <>
-            <NavbarItem className="hidden lg:flex">
-              <Link href="/login">Login</Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Button
-                as={Link}
-                className="bg-brand-primary hover:bg-brand-primary/80 text-brand-white"
-                href="/signup"
-                variant="flat"
-              >
-                Sign Up
-              </Button>
-            </NavbarItem>
-          </>
-        ) : (
-          <Dropdown placement="bottom-end">
-            <DropdownTrigger>
-              <Avatar
-                isBordered
-                as="button"
-                className="transition-transform"
-                color="secondary"
-                name="Jason Hughes"
-                size="sm"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-              />
-            </DropdownTrigger>
-            <DropdownMenu aria-label="Profile Actions" variant="flat">
-              <DropdownItem
-                key="profile"
-                className="gap-2"
-                onClick={() => router.push("/profile")}
-              >
-                Profile
-              </DropdownItem>
-              <DropdownItem key="settings">Favorites</DropdownItem>
-              <DropdownItem key="team_settings"> My Properties</DropdownItem>
-              <DropdownItem onClick={handleLogout} key="logout" color="danger">
-                Log Out
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        )}
-      </NavbarContent>
-
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+    <div className="lg:container lg:mx-auto navheader">
+      <Navbar
+        isBordered
+        isMenuOpen={isMenuOpen}
+        shouldHideOnScroll
+        onMenuOpenChange={setIsMenuOpen}
+        className="!w-full"
+      >
+        <NavbarContent>
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="sm:hidden"
+          />
+          <NavbarBrand>
+            <AcmeLogo />
             <Link
-              className="w-full"
-              color={
-                index === 2
-                  ? "warning"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              href={item.href}
-              size="lg"
+              href={"/"}
+              className="poppins_semibold text-inherit cursor-pointer"
             >
-              {item.name}
+              Estate Loop
             </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
-    </Navbar>
+          </NavbarBrand>
+        </NavbarContent>
+
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          <NavbarItem isActive={isActive === "/properties"}>
+            <Link aria-current="page" href="/properties">
+              Properties
+            </Link>
+          </NavbarItem>
+          <NavbarItem isActive={isActive === "/about"}>
+            <Link color="foreground" href="/about">
+              About
+            </Link>
+          </NavbarItem>
+          <NavbarItem isActive={isActive === "/contact"}>
+            <Link color="foreground" href="/contact">
+              Contact
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="/mortgage-calculator">
+              Mortgage
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
+        <NavbarContent justify="end">
+          <GoogleTranslate variant="navbar" className="mx-2" compact={true} />
+          <NavbarItem>
+            <Button
+              isIconOnly
+              variant="light"
+              aria-label="Toggle theme"
+              onClick={toggleTheme}
+              className="text-default-500 hover:text-foreground"
+            >
+              {theme === "dark" ? (
+                <IoMdSunny size={20} />
+              ) : (
+                <BsMoonStarsFill size={20} />
+              )}
+            </Button>
+          </NavbarItem>
+          {!isLogin ? (
+            <>
+              <NavbarItem className="hidden lg:flex">
+                <Link href="/login">Login</Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Button
+                  as={Link}
+                  className="bg-brand-primary hover:bg-brand-primary/80 text-brand-white"
+                  href="/signup"
+                  variant="flat"
+                >
+                  Sign Up
+                </Button>
+              </NavbarItem>
+            </>
+          ) : (
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <Avatar
+                  isBordered
+                  as="button"
+                  className="transition-transform"
+                  color="secondary"
+                  name="Jason Hughes"
+                  size="sm"
+                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Profile Actions" variant="flat">
+                <DropdownItem
+                  key="profile"
+                  className="gap-2"
+                  onClick={() => router.push("/profile")}
+                >
+                  Profile
+                </DropdownItem>
+                <DropdownItem key="settings">Favorites</DropdownItem>
+                <DropdownItem key="team_settings"> My Properties</DropdownItem>
+                <DropdownItem
+                  onClick={handleLogout}
+                  key="logout"
+                  color="danger"
+                >
+                  Log Out
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          )}
+        </NavbarContent>
+
+        <NavbarMenu>
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem key={`${item}-${index}`}>
+              <Link
+                className="w-full"
+                color={
+                  index === 2
+                    ? "warning"
+                    : index === menuItems.length - 1
+                    ? "danger"
+                    : "foreground"
+                }
+                href={item.href}
+                size="lg"
+              >
+                {item.name}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarMenu>
+      </Navbar>
+    </div>
   );
 }

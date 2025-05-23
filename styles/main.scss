@@ -1,1 +1,76 @@
+.navheader {
+    header{
+        max-width: 1440px !important;
+    }
+}
+/* Hide Google Translate toolbar */
+.goog-te-banner-frame {
+    display: none !important;
+    margin-top: -50px !important;
+  }
+  
+  .skiptranslate > iframe {
+    height: 0 !important;
+    border-style: none;
+    box-shadow: none;
+  }
 
+  // main.scss
+.translate-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f0f0f0;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  font-size: 14px;
+
+  select {
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+.goog-te-gadget-simple{
+  width: 120px !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 5px !important;
+  border-radius: 10px !important;
+  img{
+    display: none;
+  }
+  .VIpgJd-ZVi9od-xl07Ob-lTBxed{
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    span{
+      border: 0px !important;
+    }
+  }
+}
+
+.skiptranslate{
+  width: 120px !important;
+  border-radius: 3px !important;
+}
+
+ .VIpgJd-ZVi9od-vH1Gmf{
+  width: 100% !important;
+  border: 0px !important;
+}
+
+.indicator{
+  display: none !important;
+}
+
+.VIpgJd-ZVi9od-xl07Ob-OEVmcd{
+  box-shadow:  none !important;
+}
+table{
+  width: 120px !important;
+}
+
+td{
+  width: 120px !important;
+}

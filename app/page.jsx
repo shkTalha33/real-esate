@@ -1,13 +1,11 @@
 "use client";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
 
 // Import components with dynamic loading for better performance
-import Hero from "@/components/home/hero";
 import FeaturedProperties from "@/components/home/FeaturedProperties";
-import TopSellers from "@/components/home/TopSellers";
+import Hero from "@/components/home/hero";
 import LatestProperties from "@/components/home/LatestProperties";
 import RecentlySold from "@/components/home/RecentlySold";
+import TopSellers from "@/components/home/TopSellers";
 
 export default function Home() {
   return (

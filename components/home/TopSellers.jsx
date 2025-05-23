@@ -43,19 +43,19 @@ export default function TopSellers() {
                     <div className="flex justify-center space-x-3">
                       <a
                         href="#"
-                        className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white flex items-center justify-center transition-all hover:-translate-y-1"
+                        className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-warningdark text-white flex items-center justify-center transition-all hover:-translate-y-1"
                       >
                         <FaFacebookF size={14} />
                       </a>
                       <a
                         href="#"
-                        className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white flex items-center justify-center transition-all hover:-translate-y-1"
+                        className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-warningdark text-white flex items-center justify-center transition-all hover:-translate-y-1"
                       >
                         <FaTwitter size={14} />
                       </a>
                       <a
                         href="#"
-                        className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white flex items-center justify-center transition-all hover:-translate-y-1"
+                        className="w-10 h-10 rounded-full bg-brand-primary hover:bg-brand-warningdark text-white flex items-center justify-center transition-all hover:-translate-y-1"
                       >
                         <FaLinkedinIn size={14} />
                       </a>
@@ -103,19 +103,19 @@ export default function TopSellers() {
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center justify-center text-gray-600 dark:text-gray-300">
                     <FaPhoneAlt className="text-brand-primary mr-2" size={14} />
-                    <span className="text-sm">+1 (555) 123-4567</span>
+                    <span className="text-base">+1 (555) 123-4567</span>
                   </div>
                   <div className="flex items-center justify-center text-gray-600 dark:text-gray-300">
                     <FaEnvelope className="text-brand-primary mr-2" size={14} />
-                    <span className="text-sm truncate">
+                    <span className="text-base truncate">
                       contact@example.com
                     </span>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex space-x-3">
-                  <Button className="flex-1 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-brand-primary hover border border-brand-primary py-2 px-4 rounded-lg transition-all roboto_medium">
+                <div className="flex space-x-3 justify-center">
+                  <Button className=" bg-transparent hover:bg-brand-primary dark:hover:bg-brand-primary hover:text-white hover:shadow-lg text-brand-primary hover border border-brand-primary py-2 px-4 rounded-md transition-all roboto_medium">
                     View Listings
                   </Button>
                 </div>

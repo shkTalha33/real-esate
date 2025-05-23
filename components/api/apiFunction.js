@@ -4,9 +4,11 @@ import { useRouter } from "next/navigation";
 import { fileUpload } from "./apiEndpoints";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
 
 const ApiFunction = () => {
   const router = useRouter();
+  const dispatch = useDispatch(); 
   // Define headers
   const header1 = {
     "Content-Type": "application/json",

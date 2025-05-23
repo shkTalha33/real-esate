@@ -83,14 +83,14 @@ export default function Login() {
           dispatch(setLogin(true));
           dispatch(setAccessToken(response?.data?.accessToken));
           dispatch(setRefreshToken(response?.data?.refreshToken));
-          router.push("/");
+          Cookies.set("estate_loop_token", response?.data?.accessToken, {
+            expires: 1,
+          });
           localStorage.setItem(
             "estate_loop_token",
             response?.data?.accessToken
           );
-          Cookies.set("estate_loop_token", response?.data?.accessToken, {
-            expires: 1,
-          });
+          router.push("/");
           toast.success(response?.message);
         }
       })
@@ -148,10 +148,10 @@ export default function Login() {
         <div className="flex items-center justify-center w-full p-2 md:p-6">
           <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
             <div className="mb-4 text-center">
-              <h1 className="text-[2.25rem]  roboto_bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent mb-1">
+              <h1 className="text-[2.25rem] roboto_bold text-brand-primary mb-1">
                 Welcome Back
               </h1>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
+              <p className="text-gray-500 poppins_medium text-base dark:text-gray-400">
                 Sign in to continue to your account
               </p>
             </div>
@@ -170,7 +170,7 @@ export default function Login() {
                   <div className="space-y-1 w-full">
                     <Input
                       endContent={
-                        <HiOutlineMail className="text-brand-primary dark:text-brand-accent text-lg" />
+                        <HiOutlineMail className="text-brand-muted text-lg" />
                       }
                       errorMessage={error?.message}
                       isInvalid={invalid}
@@ -210,9 +210,9 @@ export default function Login() {
                           className="cursor-pointer"
                         >
                           {isVisible ? (
-                            <RiEyeCloseLine className="text-lg text-brand-primary dark:text-brand-accent" />
+                            <RiEyeCloseLine className="text-lg text-brand-muted " />
                           ) : (
-                            <MdOutlineRemoveRedEye className="text-lg text-brand-primary dark:text-brand-accent" />
+                            <MdOutlineRemoveRedEye className="text-lg text-brand-muted " />
                           )}
                         </div>
                       }
@@ -223,7 +223,7 @@ export default function Login() {
                     <div className="flex justify-end">
                       <a
                         href="#"
-                        className="text-sm text-brand-primary dark:text-brand-accent hover:underline"
+                        className="text-sm text-brand-muted hover:underline"
                       >
                         Forgot password?
                       </a>
@@ -246,7 +246,7 @@ export default function Login() {
               <Divider
                 orientation="center"
                 style={{ borderColor: "#FBFBFB" }}
-                className="dark:text-gray-500 text-brand-black poppins_medium !text-[1.2rem] my-2"
+                className="dark:text-gray-500 h-1 text-brand-black poppins_medium text-lg my-2"
               >
                 OR{" "}
               </Divider>

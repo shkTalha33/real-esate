@@ -24,7 +24,7 @@ axiosInstance.interceptors.request.use(
       }
     
     if (token) {
-      config.headers["Authorization"] = token; // Keep the format as it was in your original code
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     
     return config;

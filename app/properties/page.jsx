@@ -107,7 +107,7 @@ export default function PropertiesPage() {
   };
 
   return (
-    <div className="min-h-screen container mx-auto bg-gray-50 dark:bg-brand-dark">
+    <div className="min-h-screen lg:container mx-auto bg-brand-white dark:bg-brand-deepdark">
       {/* Hero Section */}
       <div className="relative h-96 overflow-hidden">
         <Image
@@ -118,10 +118,10 @@ export default function PropertiesPage() {
         />
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
           <div className="text-center lg:container">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl poppins_bold text-white mb-4">
               Find Your <span className="text-yellow-400">Dream Property</span>
             </h1>
-            <p className="text-lg text-white/90">
+            <p className="text-lg text-white/90 roboto_medium">
               Browse our exclusive collection of premium properties
             </p>
           </div>
@@ -130,7 +130,7 @@ export default function PropertiesPage() {
 
       {/* Main Content */}
       <div className="py-12">
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-8 px-4">
           {/* Filters */}
           <div className="w-full lg:w-80 flex-shrink-0">
             <PropertyFilters />
@@ -142,7 +142,7 @@ export default function PropertiesPage() {
             <Card className="mb-8">
               <CardBody>
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <h2 className="text-2xl font-bold text-foreground">
+                  <h2 className="text-2xl roboto_medium text-foreground">
                     {isLoading ? (
                       <Skeleton className="h-8 w-48 rounded-md" />
                     ) : (
@@ -151,12 +151,12 @@ export default function PropertiesPage() {
                   </h2>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-sm text-foreground-500">
+                    <span className="text-sm text-foreground-500 roboto_regular shrink-0">
                       Sort by:
                     </span>
                     <Select
-                      size="sm"
-                      className="min-w-[180px]"
+                      size="md"
+                      className="min-w-[200px]"
                       selectedKeys={[sortOption]}
                       onChange={(e) => dispatch(setSortOption(e.target.value))}
                     >

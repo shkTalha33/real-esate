@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import NavHeader from "@/components/navHeader";
 import Footer from "./footer";
+import GoogleTranslate from "./googleTranslate";
 
 export default function MainLayout({ children }) {
   const pathname = usePathname();

@@ -219,10 +219,10 @@ export default function Signup() {
         <div className="flex items-center justify-center w-full p-2 md:p-6">
           <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
             <div className="mb-4 text-center">
-              <h1 className="text-[2.25rem]  roboto_bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent mb-1">
+              <h1 className="text-[2.25rem] roboto_bold text-brand-primary mb-1">
                 Create Account
               </h1>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
+              <p className="text-gray-500 poppins_medium text-base dark:text-gray-400">
                 Sign up to discover your dream property
               </p>
             </div>
@@ -242,7 +242,7 @@ export default function Signup() {
                   <div className="space-y-1 w-full">
                     <Input
                       endContent={
-                        <HiOutlineUser className="text-brand-primary dark:text-brand-accent text-lg" />
+                        <HiOutlineUser className="text-brand-muted text-lg" />
                       }
                       errorMessage={error?.message}
                       isInvalid={invalid}
@@ -270,7 +270,7 @@ export default function Signup() {
                   <div className="space-y-1 w-full">
                     <Input
                       endContent={
-                        <HiOutlineUser className="text-brand-primary dark:text-brand-accent text-lg" />
+                        <HiOutlineUser className="text-brand-muted text-lg" />
                       }
                       errorMessage={error?.message}
                       isInvalid={invalid}
@@ -298,7 +298,7 @@ export default function Signup() {
                   <div className="space-y-1 w-full">
                     <Input
                       endContent={
-                        <HiOutlineMail className="text-brand-primary dark:text-brand-accent text-lg" />
+                        <HiOutlineMail className="text-brand-muted text-lg" />
                       }
                       errorMessage={error?.message}
                       isInvalid={invalid}
@@ -325,7 +325,7 @@ export default function Signup() {
                   <div className="space-y-1 w-full">
                     <Select
                       endContent={
-                        <HiOutlineGlobe className="text-brand-primary dark:text-brand-accent text-lg" />
+                        <HiOutlineGlobe className="text-brand-muted text-lg" />
                       }
                       errorMessage={error?.message}
                       isInvalid={invalid}
@@ -359,7 +359,7 @@ export default function Signup() {
                   <div className="space-y-1 w-full">
                     <Select
                       endContent={
-                        <HiOutlineLocationMarker className="text-brand-primary dark:text-brand-accent text-lg" />
+                        <HiOutlineLocationMarker className="text-brand-muted text-lg" />
                       }
                       errorMessage={error?.message}
                       isInvalid={invalid}
@@ -402,7 +402,7 @@ export default function Signup() {
                         </div>
                       }
                       endContent={
-                        <HiOutlinePhone className="text-brand-primary dark:text-brand-accent text-lg" />
+                        <HiOutlinePhone className="text-brand-muted text-lg" />
                       }
                       errorMessage={error?.message}
                       isInvalid={invalid}
