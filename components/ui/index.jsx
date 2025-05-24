@@ -25,6 +25,16 @@ import { Tabs, Tab } from "@heroui/tabs";
 import { Tooltip } from "@heroui/tooltip";
 import { Slider } from "@heroui/slider";
 import { Skeleton } from "@heroui/skeleton";
+import { Badge } from "@heroui/badge";
+import { Chip } from "@heroui/chip";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@heroui/modal";
 
 export {
   Button,
@@ -57,4 +67,12 @@ export {
   Tooltip,
   Slider,
   Skeleton,
+  Badge,
+  Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
 };

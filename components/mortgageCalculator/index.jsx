@@ -155,17 +155,17 @@ export function MortgageCalculator() {
       <motion.div className="lg:col-span-2 space-y-6" variants={itemVariants}>
         <Card className="bg-background/50 backdrop-blur-sm border border-default-200/50 shadow-sm">
           <CardHeader>
-            <h2 className="text-xl font-semibold text-foreground">
+            <h2 className="text-xl poppins_semibold text-foreground">
               Home Details
             </h2>
           </CardHeader>
           <CardBody className="space-y-6">
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="text-sm font-medium text-foreground">
+                <label className="text-sm roboto_medium text-foreground">
                   Home Price
                 </label>
-                <span className="text-sm font-medium text-foreground">
+                <span className="text-sm roboto_medium text-foreground">
                   {formatCurrency(homePrice)}
                 </span>
               </div>
@@ -181,11 +181,11 @@ export function MortgageCalculator() {
 
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="text-sm font-medium text-foreground">
+                <label className="text-sm roboto_medium text-foreground">
                   Down Payment
                 </label>
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-sm roboto_medium text-foreground">
                     {formatCurrency(downPayment)} (
                     {downPaymentPercent.toFixed(1)}
                     %)
@@ -204,7 +204,7 @@ export function MortgageCalculator() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm roboto_medium text-foreground mb-2">
                   Loan Term (years)
                 </label>
                 <Tabs
@@ -219,10 +219,10 @@ export function MortgageCalculator() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-medium text-foreground">
+                  <label className="block text-sm roboto_medium text-foreground">
                     Interest Rate (%)
                   </label>
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-sm roboto_medium text-foreground">
                     {interestRate}%
                   </span>
                 </div>
@@ -241,21 +241,21 @@ export function MortgageCalculator() {
 
         <Card className="bg-background/50 backdrop-blur-sm border border-default-200/50 shadow-sm">
           <CardHeader>
-            <h2 className="text-xl font-semibold text-foreground">
+            <h2 className="text-xl poppins_medium text-foreground">
               Additional Costs
             </h2>
           </CardHeader>
           <CardBody className="space-y-6">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-foreground">
+                <label className="text-sm roboto_medium text-foreground">
                   Property Tax (annual)
                   <Tooltip content="Annual property tax as a percentage of home value">
                     <BsFillInfoCircleFill className="inline-block ml-1 w-4 h-4 text-default-400" />
                   </Tooltip>
                 </label>
                 <div className="flex items-center">
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-sm roboto_medium text-foreground">
                     {propertyTax}%
                   </span>
                 </div>
@@ -272,7 +272,7 @@ export function MortgageCalculator() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm roboto_medium text-foreground mb-2">
                   Home Insurance (annual)
                 </label>
                 <div className="relative">
@@ -289,7 +289,7 @@ export function MortgageCalculator() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm roboto_medium text-foreground mb-2">
                   HOA Fees (monthly)
                 </label>
                 <div className="relative">
@@ -313,7 +313,7 @@ export function MortgageCalculator() {
       <motion.div className="lg:col-span-1" variants={itemVariants}>
         <Card className="bg-background/80 backdrop-blur-sm border border-default-200/50 shadow-lg sticky top-6">
           <CardHeader>
-            <h2 className="text-xl font-semibold text-foreground">
+            <h2 className="text-xl poppins_medium text-foreground">
               Monthly Payment
             </h2>
           </CardHeader>
@@ -321,7 +321,7 @@ export function MortgageCalculator() {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-default-600">Principal & Interest</span>
-                <span className="text-lg font-semibold text-foreground">
+                <span className="text-lg poppins_medium text-foreground">
                   {formatCurrency(monthlyPayment)}
                 </span>
               </div>
@@ -353,10 +353,10 @@ export function MortgageCalculator() {
               )}
               <div className="border-t border-default-200 my-3"></div>
               <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold text-foreground">
+                <span className="text-lg poppins_medium text-foreground">
                   Total Monthly Payment
                 </span>
-                <span className="text-2xl font-bold text-brand-primary">
+                <span className="text-2xl poppins_semibold text-brand-primary">
                   {formatCurrency(totalMonthlyPayment)}
                 </span>
               </div>
@@ -393,25 +393,25 @@ export function MortgageCalculator() {
           <CardBody className="space-y-4">
             <div className="flex justify-between items-center">
               <span className="text-default-600">Loan Amount</span>
-              <span className="font-medium text-foreground">
+              <span className="roboto_medium text-foreground">
                 {formatCurrency(loanAmount)}
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-default-600">Down Payment</span>
-              <span className="font-medium text-foreground">
+              <span className="roboto_medium text-foreground">
                 {formatCurrency(downPayment)} ({downPaymentPercent.toFixed(1)}%)
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-default-600">Total Interest Paid</span>
-              <span className="font-medium text-foreground">
+              <span className="roboto_medium text-foreground">
                 {formatCurrency(totalInterest)}
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-default-600">Total Cost of Loan</span>
-              <span className="font-medium text-foreground">
+              <span className="roboto_medium text-foreground">
                 {formatCurrency(loanAmount + totalInterest)}
               </span>
             </div>
@@ -431,7 +431,7 @@ export function MortgageCalculator() {
           >
             <Card className="bg-background/50 backdrop-blur-sm border border-default-200/50 shadow-sm overflow-hidden">
               <CardHeader>
-                <h2 className="text-xl font-semibold text-foreground">
+                <h2 className="text-xl poppins_medium text-foreground">
                   Amortization Schedule
                 </h2>
                 <p className="text-sm text-default-500">
@@ -443,16 +443,16 @@ export function MortgageCalculator() {
                   <table className="w-full">
                     <thead>
                       <tr className="bg-default-100/50 border-b border-default-200">
-                        <th className="px-6 py-3 text-left text-xs font-medium text-default-600 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs roboto_medium text-default-600 uppercase tracking-wider">
                           Year
                         </th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-default-600 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-right text-xs roboto_medium text-default-600 uppercase tracking-wider">
                           Principal
                         </th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-default-600 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-right text-xs roboto_medium text-default-600 uppercase tracking-wider">
                           Interest
                         </th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-default-600 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-right text-xs roboto_medium text-default-600 uppercase tracking-wider">
                           Balance
                         </th>
                       </tr>
@@ -463,7 +463,7 @@ export function MortgageCalculator() {
                           key={row.month}
                           className="hover:bg-default-50/50 transition-colors"
                         >
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm roboto_medium text-foreground">
                             {row.month === 1
                               ? "Year 1"
                               : row.month === 12 * 15 && loanTerm === 15
@@ -480,7 +480,7 @@ export function MortgageCalculator() {
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-foreground">
                             {formatCurrency(row.interest)}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium text-foreground">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-right roboto_medium text-foreground">
                             {formatCurrency(row.balance)}
                           </td>
                         </tr>

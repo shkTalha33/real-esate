@@ -5,15 +5,15 @@ import {
   HiOutlineMail,
   HiOutlinePhone,
   HiOutlineUser,
+  HiOutlineSearch
 } from "react-icons/hi";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { MdOutlineLogout, MdOutlineRemoveRedEye } from "react-icons/md";
 import { LuGithub, LuFacebook, LuGoogle } from "react-icons/lu";
 import { SiGoogle } from "react-icons/si";
-import { BsMoonStarsFill, BsFillInfoCircleFill } from "react-icons/bs";
-import { IoMdSunny } from "react-icons/io";
-import { FaHeart } from "react-icons/fa6";
-import { BsCameraFill } from "react-icons/bs";
-import { HiOutlineSearch } from "react-icons/hi";
+import { BsMoonStarsFill, BsFillInfoCircleFill, BsCameraFill, BsHouseDoor, BsList, BsX } from "react-icons/bs";
+import { IoMdSettings, IoMdSunny } from "react-icons/io";
+import { FaHeart, FaUser,  FaArrowRightLong, FaRegHeart, FaArrowLeftLong } from "react-icons/fa6";
+import { AiOutlineUser, AiOutlineProduct  } from "react-icons/ai";
 
 export {
   RiEyeCloseLine,
@@ -33,4 +33,15 @@ export {
   FaHeart,
   BsCameraFill,
   HiOutlineSearch,
+  MdOutlineLogout,
+  IoMdSettings,
+  FaUser,
+  BsHouseDoor,
+  BsList,
+  BsX,
+  FaArrowRightLong,
+  AiOutlineUser,
+ FaRegHeart,
+ FaArrowLeftLong,
+ AiOutlineProduct,
 };

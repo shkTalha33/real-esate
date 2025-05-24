@@ -14,7 +14,14 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@/components/ui";
-import { BsMoonStarsFill, IoMdSunny } from "@/public/assets/icons/index";
+import {
+  BsMoonStarsFill,
+  HiOutlineUser,
+  IoMdSunny,
+  IoMdSettings,
+  MdOutlineLogout,
+  FaUser,
+} from "@/public/assets/icons/index";
 import { setLogout, setUserData } from "@/redux/slices/loginSlice";
 import debounce from "debounce";
 import { useTheme } from "next-themes";
@@ -25,8 +32,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { currentUser } from "./api/apiEndpoints";
 import ApiFunction from "./api/apiFunction";
 import { handleError } from "./api/errorHandler";
-import GoogleTranslate from "./googleTranslate";
-import { HiGlobe } from "react-icons/hi";
+import { useMediaQuery } from "react-responsive";
 
 export const AcmeLogo = () => {
   return (
@@ -44,6 +50,10 @@ export const AcmeLogo = () => {
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isActive, setIsActive] = useState("/");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [showNavbar, setShowNavbar] = useState(true);
+
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -52,6 +62,37 @@ export default function App() {
   const [showTranslate, setShowTranslate] = useState(false);
   const translateRef = useRef(null);
   const { get } = ApiFunction();
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+
+  // Custom scroll handler
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Set scrolled state for styling
+      setIsScrolled(currentScrollY > 10);
+
+      // Show/hide navbar based on scroll direction
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down & past 100px
+        setShowNavbar(false);
+      } else {
+        // Scrolling up or at top
+        setShowNavbar(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    // Throttle scroll event for better performance
+    const throttledHandleScroll = debounce(handleScroll, 5);
+
+    window.addEventListener("scroll", throttledHandleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", throttledHandleScroll);
+    };
+  }, [lastScrollY]);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -110,7 +151,7 @@ export default function App() {
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
     { name: "Mortgage Calculator", href: "/mortgage-calculator" },
-    { name: "Settings", href: "/settings" },
+    { name: "Settings", href: "/settings/account-details" },
     { name: "Logout", href: "/logout" },
     { name: "Login", href: "/login" },
     { name: "Signup", href: "/signup" },
@@ -121,15 +162,22 @@ export default function App() {
       <Navbar
         isBordered
         isMenuOpen={isMenuOpen}
-        shouldHideOnScroll
         onMenuOpenChange={setIsMenuOpen}
-        className="!w-full"
+        className={`!w-full bg-brand-white dark:bg-brand-deepdark fixed top-0 z-50 transition-all duration-500 ease-out ${
+          showNavbar ? "translate-y-0" : "-translate-y-full"
+        } ${
+          isScrolled
+            ? "backdrop-blur-md bg-brand-white/80 dark:bg-brand-deepdark/80 shadow-lg border-b border-gray-200/20 dark:border-gray-700/20"
+            : "bg-brand-white dark:bg-brand-deepdark"
+        }`}
       >
         <NavbarContent>
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden"
-          />
+          {!isMobile && (
+            <NavbarMenuToggle
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className="sm:hidden"
+            />
+          )}
           <NavbarBrand>
             <AcmeLogo />
             <Link
@@ -164,7 +212,6 @@ export default function App() {
           </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end">
-          <GoogleTranslate variant="navbar" className="mx-2" compact={true} />
           <NavbarItem>
             <Button
               isIconOnly
@@ -212,17 +259,26 @@ export default function App() {
               <DropdownMenu aria-label="Profile Actions" variant="flat">
                 <DropdownItem
                   key="profile"
-                  className="gap-2"
-                  onClick={() => router.push("/profile")}
+                  className="h-14 gap-2"
+                  startContent={<FaUser size={17} />}
                 >
-                  Profile
+                  <p className="font-semibold">Signed in as</p>
+                  <p className="font-semibold">zoey@example.com</p>
                 </DropdownItem>
-                <DropdownItem key="settings">Favorites</DropdownItem>
-                <DropdownItem key="team_settings"> My Properties</DropdownItem>
+                <DropdownItem
+                  key="settings"
+                  className="gap-2"
+                  startContent={<IoMdSettings size={17} />}
+                  onClick={() => router.push("/settings/account-details")}
+                >
+                  Settings
+                </DropdownItem>
                 <DropdownItem
                   onClick={handleLogout}
                   key="logout"
                   color="danger"
+                  className="text-danger"
+                  startContent={<MdOutlineLogout size={17} />}
                 >
                   Log Out
                 </DropdownItem>
@@ -252,6 +308,9 @@ export default function App() {
           ))}
         </NavbarMenu>
       </Navbar>
+
+      {/* Add padding to body to compensate for fixed navbar */}
+      <div className="pt-16"></div>
     </div>
   );
 }
