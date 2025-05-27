@@ -27,6 +27,7 @@ import { Slider } from "@heroui/slider";
 import { Skeleton } from "@heroui/skeleton";
 import { Badge } from "@heroui/badge";
 import { Chip } from "@heroui/chip";
+import { Checkbox } from "@heroui/checkbox";
 import {
   Modal,
   ModalBody,
@@ -35,6 +36,10 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@heroui/modal";
+import { Spinner } from "@heroui/spinner";
+import { Table } from "@heroui/table";
+import { Progress } from "@heroui/progress";
+import { Switch } from "@heroui/switch";
 
 export {
   Button,
@@ -75,4 +80,9 @@ export {
   ModalFooter,
   ModalHeader,
   useDisclosure,
+  Checkbox,
+  Spinner,
+  Table,
+  Progress,
+  Switch,
 };

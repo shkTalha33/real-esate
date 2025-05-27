@@ -64,6 +64,8 @@ export default function App() {
   const { get } = ApiFunction();
   const isMobile = useMediaQuery({ maxWidth: 640 });
 
+  console.log("isLogin", isLogin);
+
   // Custom scroll handler
   useEffect(() => {
     const handleScroll = () => {
@@ -111,7 +113,7 @@ export default function App() {
         }
       })
       .catch((err) => {
-        handleError(err);
+        dispatch(setLogout());
       });
   }, 300);
 

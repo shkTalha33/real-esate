@@ -9,9 +9,11 @@ export default function SectionHeading({
   return (
     <>
       <div className="text-center mb-12">
-        <span className="inline-block bg-brand-primary/10 text-brand-primary px-4 py-1 rounded-full text-sm poppins_medium mb-4">
-          {tag}
-        </span>
+        {tag && (
+          <span className="inline-block bg-brand-primary/10 text-brand-primary px-4 py-1 rounded-full text-sm poppins_medium mb-4">
+            {tag}
+          </span>
+        )}
         <h2 className="text-3xl md:text-4xl poppins_bold text-dark-900 dark:text-white mb-4">
           <span className="text-brand-warning">{heading1}</span> {heading2}
         </h2>

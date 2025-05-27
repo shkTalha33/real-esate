@@ -58,14 +58,16 @@ export default function TopSection({ page }) {
     <>
       <div
         className={`
-        w-full p-4 
+        fixed top-0 left-0 sm:left-64 right-0 z-30
+        w-auto sm:w-[calc(100%-16rem)]
+        p-4 
         backdrop-blur-md backdrop-saturate-150
         shadow-medium
         ${isScrolled ? " shadow-lg" : ""}
         border-b border-gray-200/30 dark:border-brand-muted/30
         flex items-center justify-between
         transition-all duration-300 ease-out
-        bg-brand-white dark:bg-brand-deepdark
+        bg-brand-white/90 dark:bg-brand-deepdark/90
       `}
       >
         <h1 className="text-xl poppins_semibold dark:text-brand-white text-brand-black flex items-center justify-start gap-3">

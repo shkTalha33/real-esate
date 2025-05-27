@@ -154,12 +154,13 @@ export default function DeactivateAccountPage() {
                   variant="bordered"
                   type="password"
                   value={password}
+                  labelPlacement="outside"
                   onChange={(e) => setPassword(e.target.value)}
                   errorMessage={error}
                   isInvalid={!!error}
                   onFocus={() => setError("")}
-                  startContent={
-                    <FaLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                  endContent={
+                    <FaLock className="text-lg text-default-400 pointer-events-none flex-shrink-0" />
                   }
                   className="mb-4"
                 />

@@ -74,3 +74,14 @@ table{
 td{
   width: 120px !important;
 }
+
+.ant-picker-suffix{
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1)) !important;
+  &::placeholder{ 
+    color: rgb(100 116 139 / var(--tw-text-opacity, 1)) !important;
+  }
+}
+
+.custom-year-picker{
+  color: #9ca3af !important; /* Tailwind's gray-400 */
+}

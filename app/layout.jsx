@@ -5,7 +5,7 @@ import clsx from "clsx";
 import Providers from "./providers";
 
 import MainLayout from "@/components/mainLayout";
-import { montserrat, nunito, poppins, roboto } from "@/config/fonts";
+import { nunito, poppins, roboto } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 
 export const metadata = {
@@ -35,8 +35,7 @@ export default function RootLayout({ children }) {
           "min-h-screen bg-background font-sans antialiased",
           poppins.variable,
           roboto.variable,
-          nunito.variable,
-          montserrat.variable
+          nunito.variable
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>

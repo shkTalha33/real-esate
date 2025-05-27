@@ -76,33 +76,3 @@
   font-weight: 800;
 }
 
-/* ------------------------------------------- Montserrat------------------------------------------- */
-.montserrat_light {
-  font-family: var(--font-montserrat);
-  font-weight: 300;
-}
-
-.montserrat_regular {
-  font-family: var(--font-montserrat);
-  font-weight: 400;
-}
-
-.montserrat_medium {
-  font-family: var(--font-montserrat);
-  font-weight: 500;
-}
-
-.montserrat_semibold {
-  font-family: var(--font-montserrat);
-  font-weight: 600;
-}
-
-.montserrat_bold {
-  font-family: var(--font-montserrat);
-  font-weight: 700;
-}
-
-.montserrat_extrabold {
-  font-family: var(--font-montserrat);
-  font-weight: 800;
-}

@@ -19,6 +19,8 @@ export default function MainLayout({ children }) {
     "/settings/change-username",
     "/settings/change-password",
     "/settings/deactivate-account",
+    "/settings/my-listings",
+    "/settings/add-listing",
   ];
   return (
     <div>

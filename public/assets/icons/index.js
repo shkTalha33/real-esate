@@ -5,15 +5,76 @@ import {
   HiOutlineMail,
   HiOutlinePhone,
   HiOutlineUser,
-  HiOutlineSearch
+  HiOutlineSearch,
+  HiOutlineLogout,
+  HiOutlineHome,
+  HiOutlineCurrencyDollar,
+  HiOutlinePhotograph,
+  HiOutlineVideoCamera,
+  HiOutlineTag,
+  HiOutlineSparkles,
 } from "react-icons/hi";
-import { MdOutlineLogout, MdOutlineRemoveRedEye } from "react-icons/md";
-import { LuGithub, LuFacebook, LuGoogle } from "react-icons/lu";
+import {
+  MdAccountCircle,
+  MdDelete,
+  MdEmail,
+  MdLock,
+  MdOutlineLogout,
+  MdOutlineRemoveRedEye,
+  MdPerson,
+  MdCurrencyExchange,
+  MdElectricalServices,
+  MdLocalGasStation,
+  MdLocalParking,
+  MdMessage,
+  MdOutlineBathroom,
+  MdOutlineKitchen,
+  MdWater,
+} from "react-icons/md";
+import { LuGithub, LuFacebook } from "react-icons/lu";
 import { SiGoogle } from "react-icons/si";
-import { BsMoonStarsFill, BsFillInfoCircleFill, BsCameraFill, BsHouseDoor, BsList, BsX } from "react-icons/bs";
-import { IoMdSettings, IoMdSunny } from "react-icons/io";
-import { FaHeart, FaUser,  FaArrowRightLong, FaRegHeart, FaArrowLeftLong } from "react-icons/fa6";
-import { AiOutlineUser, AiOutlineProduct  } from "react-icons/ai";
+import {
+  BsMoonStarsFill,
+  BsFillInfoCircleFill,
+  BsCameraFill,
+  BsHouseDoor,
+  BsList,
+  BsX,
+} from "react-icons/bs";
+import { IoMdRemoveCircle, IoMdSettings, IoMdSunny } from "react-icons/io";
+import {
+  FaHeart,
+  FaUser,
+  FaArrowRightLong,
+  FaRegHeart,
+  FaArrowLeftLong,
+  FaLock,
+  FaHouseChimney,
+  FaBed,
+  FaBuilding,
+  FaRulerCombined,
+  FaTags,
+  FaUpload,
+  FaTrash,
+  FaPlus,
+} from "react-icons/fa6";
+import { AiOutlineUser, AiOutlineProduct } from "react-icons/ai";
+import {
+  FiCheck,
+  FiClock,
+  FiEdit,
+  FiEye,
+  FiMoreVertical,
+  FiRefreshCw,
+  FiTrash2,
+  FiUpload,
+  FiX,
+  FiPlus,
+} from "react-icons/fi";
+import { IoAddCircle } from "react-icons/io5";
+import { FaCalendarAlt } from "react-icons/fa";
+import { HiOutlineBuildingOffice } from "react-icons/hi2";
+import { BiArea } from "react-icons/bi";
 
 export {
   RiEyeCloseLine,
@@ -21,7 +82,6 @@ export {
   MdOutlineRemoveRedEye,
   LuGithub,
   LuFacebook,
-  LuGoogle,
   SiGoogle,
   HiOutlineUser,
   HiOutlinePhone,
@@ -41,7 +101,51 @@ export {
   BsX,
   FaArrowRightLong,
   AiOutlineUser,
- FaRegHeart,
- FaArrowLeftLong,
- AiOutlineProduct,
+  FaRegHeart,
+  FaArrowLeftLong,
+  AiOutlineProduct,
+  FiCheck,
+  FiClock,
+  FiEdit,
+  FiEye,
+  FiMoreVertical,
+  FiPlus,
+  FiRefreshCw,
+  FiTrash2,
+  FiUpload,
+  FiX,
+  MdAccountCircle,
+  MdEmail,
+  MdPerson,
+  MdLock,
+  MdDelete,
+  IoAddCircle,
+  IoMdRemoveCircle,
+  FaLock,
+  FaHouseChimney,
+  HiOutlineLogout,
+  HiOutlineHome,
+  HiOutlineCurrencyDollar,
+  HiOutlinePhotograph,
+  HiOutlineVideoCamera,
+  HiOutlineTag,
+  HiOutlineSparkles,
+  HiOutlineBuildingOffice,
+  FaBed,
+  FaCalendarAlt,
+  FaBuilding,
+  FaRulerCombined,
+  FaTags,
+  FaUpload,
+  FaTrash,
+  FaPlus,
+  MdCurrencyExchange,
+  MdElectricalServices,
+  MdLocalGasStation,
+  MdLocalParking,
+  MdMessage,
+  MdOutlineBathroom,
+  MdOutlineKitchen,
+  MdWater,
+  BiArea,
 };
