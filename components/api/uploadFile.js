@@ -27,7 +27,6 @@ export const uploadFile = async ({ file, video = false }) => {
     const response = await axiosInstance.post(apiUrl, formData, {
       headers: header,
     });
-
     return response;
   } catch (error) {
     console.error("Error uploading file:", error);
