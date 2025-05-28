@@ -278,6 +278,7 @@ export default function AddListing() {
       setIsLoading("image");
       try {
         const imageUrl = await uploadFile({ file, video: false });
+        console.log("imageUrl", imageUrl);
         if (imageUrl?.data?.success) {
           imageUrls.push(imageUrl?.data?.data);
         }

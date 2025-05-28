@@ -23,16 +23,10 @@ export const uploadFile = async ({ file, video = false }) => {
 
     const formData = new FormData();
     formData.append("file", file);
-
     const apiUrl = fileUpload;
-
-    console.log("apiUrl", apiUrl);
-
     const response = await axiosInstance.post(apiUrl, formData, {
       headers: header,
     });
-
-    console.log("response", response);
 
     return response;
   } catch (error) {
