@@ -31,12 +31,12 @@ export default function DesktopLayout({ children }) {
           path: "/settings/account-details",
           icon: <FaUser className="w-4 h-4" />,
         },
-        {
-          id: 12,
-          name: "Change Email",
-          path: "/settings/change-email",
-          icon: <MdEmail className="w-4 h-4" />,
-        },
+        // {
+        //   id: 12,
+        //   name: "Change Email",
+        //   path: "/settings/change-email",
+        //   icon: <MdEmail className="w-4 h-4" />,
+        // },
         {
           id: 13,
           name: "Change Username",

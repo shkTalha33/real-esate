@@ -15,13 +15,21 @@ import {
 } from "@/components/ui";
 import { FaExclamationTriangle, FaLock } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-
+import ApiFunction from "@/components/api/apiFunction";
+import { deactivateuser } from "@/components/api/apiEndpoints";
+import { useDispatch } from "react-redux";
+import { setUserData, setAccessToken, setRefreshToken } from "@/redux/slices/loginSlice";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+import { setLogin } from "@/redux/slices/loginSlice";
 export default function DeactivateAccountPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const { put } = ApiFunction()
+  const dispatch = useDispatch()
 
   const handleDeactivate = async () => {
     if (!password) {
@@ -33,14 +41,24 @@ export default function DeactivateAccountPage() {
     setError("");
 
     try {
-      // Here you would typically make an API call to deactivate the account
-      // await api.deactivateAccount({ password });
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Redirect to home or login page after successful deactivation
-      router.push("/");
+      const apiData = {
+        password: password,
+      }
+      put(deactivateuser, apiData)
+        .then((result) => {
+          if (result?.success) {
+            dispatch(setUserData(''));
+            dispatch(setAccessToken(''));
+            dispatch(setRefreshToken(''));
+            Cookies.remove("estate_loop_token");
+            localStorage.removeItem("estate_loop_token");
+            dispatch(setLogin(false));
+            toast.success(result?.message);
+            router.push("/");
+          }
+        }).catch((err) => {
+          handleError(err)
+        }).finally(() => setIsLoading(false));
     } catch (err) {
       setError("Failed to deactivate account. Please try again.");
       console.error("Deactivation error:", err);
@@ -190,7 +208,7 @@ export default function DeactivateAccountPage() {
                   className="w-full sm:w-auto"
                   startContent={!isLoading && <FaLock />}
                 >
-                  {isLoading ? "Deactivating..." : "Deactivate Account"}
+                  Deactivate Account
                 </Button>
               </ModalFooter>
             </>

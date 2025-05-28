@@ -8,7 +8,11 @@ const currentUser = "users/current-user";
 // profile endpoints
 const updateProfile = "users/update-profile";
 const updateAvatar = "users/update-avatar";
-const changePassword = "users/change-password";
+const updateDetails = "users/update-details";
+const changePassword = "users/update-password";
+const updateEmail = "users/update-email";
+const updateUserName = "users/update-username";
+const deactivateuser = "users/deactivate";
 
 // listing endpoints
 const createListing = "listing/add-listing";
@@ -29,12 +33,16 @@ const fileUpload = "file/upload";
 export {
   login,
   signup,
+  deactivateuser,
+  updateDetails,
+  updateEmail,
+  updateUserName,
+  changePassword,
   googleEndpoint,
   githubEndpoint,
   currentUser,
   updateProfile,
   updateAvatar,
-  changePassword,
   fileUpload,
   createListing,
   updateListing,

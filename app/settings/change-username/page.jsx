@@ -7,9 +7,15 @@ import * as yup from "yup";
 import { FiUser, FiSave, FiArrowLeft, FiCheck, FiX } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { Divider } from "antd";
-
+import { useDispatch, useSelector } from "react-redux";
+import ApiFunction from "@/components/api/apiFunction";
+import { updateUserName } from "@/components/api/apiEndpoints";
+import { handleError } from "@/components/api/errorHandler";
+import { setUserData } from "@/redux/slices/loginSlice";
+import { useState } from "react";
+import toast from "react-hot-toast";
 const schema = yup.object().shape({
-  currentUsername: yup.string().required("Current username is required"),
+  // currentUsername: yup.string().required("Current username is required"),
   newUsername: yup
     .string()
     .min(3, "Username must be at least 3 characters")
@@ -23,28 +29,47 @@ const schema = yup.object().shape({
 });
 
 export default function ChangeUsername() {
+  const user = useSelector((state) => state.auth.userData);
+  const { put } = ApiFunction()
+  const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    setValue,
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      currentUsername: "johndoe",
+      currentUsername: user?.username || '',
       newUsername: "",
     },
   });
 
   const newUsername = watch("newUsername");
   const isUsernameValid =
-    newUsername.length >= 3 &&
-    newUsername.length <= 20 &&
+    newUsername?.length >= 3 &&
+    newUsername?.length <= 20 &&
     /^[a-zA-Z0-9_]+$/.test(newUsername);
 
   const onSubmit = (data) => {
-    console.log("Form submitted:", data);
+    const apiData = {
+      username: data?.newUsername,
+    }
+    setIsLoading(true)
+    put(updateUserName, apiData)
+      .then((result) => {
+        if (result?.success) {
+          dispatch(setUserData(result?.data));
+          toast.success(result?.message);
+          setValue("currentUsername", data?.username);
+          setValue("newUsername", "");
+        }
+      }).catch((err) => {
+        handleError(err)
+      }).finally(() => setIsLoading(false));
   };
 
   return (
@@ -88,7 +113,7 @@ export default function ChangeUsername() {
                 fullWidth
                 labelPlacement="outside"
                 size="lg"
-                isDisabled
+                isReadOnly
                 classNames={{
                   input: [
                     "dark:text-white",
@@ -162,11 +187,10 @@ export default function ChangeUsername() {
               {newUsername && (
                 <div className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
                   <p
-                    className={`flex items-center ${
-                      newUsername.length >= 3
-                        ? "text-green-500"
-                        : "text-gray-500"
-                    }`}
+                    className={`flex items-center ${newUsername.length >= 3
+                      ? "text-green-500"
+                      : "text-gray-500"
+                      }`}
                   >
                     {newUsername.length >= 3 ? (
                       <FiCheck className="mr-2" />
@@ -176,11 +200,10 @@ export default function ChangeUsername() {
                     At least 3 characters
                   </p>
                   <p
-                    className={`flex items-center ${
-                      newUsername.length <= 20
-                        ? "text-green-500"
-                        : "text-gray-500"
-                    }`}
+                    className={`flex items-center ${newUsername.length <= 20
+                      ? "text-green-500"
+                      : "text-gray-500"
+                      }`}
                   >
                     {newUsername.length <= 20 ? (
                       <FiCheck className="mr-2" />
@@ -190,11 +213,10 @@ export default function ChangeUsername() {
                     Maximum 20 characters
                   </p>
                   <p
-                    className={`flex items-center ${
-                      /^[a-zA-Z0-9_]+$/.test(newUsername)
-                        ? "text-green-500"
-                        : "text-gray-500"
-                    }`}
+                    className={`flex items-center ${/^[a-zA-Z0-9_]+$/.test(newUsername)
+                      ? "text-green-500"
+                      : "text-gray-500"
+                      }`}
                   >
                     {/^[a-zA-Z0-9_]+$/.test(newUsername) ? (
                       <FiCheck className="mr-2" />
@@ -212,12 +234,12 @@ export default function ChangeUsername() {
                 type="submit"
                 color="primary"
                 size="lg"
-                isLoading={isSubmitting}
+                isLoading={isLoading}
                 isDisabled={!isUsernameValid || !!errors.confirmUsername}
-                startContent={!isSubmitting && <FiSave className="text-lg" />}
+                startContent={!isLoading && <FiSave className="text-lg" />}
                 className="min-w-[120px] font-medium"
               >
-                {isSubmitting ? "Updating..." : "Update Username"}
+                {isLoading ? "Updating..." : "Update Username"}
               </Button>
             </div>
           </form>

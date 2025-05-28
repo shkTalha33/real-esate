@@ -15,7 +15,12 @@ import {
 } from "react-icons/fi";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import { useDispatch, useSelector } from "react-redux";
+import ApiFunction from "@/components/api/apiFunction";
+import { handleError } from "@/components/api/errorHandler";
+import { setUserData } from "@/redux/slices/loginSlice";
+import toast from "react-hot-toast";
+import { changePassword } from "@/components/api/apiEndpoints";
 const schema = yup.object().shape({
   currentPassword: yup.string().required("Current password is required"),
   newPassword: yup
@@ -37,12 +42,17 @@ export default function ChangePassword() {
   const [isNewVisible, setIsNewVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const router = useRouter();
+  const user = useSelector((state) => state.auth.userData);
+  const dispatch = useDispatch()
+  const { put } = ApiFunction()
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    setValue,
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -57,7 +67,23 @@ export default function ChangePassword() {
     hasMinLength && hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
 
   const onSubmit = (data) => {
-    console.log("Form submitted:", data);
+    const apiData = {
+      newPassword: data?.newPassword,
+      oldPassword: data?.currentPassword,
+    }
+    setIsLoading(true)
+    put(changePassword, apiData)
+      .then((result) => {
+        if (result?.success) {
+          dispatch(setUserData(result?.data));
+          toast.success(result?.message);
+          setValue("currentPassword", "");
+          setValue("newPassword", "");
+          setValue("confirmPassword", "");
+        }
+      }).catch((err) => {
+        handleError(err)
+      }).finally(() => setIsLoading(false));
   };
 
   const toggleCurrentVisibility = () => setIsCurrentVisible(!isCurrentVisible);
@@ -199,9 +225,8 @@ export default function ChangePassword() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                   <div
-                    className={`flex items-center ${
-                      hasMinLength ? "text-green-500" : "text-gray-500"
-                    }`}
+                    className={`flex items-center ${hasMinLength ? "text-green-500" : "text-gray-500"
+                      }`}
                   >
                     {hasMinLength ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -211,9 +236,8 @@ export default function ChangePassword() {
                     At least 8 characters
                   </div>
                   <div
-                    className={`flex items-center ${
-                      hasUppercase ? "text-green-500" : "text-gray-500"
-                    }`}
+                    className={`flex items-center ${hasUppercase ? "text-green-500" : "text-gray-500"
+                      }`}
                   >
                     {hasUppercase ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -223,9 +247,8 @@ export default function ChangePassword() {
                     Uppercase letter
                   </div>
                   <div
-                    className={`flex items-center ${
-                      hasLowercase ? "text-green-500" : "text-gray-500"
-                    }`}
+                    className={`flex items-center ${hasLowercase ? "text-green-500" : "text-gray-500"
+                      }`}
                   >
                     {hasLowercase ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -235,9 +258,8 @@ export default function ChangePassword() {
                     Lowercase letter
                   </div>
                   <div
-                    className={`flex items-center ${
-                      hasNumber ? "text-green-500" : "text-gray-500"
-                    }`}
+                    className={`flex items-center ${hasNumber ? "text-green-500" : "text-gray-500"
+                      }`}
                   >
                     {hasNumber ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -247,9 +269,8 @@ export default function ChangePassword() {
                     Number
                   </div>
                   <div
-                    className={`flex items-center ${
-                      hasSpecialChar ? "text-green-500" : "text-gray-500"
-                    }`}
+                    className={`flex items-center ${hasSpecialChar ? "text-green-500" : "text-gray-500"
+                      }`}
                   >
                     {hasSpecialChar ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -319,12 +340,12 @@ export default function ChangePassword() {
                 type="submit"
                 color="primary"
                 size="lg"
-                isLoading={isSubmitting}
+                isLoading={isLoading}
                 isDisabled={!isPasswordValid || !!errors.confirmPassword}
-                startContent={!isSubmitting && <FiSave className="text-lg" />}
+                startContent={!isLoading && <FiSave className="text-lg" />}
                 className="min-w-[120px] font-medium"
               >
-                {isSubmitting ? "Updating..." : "Update Password"}
+                {isLoading ? "Updating..." : "Update Password"}
               </Button>
             </div>
           </form>

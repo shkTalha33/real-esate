@@ -6,6 +6,7 @@ import Hero from "@/components/home/hero";
 import LatestProperties from "@/components/home/LatestProperties";
 import RecentlySold from "@/components/home/RecentlySold";
 import TopSellers from "@/components/home/TopSellers";
+import { useSelector } from "react-redux";
 
 export default function Home() {
   return (
