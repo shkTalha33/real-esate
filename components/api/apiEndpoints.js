@@ -13,12 +13,13 @@ const changePassword = "users/update-password";
 const updateEmail = "users/update-email";
 const updateUserName = "users/update-username";
 const deactivateuser = "users/deactivate";
-
+// contact endpoints
+const contactPost = "contact/create";
 // listing endpoints
 const createListing = "listing/add-listing";
 const updateListing = "listings/update";
 const deleteListing = "listings/delete";
-const getListing = "listings/get";
+const getListing = "listing/get-listings";
 const getListingById = "listings/getById";
 const getListingByUserId = "listings/getByUserId";
 const getAllListings = "listings/getAll";
@@ -55,4 +56,5 @@ export {
   getSoldListings,
   getRentedListings,
   getDeletedListings,
+  contactPost,
 };

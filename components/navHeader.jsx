@@ -53,6 +53,7 @@ export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showNavbar, setShowNavbar] = useState(true);
+  const user = useSelector((state) => state.auth.userData);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -165,13 +166,11 @@ export default function App() {
         isBordered
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
-        className={`!w-full bg-brand-white dark:bg-brand-deepdark fixed top-0 z-50 transition-all duration-500 ease-out ${
-          showNavbar ? "translate-y-0" : "-translate-y-full"
-        } ${
-          isScrolled
+        className={`!w-full bg-brand-white dark:bg-brand-deepdark fixed top-0 z-50 transition-all duration-500 ease-out ${showNavbar ? "translate-y-0" : "-translate-y-full"
+          } ${isScrolled
             ? "backdrop-blur-md bg-brand-white/80 dark:bg-brand-deepdark/80 shadow-lg border-b border-gray-200/20 dark:border-gray-700/20"
             : "bg-brand-white dark:bg-brand-deepdark"
-        }`}
+          }`}
       >
         <NavbarContent>
           {!isMobile && (
@@ -255,7 +254,7 @@ export default function App() {
                   color="secondary"
                   name="Jason Hughes"
                   size="sm"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  src={user?.avatar || "https://i.pravatar.cc/150?u=a042581f4e29026704d"}
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -265,7 +264,7 @@ export default function App() {
                   startContent={<FaUser size={17} />}
                 >
                   <p className="font-semibold">Signed in as</p>
-                  <p className="font-semibold">zoey@example.com</p>
+                  <p className="font-semibold">{user?.email}</p>
                 </DropdownItem>
                 <DropdownItem
                   key="settings"
@@ -298,8 +297,8 @@ export default function App() {
                   index === 2
                     ? "warning"
                     : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
+                      ? "danger"
+                      : "foreground"
                 }
                 href={item.href}
                 size="lg"

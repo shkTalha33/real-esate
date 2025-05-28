@@ -12,10 +12,14 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import ContactInfoCard from "@/components/contact/ContactInfoCard";
 import ContactForm from "@/components/contact/ContactForm";
 import { contact } from "@/public/assets/images";
+import ApiFunction from "@/components/api/apiFunction";
+import { handleError } from "@/components/api/errorHandler";
+import { contactPost } from "@/components/api/apiEndpoints";
 
 const ContactPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { post } = ApiFunction()
 
   useEffect(() => {
     setIsMounted(true);
@@ -61,19 +65,23 @@ const ContactPage = () => {
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-
-    // Simulate API call
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Form submitted:", data);
-      toast.success("Your message has been sent successfully!");
-      reset();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Failed to send message. Please try again later.");
-    } finally {
-      setIsSubmitting(false);
+    const apiData = {
+      fullname: data?.name,
+      email: data?.email,
+      phone: data?.phone,
+      subject: data?.subject,  
+      message: data?.message,
     }
+    post(contactPost, apiData)
+      .then((result) => {
+        if (result?.success) {
+          toast.success(result?.message);
+          reset();
+        }
+      }).catch((err) => {
+        handleError(err)
+      }).finally(() => setIsSubmitting(false));
+
   };
 
   const contactInfo = [

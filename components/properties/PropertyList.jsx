@@ -4,12 +4,9 @@ import { Button, Card, CardBody, CardFooter, CardHeader, Image } from "@/compone
 import { FaBed, FaBath, FaRulerCombined } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import { useState } from "react";
 
-export default function PropertyList() {
-  const { filteredProperties } = useSelector((state) => state.propertyFilters);
-
+export default function PropertyList({ data }) {
   const [favorites, setFavorites] = useState({});
 
   const toggleFavorite = (id) => {
@@ -19,7 +16,7 @@ export default function PropertyList() {
     }));
   };
 
-  if (!filteredProperties || filteredProperties.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <Card className="w-full">
         <CardBody className="text-center py-12">
@@ -33,7 +30,7 @@ export default function PropertyList() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {filteredProperties.map((property) => (
+      {data.map((property) => (
         <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow">
           <div className="relative h-56">
             <Image
@@ -70,7 +67,7 @@ export default function PropertyList() {
                 <div className="flex items-center text-sm text-foreground-500 mt-1">
                   <IoLocationOutline className="mr-1 flex-shrink-0" />
                   <span className="truncate">
-                    {property.location || "Location not specified"}
+                    {property.location?.city || "Location not specified"}
                   </span>
                 </div>
               </div>

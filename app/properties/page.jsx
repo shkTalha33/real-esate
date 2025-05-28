@@ -1,5 +1,7 @@
 "use client";
 
+import { getListing } from "@/components/api/apiEndpoints";
+import ApiFunction from "@/components/api/apiFunction";
 import PropertyFilters from "@/components/properties/PropertyFilters";
 import PropertyList from "@/components/properties/PropertyList";
 import {
@@ -12,6 +14,7 @@ import {
 } from "@/components/ui";
 import { house9 } from "@/public/assets/images";
 import { setSortOption } from "@/redux/slices/propertyFilterSlice";
+import { Pagination } from "@heroui/pagination";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +22,10 @@ import { useDispatch, useSelector } from "react-redux";
 export default function PropertiesPage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [properties, setProperties] = useState([]);
+  const [pagination, setPagination] = useState(null);
+  const [lastId, setLastId] = useState(1);
+  const { get } = ApiFunction();
   const {
     search,
     priceRange,
@@ -33,34 +40,21 @@ export default function PropertiesPage() {
 
   // In a real app, this would be an API call with the filters
   useEffect(() => {
-    console.log("Fetching properties with filters:", activeFilters);
-    // Here you would make an API call with the activeFilters
-    // For now, we'll just log the filters that would be sent to the API
+    handleGetProperties()
+  }, [activeFilters, lastId]);
 
-    // Simulate API call
-    const fetchProperties = async () => {
-      setIsLoading(true);
-      try {
-        // This would be your actual API call
-        // const response = await fetch(`/api/properties?${new URLSearchParams(activeFilters)}`);
-        // const data = await response.json();
-        // setFilteredProperties(data);
+  const handleGetProperties = () => {
+    get(`${getListing}?page=${lastId}&${new URLSearchParams(activeFilters)}`)
+      .then((result) => {
+        if (result?.success) {
+          setProperties(result?.data?.listings);
+          setPagination(result?.data?.pagination);
+        }
+      }).catch((err) => {
+        handleError(err)
+      }).finally(() => setIsLoading(false));
+  };
 
-        // For demo purposes, we'll just log the filters
-        console.log("API would be called with:", activeFilters);
-
-        // Simulate loading
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        setFilteredProperties([]); // Empty since we're not actually fetching
-      } catch (error) {
-        console.error("Error fetching properties:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProperties();
-  }, [activeFilters]);
 
   // Skeleton loader component
   const PropertySkeleton = () => (
@@ -146,7 +140,7 @@ export default function PropertiesPage() {
                     {isLoading ? (
                       <Skeleton className="h-8 w-48 rounded-md" />
                     ) : (
-                      `${filteredProperties.length} Properties Found`
+                      `${properties?.length} Properties Found`
                     )}
                   </h2>
 
@@ -192,7 +186,11 @@ export default function PropertiesPage() {
                 ))}
               </div>
             ) : (
-              <PropertyList />
+              <>
+                <PropertyList data={properties} />
+                <div className="flex justify-center mt-6">
+                  <Pagination isCompact={true} color="secondary" showControls onChange={setLastId} initialPage={pagination?.currentPage} total={pagination?.totalPages} />
+                </div>              </>
             )}
           </div>
         </div>
