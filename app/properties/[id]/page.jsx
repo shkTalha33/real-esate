@@ -25,16 +25,17 @@ import debounce from "debounce";
 import { FaBath, FaBed, FaRulerCombined, FaStar } from "react-icons/fa6";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // Mock data for demonstration
 
 export default function PropertyDetailPage({ params }) {
-  console.log(params);
   const { id } = params;
   const { get } = ApiFunction();
   const [property, setProperty] = useState(null);
   const [propertyData, setPropertyData] = useState(null);
   const [listings, setListings] = useState([]);
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(true);
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
@@ -182,14 +183,14 @@ export default function PropertyDetailPage({ params }) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
+          <div className="h-8 bg-gray-200 dark:bg-brand-deepdark rounded w-1/4 mb-6"></div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <div className="h-96 bg-gray-200 rounded-xl mb-6"></div>
-              <div className="h-32 bg-gray-200 rounded mb-4"></div>
+              <div className="h-96 bg-gray-200 dark:bg-brand-deepdark rounded-xl mb-6"></div>
+              <div className="h-32 bg-gray-200 dark:bg-brand-deepdark rounded mb-4"></div>
             </div>
             <div className="lg:col-span-1">
-              <div className="h-64 bg-gray-200 rounded"></div>
+              <div className="h-64 bg-gray-200 dark:bg-brand-deepdark rounded"></div>
             </div>
           </div>
         </div>
@@ -204,7 +205,7 @@ export default function PropertyDetailPage({ params }) {
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             Property Not Found
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             The property you're looking for doesn't exist.
           </p>
         </div>
@@ -213,10 +214,10 @@ export default function PropertyDetailPage({ params }) {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-brand-deepdark">
       <div className="mb-6">
         <button
-          className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-400 dark:hover:text-gray-300"
           onClick={() => window.history.back()}
         >
           <ArrowLeft className="w-4 h-4" />
@@ -231,23 +232,23 @@ export default function PropertyDetailPage({ params }) {
           <div className="mb-6">
             <div className="flex justify-between items-start">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-white">
                   {propertyData?.title}
                 </h1>
-                <div className="flex items-center text-gray-600 mb-4">
+                <div className="flex items-center text-gray-600 mb-4 dark:text-gray-400">
                   <MapPin className="w-4 h-4 mr-1" />
                   <span>{propertyData?.address}</span>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-3xl font-bold text-orange-500">
+                <p className="text-3xl font-bold text-orange-500 dark:text-orange-400">
                   {formatCurrency(propertyData?.price)}
                 </p>
               </div>
             </div>
 
             {/* Property Features */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-xl mb-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-gray-50 dark:bg-brand-deepdark rounded-xl mb-6">
               <div className="flex flex-col items-center">
                 <Bed className="w-6 h-6 text-blue-600 mb-1" />
                 <span className="text-sm text-gray-500">Bedrooms</span>
@@ -342,7 +343,7 @@ export default function PropertyDetailPage({ params }) {
           )}
 
           {/* Tabs Content */}
-          <div className="bg-white rounded-lg border">
+          <div className="bg-white dark:bg-brand-deepdark rounded-lg border">
             <div className="border-b">
               <nav className="flex space-x-8 px-6">
                 <button
@@ -355,12 +356,12 @@ export default function PropertyDetailPage({ params }) {
             </div>
 
             <div className="p-6">
-              <p className="text-gray-700 leading-relaxed mb-6">
+              <p className="text-gray-700 leading-relaxed mb-6 dark:text-gray-400">
                 {propertyData?.description}
               </p>
 
               <h3 className="text-xl font-semibold mb-4">Property Features</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-gray-50 p-5 rounded-lg">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-gray-50 dark:bg-brand-deepdark p-5 rounded-lg">
                 {propertyData?.amenities?.map((feature, index) => (
                   <div key={index} className="flex items-center">
                     <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
@@ -369,17 +370,19 @@ export default function PropertyDetailPage({ params }) {
                 ))}
               </div>
               <h3 className="text-xl font-semibold mb-4">Property Tags</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-gray-50 p-5 rounded-lg">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-gray-50 dark:bg-brand-deepdark p-5 rounded-lg">
                 {propertyData?.tags?.map((feature, index) => (
                   <div key={index} className="flex items-center">
                     <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                    <span className="text-gray-700">{feature}</span>
+                    <span className="text-gray-700 dark:text-gray-400">
+                      {feature}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-          <h2 className="text-2xl roboto_semibold my-5">
+          <h2 className="text-2xl roboto_semibold my-5 dark:text-white">
             Recommended Properties
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -469,7 +472,12 @@ export default function PropertyDetailPage({ params }) {
                         {property?.yearBuilt}
                       </p>
                     </div>
-                    <button className="text-sm font-medium text-brand-warning hover:text-brand-warningdark transition-colors">
+                    <button
+                      className="text-sm font-medium text-brand-warning hover:text-brand-warningdark transition-colors"
+                      onClick={() =>
+                        router.push(`/properties/${property?.slug}`)
+                      }
+                    >
                       View Details →
                     </button>
                   </div>
@@ -482,8 +490,8 @@ export default function PropertyDetailPage({ params }) {
         {/* Sidebar */}
         <div className="lg:col-span-1">
           {/* Contact Agent */}
-          <div className="bg-white rounded-lg border p-6 mb-8">
-            <h3 className="text-lg font-semibold mb-4">Contact Agent</h3>
+          <div className="bg-white dark:bg-brand-deepdark rounded-lg border p-6 mb-8">
+            <h3 className="text-lg font-semibold mb-4 ">Contact Agent</h3>
 
             <div className="flex items-center gap-4 mb-6">
               <img
