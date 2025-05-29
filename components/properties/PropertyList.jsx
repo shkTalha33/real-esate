@@ -122,7 +122,7 @@ export default function PropertyList({ data }) {
               </div>
             </div>
           </CardBody>
-          {/* 
+
           <CardFooter className="pt-2">
             <div className="flex justify-between items-center w-full">
               <div>
@@ -138,7 +138,7 @@ export default function PropertyList({ data }) {
                 View Details
               </Button>
             </div>
-          </CardFooter> */}
+          </CardFooter>
         </Card>
       ))}
     </div>

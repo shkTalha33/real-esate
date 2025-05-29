@@ -90,7 +90,7 @@ const Footer = () => {
               href="/"
               className="text-2xl font-bold text-white poppins_bold"
             >
-              Estate<span className="text-brand-primary"> Loop</span>
+              Real<span className="text-brand-primary"> Estate</span>
             </Link>
             <p className="text-gray-400 roboto_regular">
               Your trusted partner in finding the perfect property. We connect

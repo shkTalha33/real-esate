@@ -187,7 +187,7 @@ export default function App() {
               href={"/"}
               className="poppins_semibold text-inherit cursor-pointer"
             >
-              Estate Loop
+              Real Estate
             </Link>
           </NavbarBrand>
         </NavbarContent>

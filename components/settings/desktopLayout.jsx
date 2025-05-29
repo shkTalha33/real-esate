@@ -108,7 +108,7 @@ export default function DesktopLayout({ children }) {
         <div className="p-4 w-full sm:p-6 flex items-center justify-center sm:justify-start">
           <Link href="/" className="flex items-center gap-3">
             <AcmeLogo />
-            <h1 className="text-lg sm:text-xl poppins_semibold">Estate Loop</h1>
+            <h1 className="text-lg sm:text-xl poppins_semibold">Real Estate</h1>
           </Link>
         </div>
 
