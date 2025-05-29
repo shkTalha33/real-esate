@@ -492,7 +492,6 @@ export default function PropertyDetailPage({ params }) {
           {/* Contact Agent */}
           <div className="bg-white dark:bg-brand-deepdark rounded-lg border p-6 mb-8">
             <h3 className="text-lg font-semibold mb-4 ">Contact Agent</h3>
-
             <div className="flex items-center gap-4 mb-6">
               <img
                 src={propertyData?.owner.avatar}
