@@ -5,8 +5,33 @@ import { house5 } from "@/public/assets/images";
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeading from "../common/sectionHeading";
+import ApiFunction from "../api/apiFunction";
+import { useEffect, useState } from "react";
+import debounce from "debounce";
+import { getLatestProperties } from "../api/apiEndpoints";
+import moment from "moment";
+import { formatCurrency } from "@/utils/formatters";
 
 export default function LatestProperties() {
+  const { get } = ApiFunction();
+  const [latestProperties, setLatestProperties] = useState([]);
+
+  const fetchLatestProperties = debounce(async () => {
+    await get(getLatestProperties)
+      .then((res) => {
+        if (res?.success) {
+          setLatestProperties(res?.data);
+        }
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, 300);
+
+  useEffect(() => {
+    fetchLatestProperties();
+  }, []);
+
   return (
     <section className="py-20 bg-gray-50 dark:bg-brand-dark">
       <div className="lg:container mx-auto px-4">
@@ -42,57 +67,62 @@ export default function LatestProperties() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {latestProperties.map((property) => (
             <div
-              key={property.id}
+              key={property._id}
               className="bg-white dark:bg-brand-deepdark rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col md:flex-row"
             >
               <div className="relative w-full md:w-1/3 h-48 md:h-auto">
                 <Image
-                  // src={property.image}
-                  src={house5}
-                  alt={property.title}
+                  src={property?.images[0]}
+                  alt={property?.title}
                   fill
                   className="object-cover"
                 />
                 <div className="absolute top-4 left-4 bg-brand-warning text-white px-3 py-1 rounded-full text-xs poppins_medium">
-                  {property.type}
+                  {property?.listingType}
                 </div>
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-xl poppins_semibold text-dark-900 dark:text-white">
-                    {property.title}
+                    {property?.title}
                   </h3>
                   <span className="text-brand-warning text-xl poppins_bold">
-                    {property.price}
+                    {formatCurrency(property?.price)}
                   </span>
                 </div>
                 <p
                   className="text-gray-600 dark:text-gray-300 roboto_light mb-4"
                   style={{ fontSize: "0.9375rem" }}
                 >
-                  {property.location}
+                  {property?.location?.city}
                 </p>
                 <div className="flex flex-wrap gap-4 mt-auto pt-4 border-t border-gray-100 dark:border-dark-600">
                   <div className="flex items-center text-gray-600 dark:text-gray-400">
                     <span className="mr-2">🛏️</span>
-                    <span className="roboto_light">{property.beds} Beds</span>
+                    <span className="roboto_light">
+                      {property?.bedrooms} Beds
+                    </span>
                   </div>
                   <div className="flex items-center text-gray-600 dark:text-gray-400">
                     <span className="mr-2">🚿</span>
-                    <span className="roboto_light">{property.baths} Baths</span>
+                    <span className="roboto_light">
+                      {property?.bathrooms} Baths
+                    </span>
                   </div>
                   <div className="flex items-center text-gray-600 dark:text-gray-400">
                     <span className="mr-2">📏</span>
-                    <span className="roboto_light">{property.sqft} sqft</span>
+                    <span className="roboto_light">
+                      {property?.size?.value} {property?.size?.unit}
+                    </span>
                   </div>
                   <div className="flex items-center text-gray-600 dark:text-gray-400">
                     <span className="mr-2">🏗️</span>
-                    <span className="roboto_light">{property.yearBuilt}</span>
+                    <span className="roboto_light">{property?.yearBuilt}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-sm text-gray-500 dark:text-gray-400 roboto_light">
-                    Added: {property.dateAdded}
+                    Added: {moment(property?.createdAt).fromNow()}
                   </span>
                   <button className="text-brand-primary hover:text-brand-primary/80 roboto_medium flex items-center">
                     View Details

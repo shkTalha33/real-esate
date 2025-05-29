@@ -40,7 +40,7 @@ export default function PropertiesPage() {
 
   // In a real app, this would be an API call with the filters
   useEffect(() => {
-    handleGetProperties()
+    handleGetProperties();
   }, [activeFilters, lastId]);
 
   const handleGetProperties = () => {
@@ -50,11 +50,12 @@ export default function PropertiesPage() {
           setProperties(result?.data?.listings);
           setPagination(result?.data?.pagination);
         }
-      }).catch((err) => {
-        handleError(err)
-      }).finally(() => setIsLoading(false));
+      })
+      .catch((err) => {
+        handleError(err);
+      })
+      .finally(() => setIsLoading(false));
   };
-
 
   // Skeleton loader component
   const PropertySkeleton = () => (
@@ -154,22 +155,28 @@ export default function PropertiesPage() {
                       selectedKeys={[sortOption]}
                       onChange={(e) => dispatch(setSortOption(e.target.value))}
                     >
-                      <SelectItem key="latest" value="latest">
+                      <SelectItem key="newest" value="newest">
                         Newest First
                       </SelectItem>
                       <SelectItem key="oldest" value="oldest">
                         Oldest First
                       </SelectItem>
-                      <SelectItem key="price-high-low" value="price-high-low">
+                      <SelectItem
+                        key="price-high-to-low"
+                        value="price-high-to-low"
+                      >
                         Price: High to Low
                       </SelectItem>
-                      <SelectItem key="price-low-high" value="price-low-high">
+                      <SelectItem
+                        key="price-low-to-high"
+                        value="price-low-to-high"
+                      >
                         Price: Low to High
                       </SelectItem>
-                      <SelectItem key="name-asc" value="name-asc">
+                      <SelectItem key="a-to-z" value="a-to-z">
                         Name: A to Z
                       </SelectItem>
-                      <SelectItem key="name-desc" value="name-desc">
+                      <SelectItem key="z-to-a" value="z-to-a">
                         Name: Z to A
                       </SelectItem>
                     </Select>
@@ -189,8 +196,16 @@ export default function PropertiesPage() {
               <>
                 <PropertyList data={properties} />
                 <div className="flex justify-center mt-6">
-                  <Pagination isCompact={true} color="secondary" showControls onChange={setLastId} initialPage={pagination?.currentPage} total={pagination?.totalPages} />
-                </div>              </>
+                  <Pagination
+                    isCompact={true}
+                    color="secondary"
+                    showControls
+                    onChange={setLastId}
+                    initialPage={pagination?.currentPage}
+                    total={pagination?.totalPages}
+                  />
+                </div>{" "}
+              </>
             )}
           </div>
         </div>

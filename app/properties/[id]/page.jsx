@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -28,9 +28,30 @@ import {
 } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaStar } from "react-icons/fa6";
+import ApiFunction from "@/components/api/apiFunction";
+import { propertyDetail } from "@/components/api/apiEndpoints";
 
 export default function PropertyDetailPage({ params }) {
   const { id } = params;
+  const [property, setProperty] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { get } = ApiFunction();
+
+  const getProductDeatrils = async () => {
+    await get(`${propertyDetail}/${id}`)
+      .then((res) => {
+        if (res?.success) {
+          setProperty(res?.data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+  };
+  useEffect(() => {
+    getProductDeatrils();
+  }, [id]);
   // In a real app, you would fetch this data from an API
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
   const [mortgageData, setMortgageData] = useState({
@@ -39,60 +60,6 @@ export default function PropertyDetailPage({ params }) {
     loanTerm: 30,
     interestRate: 4.5,
   });
-
-  const property = {
-    id: id,
-    title: "Luxury Villa with Ocean View",
-    price: 1250000,
-    priceSuffix: "",
-    address: "123 Ocean Drive, Malibu, CA 90265",
-    description:
-      "This stunning luxury villa offers breathtaking ocean views from every room. Featuring modern architecture with floor-to-ceiling windows, this property is designed for those who appreciate the finer things in life. The open-concept living space flows seamlessly to the outdoor entertaining area with an infinity pool and outdoor kitchen.",
-    beds: 4,
-    baths: 3.5,
-    area: 3200,
-    yearBuilt: 2020,
-    propertyType: "Villa",
-    status: "For Sale",
-    features: [
-      "Swimming Pool",
-      "Garden",
-      "Garage",
-      "Security System",
-      "Air Conditioning",
-      "Heating",
-      "Fireplace",
-      "Walk-in Closet",
-      "Hardwood Floors",
-      "High Ceilings",
-      "Smart Home",
-      "Fitness Center",
-    ],
-    media: [
-      { type: "image", src: house1, alt: "Front view of the villa" },
-      { type: "image", src: house2, alt: "Living room with ocean view" },
-      {
-        type: "video",
-        src: "https://example.com/video1.mp4",
-        thumbnail: house3,
-        alt: "Property video tour",
-      },
-      { type: "image", src: house4, alt: "Master bedroom" },
-      { type: "image", src: house5, alt: "Infinity pool area" },
-    ],
-    agent: {
-      name: "Sarah Johnson",
-      phone: "+1 (555) 123-4567",
-      email: "sarah@realestate.com",
-      image: "/assets/images/agents/agent-1.jpg",
-      rating: 4.9,
-      properties: 42,
-    },
-    location: {
-      lat: 34.0259,
-      lng: -118.7798,
-    },
-  };
 
   const calculateMonthlyPayment = () => {
     const { homeValue, downPayment, loanTerm, interestRate } = mortgageData;
@@ -163,21 +130,16 @@ export default function PropertyDetailPage({ params }) {
             <div className="flex justify-between items-start">
               <div>
                 <h1 className="text-3xl font-bold text-gray- dark:text-brand-white mb-2">
-                  {property.title}
+                  {property?.title}
                 </h1>
                 <div className="flex items-center text-gray-400 mb-4">
                   <FaMapMarkerAlt className="mr-1" />
-                  <span>{property.address}</span>
+                  <span>{property?.address}</span>
                 </div>
               </div>
               <div className="text-right">
                 <p className="text-3xl font-bold text-brand-warning">
-                  {formatPrice(property.price)}
-                  {property.priceSuffix && (
-                    <span className="text-base font-normal text-gray-500">
-                      /{property.priceSuffix}
-                    </span>
-                  )}
+                  {formatCurrency(property?.price)}
                 </p>
               </div>
             </div>
@@ -187,40 +149,42 @@ export default function PropertyDetailPage({ params }) {
               <div className="flex flex-col items-center">
                 <FaBed className="text-2xl text-primary-600 mb-1" />
                 <span className="text-sm text-gray-500">Bedrooms</span>
-                <span className="font-semibold">{property.beds}</span>
+                <span className="font-semibold">{property?.bedrooms}</span>
               </div>
               <div className="flex flex-col items-center">
                 <FaBath className="text-2xl text-primary-600 mb-1" />
                 <span className="text-sm text-gray-500">Bathrooms</span>
-                <span className="font-semibold">{property.baths}</span>
+                <span className="font-semibold">{property?.bathrooms}</span>
               </div>
               <div className="flex flex-col items-center">
                 <BiArea className="text-2xl text-primary-600 mb-1" />
                 <span className="text-sm text-gray-500">Area</span>
-                <span className="font-semibold">{property.area} sq.ft</span>
+                <span className="font-semibold">
+                  {property?.size?.value} {property?.size?.unit}
+                </span>
               </div>
               <div className="flex flex-col items-center">
                 <BiBuildingHouse className="text-2xl text-primary-600 mb-1" />
                 <span className="text-sm text-gray-500">Year Built</span>
-                <span className="font-semibold">{property.yearBuilt}</span>
+                <span className="font-semibold">{property?.yearBuilt}</span>
               </div>
             </div>
           </div>
           {/* Media Gallery */}
           <div className="relative rounded-2xl overflow-hidden mb-6 bg-gray-100 aspect-video">
-            {property.media[activeMediaIndex].type === "video" ? (
+            {property?.videos[activeMediaIndex] === "video" ? (
               <div className="relative w-full h-full">
                 <video
-                  src={property.media[activeMediaIndex].src}
+                  src={property?.images[activeMediaIndex].src}
                   className="w-full h-full object-cover"
                   controls
-                  poster={property.media[activeMediaIndex].thumbnail}
+                  poster={property?.images[activeMediaIndex].thumbnail}
                 />
               </div>
             ) : (
               <Image
-                src={property.media[activeMediaIndex].src.src}
-                alt={property.media[activeMediaIndex].alt}
+                src={property?.images[activeMediaIndex].src.src}
+                alt={property?.images[activeMediaIndex].alt}
                 className="w-full h-full object-cover"
                 removeWrapper
               />
@@ -251,7 +215,7 @@ export default function PropertyDetailPage({ params }) {
               </Chip>
             </div>
 
-            {property.media.length > 1 && (
+            {property?.images.length > 1 && (
               <>
                 <button
                   onClick={() =>
@@ -282,9 +246,9 @@ export default function PropertyDetailPage({ params }) {
           </div>
 
           {/* Media Thumbnails */}
-          {property.media.length > 1 && (
+          {property?.images.length > 1 && (
             <div className="grid grid-cols-5 gap-2 mb-8">
-              {property.media.map((media, index) => (
+              {property?.images.map((media, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveMediaIndex(index)}

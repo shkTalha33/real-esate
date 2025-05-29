@@ -391,10 +391,10 @@ export default function AddListing() {
     if (step < 4) {
       return;
     }
-    if (selectedImages.length === 0) {
-      toast.error("Please upload at least one property image");
-      return;
-    }
+    // if (selectedImages.length === 0) {
+    //   toast.error("Please upload at least one property image");
+    //   return;
+    // }
 
     const {
       sizeValue,

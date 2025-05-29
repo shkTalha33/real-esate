@@ -23,10 +23,15 @@ const getListing = "listing/get-listings";
 const getListingById = "listings/getById";
 const getListingByUserId = "listings/getByUserId";
 const getAllListings = "listings/getAll";
-const getFeaturedListings = "listings/getFeatured";
+const getFeaturedListings = "listing/featured-listings";
 const getSoldListings = "listings/getSold";
 const getRentedListings = "listings/getRented";
 const getDeletedListings = "listings/getDeleted";
+const getTopSellers = "users/best-sellers";
+const getLatestProperties = "listing/latest-properties";
+const getRecentlySoldProperties = "listing/recently-sold-properties";
+const myListings = "listing/my-listings";
+const propertyDetail = "listing/property-details";
 
 // image upload endpoint
 const fileUpload = "file/upload";
@@ -57,4 +62,9 @@ export {
   getRentedListings,
   getDeletedListings,
   contactPost,
+  getTopSellers,
+  getLatestProperties,
+  getRecentlySoldProperties,
+  myListings,
+  propertyDetail,
 };

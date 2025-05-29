@@ -57,13 +57,13 @@ export default function DesktopLayout({ children }) {
         },
       ],
     },
-    {
-      id: 2,
-      name: "Favorites",
-      icon: <FaRegHeart className="w-5 h-5" />,
-      path: "/settings/favorites",
-      hasSubmenu: false,
-    },
+    // {
+    //   id: 2,
+    //   name: "Favorites",
+    //   icon: <FaRegHeart className="w-5 h-5" />,
+    //   path: "/settings/favorites",
+    //   hasSubmenu: false,
+    // },
     {
       id: 3,
       name: "My Listings",

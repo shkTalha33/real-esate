@@ -253,7 +253,7 @@ export default function Login() {
 
               <div className="flex flex-row gap-2 w-full">
                 {/* GitHub Button */}
-                <Button
+                {/* <Button
                   className={`w-full flex items-center justify-center bg-black ${
                     !isLoading ? "hover:bg-gray-900" : ""
                   } text-white p-2 rounded-medium transition-all gap-1 duration-300 hover:shadow-md disabled:opacity-50`}
@@ -264,7 +264,7 @@ export default function Login() {
                 >
                   <LuGithub className="text-[1rem]" />
                   <span className="poppins_medium text-sm">Github</span>
-                </Button>
+                </Button> */}
 
                 {/* Google Button */}
                 <Button

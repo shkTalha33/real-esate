@@ -166,11 +166,13 @@ export default function App() {
         isBordered
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
-        className={`!w-full bg-brand-white dark:bg-brand-deepdark fixed top-0 z-50 transition-all duration-500 ease-out ${showNavbar ? "translate-y-0" : "-translate-y-full"
-          } ${isScrolled
+        className={`!w-full bg-brand-white dark:bg-brand-deepdark fixed top-0 z-50 transition-all duration-500 ease-out ${
+          showNavbar ? "translate-y-0" : "-translate-y-full"
+        } ${
+          isScrolled
             ? "backdrop-blur-md bg-brand-white/80 dark:bg-brand-deepdark/80 shadow-lg border-b border-gray-200/20 dark:border-gray-700/20"
             : "bg-brand-white dark:bg-brand-deepdark"
-          }`}
+        }`}
       >
         <NavbarContent>
           {!isMobile && (
@@ -191,6 +193,11 @@ export default function App() {
         </NavbarContent>
 
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          <NavbarItem>
+            <Link color="foreground" href="/">
+              Home
+            </Link>
+          </NavbarItem>
           <NavbarItem isActive={isActive === "/properties"}>
             <Link aria-current="page" href="/properties">
               Properties
@@ -206,11 +213,11 @@ export default function App() {
               Contact
             </Link>
           </NavbarItem>
-          <NavbarItem>
+          {/* <NavbarItem>
             <Link color="foreground" href="/mortgage-calculator">
               Mortgage
             </Link>
-          </NavbarItem>
+          </NavbarItem> */}
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
@@ -254,7 +261,10 @@ export default function App() {
                   color="secondary"
                   name="Jason Hughes"
                   size="sm"
-                  src={user?.avatar || "https://i.pravatar.cc/150?u=a042581f4e29026704d"}
+                  src={
+                    user?.avatar ||
+                    "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  }
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -297,8 +307,8 @@ export default function App() {
                   index === 2
                     ? "warning"
                     : index === menuItems.length - 1
-                      ? "danger"
-                      : "foreground"
+                    ? "danger"
+                    : "foreground"
                 }
                 href={item.href}
                 size="lg"
