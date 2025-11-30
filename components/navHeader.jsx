@@ -33,6 +33,7 @@ import { currentUser } from "./api/apiEndpoints";
 import ApiFunction from "./api/apiFunction";
 import { handleError } from "./api/errorHandler";
 import { useMediaQuery } from "react-responsive";
+import Cookies from "js-cookie";
 
 export const AcmeLogo = () => {
   return (
@@ -105,6 +106,14 @@ export default function App() {
   };
 
   const getCurrentUser = debounce(async () => {
+    // Only fetch user data if user is already logged in
+    const token =
+      Cookies.get("estate_loop_token") ||
+      localStorage.getItem("estate_loop_token");
+    if (!token) {
+      return; // Don't make API call if no token exists
+    }
+
     await get(currentUser)
       .then((res) => {
         if (res?.success) {
@@ -112,7 +121,11 @@ export default function App() {
         }
       })
       .catch((err) => {
-        dispatch(setLogout());
+        // Only logout if we had a token (user was logged in)
+        // This prevents logging out users who are just browsing
+        if (token) {
+          dispatch(setLogout());
+        }
       });
   }, 300);
 
@@ -142,9 +155,12 @@ export default function App() {
   }, [showTranslate]);
 
   useEffect(() => {
-    getCurrentUser();
+    // Only fetch user data if user is logged in
+    if (isLogin) {
+      getCurrentUser();
+    }
     setIsActive(pathname);
-  }, [pathname]);
+  }, [pathname, isLogin]);
 
   const menuItems = [
     { name: "Home", href: "/" },

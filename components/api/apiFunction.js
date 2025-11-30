@@ -41,8 +41,14 @@ const ApiFunction = () => {
       .then((response) => response?.data)
       .catch((error) => {
         console.error("Error in GET request:", error);
+        // Only logout on 401 if user was previously authenticated
+        // This prevents logging out users browsing public pages
         if (error?.response?.status === 401) {
-          handleUserLogout();
+          const token = Cookies.get("estate_loop_token") || localStorage.getItem("estate_loop_token");
+          // Only logout if token exists (user was logged in)
+          if (token) {
+            handleUserLogout();
+          }
         }
         throw error;
       });
@@ -56,9 +62,13 @@ const ApiFunction = () => {
       .post(endpoint, apiData, { headers: header1 })
       .then((response) => response?.data)
       .catch((error) => {
-        console.error("Error in GET request:", error);
+        console.error("Error in POST request:", error);
+        // Only logout on 401 if user was previously authenticated
         if (error?.response?.status === 401) {
-          handleUserLogout();
+          const token = Cookies.get("estate_loop_token") || localStorage.getItem("estate_loop_token");
+          if (token) {
+            handleUserLogout();
+          }
         }
         throw error;
       });
@@ -72,9 +82,13 @@ const ApiFunction = () => {
       .put(endpoint, apiData, { headers: header1 })
       .then((response) => response?.data)
       .catch((error) => {
-        console.error("Error in GET request:", error);
+        console.error("Error in PUT request:", error);
+        // Only logout on 401 if user was previously authenticated
         if (error?.response?.status === 401) {
-          handleUserLogout();
+          const token = Cookies.get("estate_loop_token") || localStorage.getItem("estate_loop_token");
+          if (token) {
+            handleUserLogout();
+          }
         }
         throw error;
       });
@@ -88,9 +102,13 @@ const ApiFunction = () => {
       .delete(endpoint, { headers: header1 })
       .then((response) => response?.data)
       .catch((error) => {
-        console.error("Error in GET request:", error);
+        console.error("Error in DELETE request:", error);
+        // Only logout on 401 if user was previously authenticated
         if (error?.response?.status === 401) {
-          handleUserLogout();
+          const token = Cookies.get("estate_loop_token") || localStorage.getItem("estate_loop_token");
+          if (token) {
+            handleUserLogout();
+          }
         }
         throw error;
       });

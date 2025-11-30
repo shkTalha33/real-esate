@@ -2,11 +2,14 @@
 
 import { getListing } from "@/components/api/apiEndpoints";
 import ApiFunction from "@/components/api/apiFunction";
+import { handleError } from "@/components/api/errorHandler";
 import PropertyFilters from "@/components/properties/PropertyFilters";
 import PropertyList from "@/components/properties/PropertyList";
 import {
   Card,
   CardBody,
+  CardHeader,
+  CardFooter,
   Container,
   Select,
   SelectItem,
@@ -21,7 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function PropertiesPage() {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Start with loading true
   const [properties, setProperties] = useState([]);
   const [pagination, setPagination] = useState(null);
   const [lastId, setLastId] = useState(1);
@@ -33,17 +36,19 @@ export default function PropertiesPage() {
     bedrooms,
     bathrooms,
     hasKitchen,
-    sortOption,
+    sort,
     activeFilters,
   } = useSelector((state) => state.propertyFilters);
   const [filteredProperties, setFilteredProperties] = useState([]);
 
   // In a real app, this would be an API call with the filters
   useEffect(() => {
+    setIsLoading(true);
     handleGetProperties();
   }, [activeFilters, lastId]);
 
   const handleGetProperties = () => {
+    setIsLoading(true);
     get(`${getListing}?page=${lastId}&${new URLSearchParams(activeFilters)}`)
       .then((result) => {
         if (result?.success) {
@@ -57,31 +62,50 @@ export default function PropertiesPage() {
       .finally(() => setIsLoading(false));
   };
 
-  // Skeleton loader component
+  // Skeleton loader component - matches PropertyList card structure exactly
   const PropertySkeleton = () => (
-    <Card className="w-full">
-      <Skeleton className="h-56 w-full rounded-none" />
-      <CardBody className="p-5">
-        <div className="space-y-4">
-          <Skeleton className="h-6 w-3/4 rounded-md" />
-          <Skeleton className="h-4 w-1/2 rounded-md" />
-          <div className="grid grid-cols-3 gap-4 my-4 py-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="flex flex-col items-center">
-                <Skeleton className="w-10 h-10 rounded-full mb-2" />
-                <Skeleton className="h-3 w-3/4 rounded-md" />
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-between items-center mt-6">
-            <div className="space-y-1">
-              <Skeleton className="h-3 w-16 rounded-md" />
-              <Skeleton className="h-2.5 w-20 rounded-md" />
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+      {/* Image Skeleton */}
+      <div className="relative h-56">
+        <Skeleton className="h-full w-full rounded-none" />
+      </div>
+
+      {/* CardHeader Skeleton - Title, Location, Price */}
+      <CardHeader className="pb-2">
+        <div className="flex justify-between items-start gap-4 w-full">
+          <div className="flex-1 min-w-0">
+            <Skeleton className="h-5 w-3/4 rounded-md mb-2" />
+            <div className="flex items-center mt-1">
+              <Skeleton className="h-4 w-1/2 rounded-md" />
             </div>
-            <Skeleton className="h-10 w-24 rounded-lg" />
+          </div>
+          <div className="text-end ml-2">
+            <Skeleton className="h-5 w-20 rounded-md" />
           </div>
         </div>
+      </CardHeader>
+
+      {/* CardBody Skeleton - 3 icons grid (Bed, Bath, Size) */}
+      <CardBody className="py-2">
+        <div className="grid grid-cols-3 gap-2 py-3 border-t border-divider">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex flex-col items-center">
+              <Skeleton className="w-10 h-10 rounded-full mb-1" />
+              <Skeleton className="h-3 w-12 rounded-md" />
+            </div>
+          ))}
+        </div>
       </CardBody>
+
+      {/* CardFooter Skeleton - Price and Button */}
+      <CardFooter className="pt-2">
+        <div className="flex justify-between items-center w-full">
+          <div>
+            <Skeleton className="h-4 w-24 rounded-md" />
+          </div>
+          <Skeleton className="h-9 w-28 rounded-lg" />
+        </div>
+      </CardFooter>
     </Card>
   );
 
@@ -152,33 +176,24 @@ export default function PropertiesPage() {
                     <Select
                       size="md"
                       className="min-w-[200px]"
-                      selectedKeys={[sortOption]}
-                      onChange={(e) => dispatch(setSortOption(e.target.value))}
+                      selectedKeys={new Set([sort || "latest"])}
+                      onSelectionChange={(keys) => {
+                        const selectedValue = Array.from(keys)[0];
+                        if (selectedValue) {
+                          dispatch(setSortOption(selectedValue));
+                        }
+                      }}
                     >
-                      <SelectItem key="newest" value="newest">
-                        Newest First
-                      </SelectItem>
-                      <SelectItem key="oldest" value="oldest">
-                        Oldest First
-                      </SelectItem>
-                      <SelectItem
-                        key="price-high-to-low"
-                        value="price-high-to-low"
-                      >
+                      <SelectItem key="latest">Latest First</SelectItem>
+                      <SelectItem key="oldest">Oldest First</SelectItem>
+                      <SelectItem key="price-high-to-low">
                         Price: High to Low
                       </SelectItem>
-                      <SelectItem
-                        key="price-low-to-high"
-                        value="price-low-to-high"
-                      >
+                      <SelectItem key="price-low-to-high">
                         Price: Low to High
                       </SelectItem>
-                      <SelectItem key="a-to-z" value="a-to-z">
-                        Name: A to Z
-                      </SelectItem>
-                      <SelectItem key="z-to-a" value="z-to-a">
-                        Name: Z to A
-                      </SelectItem>
+                      <SelectItem key="a-to-z">Name: A to Z</SelectItem>
+                      <SelectItem key="z-to-a">Name: Z to A</SelectItem>
                     </Select>
                   </div>
                 </div>
@@ -187,7 +202,7 @@ export default function PropertiesPage() {
 
             {/* Loading State */}
             {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {[...Array(6)].map((_, index) => (
                   <PropertySkeleton key={index} />
                 ))}

@@ -282,12 +282,6 @@ export default function PropertyDetailPage({ params }) {
               className="w-full h-full object-cover"
             />
 
-            <div className="absolute bottom-4 left-4">
-              <span className="px-3 py-1 bg-blue-600 text-white rounded-full text-sm font-medium">
-                {propertyData?.listingType}
-              </span>
-            </div>
-
             {propertyData?.images.length > 1 && (
               <>
                 <button
@@ -298,7 +292,7 @@ export default function PropertyDetailPage({ params }) {
                         propertyData?.images.length
                     )
                   }
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors shadow-lg"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full dark:bg-brand-deepdark bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors shadow-lg"
                   aria-label="Previous image"
                 >
                   ❮
@@ -309,7 +303,7 @@ export default function PropertyDetailPage({ params }) {
                       (prev) => (prev + 1) % propertyData?.images.length
                     )
                   }
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors shadow-lg"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full dark:bg-brand-deepdark bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors shadow-lg"
                   aria-label="Next image"
                 >
                   ❯
@@ -490,7 +484,7 @@ export default function PropertyDetailPage({ params }) {
         {/* Sidebar */}
         <div className="lg:col-span-1">
           {/* Contact Agent */}
-          <div className="bg-white dark:bg-brand-deepdark rounded-lg border p-6 mb-8">
+          <div className="bg-white shadow-small dark:bg-brand-deepdark rounded-lg p-6 mb-8">
             <h3 className="text-lg font-semibold mb-4 ">Contact Agent</h3>
             <div className="flex items-center gap-4 mb-6">
               <img
@@ -502,11 +496,16 @@ export default function PropertyDetailPage({ params }) {
                 <h4 className="font-semibold">
                   {propertyData?.owner?.fullname}
                 </h4>
+                <p className="font-medium text-gray-500 dark:text-gray-400">
+                  {propertyData?.owner?.email}
+                </p>
               </div>
             </div>
 
             <div className="space-y-3">
-              <button
+              <a
+                target="_blank"
+                href={`tel:${propertyData?.owner?.phone}`}
                 className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
                 onPress={() =>
                   (window.location.href = `tel:${propertyData?.owner?.phone}`)
@@ -514,17 +513,15 @@ export default function PropertyDetailPage({ params }) {
               >
                 <Phone className="w-4 h-4" />
                 {propertyData?.owner?.phone}
-              </button>
+              </a>
 
-              <button
+              <a
                 className="w-full flex items-center justify-center gap-2 border border-gray-300 py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors"
-                onPress={() =>
-                  (window.location.href = `mailto:${propertyData?.owner?.email}`)
-                }
+                href={`mailto:${propertyData?.owner?.email}`}
               >
                 <Mail className="w-4 h-4" />
                 Send Message
-              </button>
+              </a>
             </div>
           </div>
         </div>
