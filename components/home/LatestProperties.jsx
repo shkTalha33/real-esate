@@ -11,10 +11,12 @@ import debounce from "debounce";
 import { getLatestProperties } from "../api/apiEndpoints";
 import moment from "moment";
 import { formatCurrency } from "@/utils/formatters";
+import { useRouter } from "next/navigation";
 
 export default function LatestProperties() {
   const { get } = ApiFunction();
   const [latestProperties, setLatestProperties] = useState([]);
+  const router = useRouter();
 
   const fetchLatestProperties = debounce(async () => {
     await get(getLatestProperties)
@@ -124,7 +126,10 @@ export default function LatestProperties() {
                   <span className="text-sm text-gray-500 dark:text-gray-400 roboto_light">
                     Added: {moment(property?.createdAt).fromNow()}
                   </span>
-                  <button className="text-brand-primary hover:text-brand-primary/80 roboto_medium flex items-center">
+                  <button
+                    className="text-brand-primary hover:text-brand-primary/80 roboto_medium flex items-center"
+                    onClick={() => router.push(`/properties/${property?.slug}`)}
+                  >
                     View Details
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +151,12 @@ export default function LatestProperties() {
         </div>
         {/* View All Button */}
         <div className="text-center mt-16">
-          <button className="inline-flex items-center bg-transparent hover:bg-brand-primary text-brand-primary hover:text-white border-2 border-brand-primary hover:border-transparent px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 roboto_medium text-lg">
+          <button
+            className="inline-flex items-center bg-transparent hover:bg-brand-primary text-brand-primary hover:text-white border-2 border-brand-primary hover:border-transparent px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 roboto_medium text-lg"
+            onClick={() => {
+              router.push(`/properties`);
+            }}
+          >
             View Latest Properties
             <svg
               xmlns="http://www.w3.org/2000/svg"

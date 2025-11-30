@@ -1,13 +1,13 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export function middleware(req) {
   const pathname = req.nextUrl.pathname;
-  const token = req.cookies.get('estate_loop_token')?.value;
+  const token = req.cookies.get("estate_loop_token")?.value;
 
   // If logged in and trying to access /login or /signup, redirect to home
-  if (token && (pathname === '/login' || pathname === '/signup')) {
+  if (token && (pathname === "/login" || pathname === "/signup")) {
     const url = req.nextUrl.clone();
-    url.pathname = '/';
+    url.pathname = "/";
     return NextResponse.redirect(url);
   }
 
@@ -15,5 +15,5 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: ['/login', '/signup'],
+  matcher: ["/login", "/signup"],
 };

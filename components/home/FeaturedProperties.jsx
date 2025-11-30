@@ -18,10 +18,12 @@ import { useEffect, useState } from "react";
 import { getFeaturedListings } from "../api/apiEndpoints";
 import debounce from "debounce";
 import { formatCurrency } from "@/utils/formatters";
+import { useRouter } from "next/navigation";
 
 export default function FeaturedProperties() {
   const { get } = ApiFunction();
   const [listings, setListings] = useState([]);
+  const router = useRouter();
 
   const fetchFeaturedListings = debounce(async () => {
     await get(getFeaturedListings)
@@ -138,7 +140,10 @@ export default function FeaturedProperties() {
                       {property?.yearBuilt}
                     </p>
                   </div>
-                  <button className="text-sm font-medium text-brand-warning hover:text-brand-warningdark transition-colors">
+                  <button
+                    className="text-sm font-medium text-brand-warning hover:text-brand-warningdark transition-colors"
+                    onClick={() => router.push(`/properties/${property?.slug}`)}
+                  >
                     View Details →
                   </button>
                 </div>
