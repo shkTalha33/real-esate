@@ -52,7 +52,6 @@ export default function PropertiesPage() {
       .then((result) => {
         if (result?.success) {
           setProperties(result?.data?.listings);
-          dispatch(setPriceRange([result?.data?.priceRange?.minPrice, result?.data?.priceRange?.maxPrice]))
           setPagination(result?.data?.pagination);
         }
       })

@@ -33,6 +33,7 @@ const getRecentlySoldProperties = "listing/recently-sold-properties";
 const myListings = "listing/my-listings";
 const propertyDetail = "listing/property-details";
 const getRecommendedListings = "listing/recommended-listings";
+const getPriceRange = "listing/price-range";
 
 // image upload endpoint
 const fileUpload = "file/upload";
@@ -69,4 +70,5 @@ export {
   myListings,
   propertyDetail,
   getRecommendedListings,
+  getPriceRange,
 };

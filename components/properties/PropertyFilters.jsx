@@ -13,12 +13,17 @@ import {
 } from "@/redux/slices/propertyFilterSlice";
 import { Button, Card, CardBody, Input, Slider } from "@/components/ui";
 import { HiMinus, HiPlus, HiSearch, HiX, HiStar } from "react-icons/hi";
+import { getPriceRange } from "../api/apiEndpoints";
+import { handleError } from "../api/errorHandler";
+import ApiFunction from "../api/apiFunction";
 
 export default function PropertyFilters() {
   const dispatch = useDispatch();
+  const { get } = ApiFunction()
   const { search, priceRange, rating, bedrooms, bathrooms, hasKitchen } =
     useSelector((state) => state.propertyFilters);
 
+  const [priceBarRange, setPriceBarRange] = useState([]);
   const [isBedroomsOpen, setIsBedroomsOpen] = useState(true);
   const [isBathroomsOpen, setIsBathroomsOpen] = useState(true);
   const [isPriceRangeOpen, setIsPriceRangeOpen] = useState(true);
@@ -48,12 +53,30 @@ export default function PropertyFilters() {
   };
 
   const handlePriceRangeChange = (min, max) => {
-    dispatch(setPriceRange({ min, max }));
+    dispatch(setPriceRange([min, max]));
   };
 
   const handleClearFilters = () => {
     dispatch(resetFilters());
   };
+
+  useEffect(() => {
+    handleGetPriceRange();
+  }, []);
+
+  const handleGetPriceRange = () => {
+    get(`${getPriceRange}`)
+      .then((result) => {
+        if (result?.success) {
+          setPriceBarRange(result?.data?.priceRange)
+          dispatch(setPriceRange([result?.data?.priceRange?.minPrice, result?.data?.priceRange?.maxPrice]));
+        }
+      })
+      .catch((err) => {
+        handleError(err);
+      })
+  };
+
 
   return (
     <Card className="w-full">
@@ -116,13 +139,8 @@ export default function PropertyFilters() {
                   </label>
                   <Input
                     type="number"
-                    value={priceRange[0] || ""}
-                    onChange={(e) =>
-                      handlePriceRangeChange(
-                        Number(e.target.value) || 0,
-                        priceRange?.max
-                      )
-                    }
+                    disabled
+                    value={priceRange[0]}
                     placeholder="Min"
                     size="sm"
                   />
@@ -133,13 +151,8 @@ export default function PropertyFilters() {
                   </label>
                   <Input
                     type="number"
-                    value={priceRange[1] || ""}
-                    onChange={(e) =>
-                      handlePriceRangeChange(
-                        priceRange?.min,
-                        Number(e.target.value) || 1000000
-                      )
-                    }
+                    disabled
+                    value={priceRange[1]}
                     placeholder="Max"
                     size="sm"
                   />
@@ -149,9 +162,9 @@ export default function PropertyFilters() {
                 <Slider
                   size="sm"
                   step={10000}
-                  minValue={0}
-                  maxValue={1000000}
-                  value={[priceRange?.min || 0, priceRange?.max || 1000000]}
+                  minValue={priceBarRange?.minPrice}
+                  maxValue={priceBarRange?.maxPrice}
+                  value={[priceRange[0] || 0, priceRange[1] || 1000000]}
                   onChange={([min, max]) => handlePriceRangeChange(min, max)}
                   className="max-w-md"
                 />
