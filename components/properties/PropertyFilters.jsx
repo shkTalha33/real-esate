@@ -116,7 +116,7 @@ export default function PropertyFilters() {
                   </label>
                   <Input
                     type="number"
-                    value={priceRange?.min || ""}
+                    value={priceRange[0] || ""}
                     onChange={(e) =>
                       handlePriceRangeChange(
                         Number(e.target.value) || 0,
@@ -133,7 +133,7 @@ export default function PropertyFilters() {
                   </label>
                   <Input
                     type="number"
-                    value={priceRange?.max || ""}
+                    value={priceRange[1] || ""}
                     onChange={(e) =>
                       handlePriceRangeChange(
                         priceRange?.min,
@@ -161,7 +161,7 @@ export default function PropertyFilters() {
         </div>
 
         {/* Rating */}
-        <div className="border-b border-divider pb-6">
+        {/* <div className="border-b border-divider pb-6">
           <h3 className="roboto_regular text-base text-foreground mb-1">
             Rating
           </h3>
@@ -184,7 +184,7 @@ export default function PropertyFilters() {
           {rating && (
             <p className="mt-2 text-sm text-foreground-500">{rating}+ stars</p>
           )}
-        </div>
+        </div> */}
 
         {/* Bedrooms */}
         <div className="border-b border-divider pb-6">
@@ -217,7 +217,7 @@ export default function PropertyFilters() {
         </div>
 
         {/* Bathrooms */}
-        <div className="border-b border-divider pb-6">
+        <div className="pb-6">
           <button
             className="flex justify-between items-center w-full mb-3"
             onClick={() => setIsBathroomsOpen(!isBathroomsOpen)}
@@ -244,19 +244,6 @@ export default function PropertyFilters() {
               ))}
             </div>
           )}
-        </div>
-
-        {/* Kitchen */}
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-foreground-500">Has Kitchen</span>
-          <Button
-            isIconOnly
-            variant="light"
-            onPress={() => dispatch(setHasKitchen(!hasKitchen))}
-            className={hasKitchen ? "bg-primary/20" : ""}
-          >
-            {hasKitchen ? "✓" : ""}
-          </Button>
         </div>
       </CardBody>
     </Card>

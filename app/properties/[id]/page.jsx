@@ -1,31 +1,26 @@
 "use client";
-import { use, useEffect, useState } from "react";
-import {
-  ArrowLeft,
-  Share2,
-  Heart,
-  Phone,
-  Mail,
-  MessageCircle,
-  MapPin,
-  Bed,
-  Bath,
-  Square,
-  Building,
-  CheckCircle,
-  Star,
-  Play,
-} from "lucide-react";
 import {
   getRecommendedListings,
   propertyDetail,
 } from "@/components/api/apiEndpoints";
 import ApiFunction from "@/components/api/apiFunction";
 import debounce from "debounce";
-import { FaBath, FaBed, FaRulerCombined, FaStar } from "react-icons/fa6";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import {
+  ArrowLeft,
+  Bath,
+  Bed,
+  Building,
+  CheckCircle,
+  Mail,
+  MapPin,
+  Phone,
+  Square
+} from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaBath, FaBed, FaRulerCombined } from "react-icons/fa6";
 
 // Mock data for demonstration
 
@@ -46,71 +41,12 @@ export default function PropertyDetailPage({ params }) {
     interestRate: 4.5,
   });
 
-  const mockProperty = {
-    id: "prop-123",
-    title: "Modern Luxury Villa",
-    address: "123 Oak Street, Beverly Hills, CA 90210",
-    price: 1250000,
-    bedrooms: 4,
-    bathrooms: 3,
-    size: { value: 2500, unit: "sq ft" },
-    yearBuilt: 2020,
-    status: "For Sale",
-    description:
-      "This stunning modern villa features an open-concept design with high-end finishes throughout. The spacious living areas flow seamlessly into the gourmet kitchen, perfect for entertaining. The master suite boasts panoramic views and a luxurious en-suite bathroom.",
-    features: [
-      "Hardwood Floors",
-      "Granite Countertops",
-      "Stainless Steel Appliances",
-      "Walk-in Closets",
-      "Central Air Conditioning",
-      "Private Garden",
-      "Swimming Pool",
-      "2-Car Garage",
-    ],
-    propertyType: "Villa",
-    area: 2500,
-    beds: 4,
-    baths: 3,
-    images: [
-      {
-        src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600",
-        alt: "Living room",
-        type: "image",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600",
-        alt: "Kitchen",
-        type: "image",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600",
-        alt: "Bedroom",
-        type: "image",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800&h=600",
-        alt: "Bathroom",
-        type: "image",
-      },
-    ],
-    agent: {
-      name: "Sarah Johnson",
-      image:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100",
-      rating: 4.8,
-      properties: 25,
-      phone: "+1 (555) 123-4567",
-    },
-  };
-
   const fetchProperty = debounce(async () => {
     try {
       setIsLoading(true);
       await get(`${propertyDetail}/${id}`)
         .then((response) => {
           setPropertyData(response?.data);
-          setProperty(mockProperty);
         })
         .catch((error) => {
           console.error("Error fetching property:", error);
@@ -125,7 +61,6 @@ export default function PropertyDetailPage({ params }) {
     setIsLoading(true);
     await get(`${getRecommendedListings}/${id}`)
       .then((response) => {
-        console.log("reponse", response);
         setListings(response?.data);
       })
       .catch((error) => {
@@ -319,11 +254,10 @@ export default function PropertyDetailPage({ params }) {
                 <button
                   key={index}
                   onClick={() => setActiveMediaIndex(index)}
-                  className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-all ${
-                    activeMediaIndex === index
-                      ? "ring-2 ring-blue-500 ring-offset-2"
-                      : "opacity-70 hover:opacity-100"
-                  }`}
+                  className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-all ${activeMediaIndex === index
+                    ? "ring-2 ring-blue-500 ring-offset-2"
+                    : "opacity-70 hover:opacity-100"
+                    }`}
                   aria-label={`View image ${index + 1}`}
                 >
                   <img

@@ -16,7 +16,7 @@ import {
   Skeleton,
 } from "@/components/ui";
 import { house9 } from "@/public/assets/images";
-import { setSortOption } from "@/redux/slices/propertyFilterSlice";
+import { setPriceRange, setSortOption } from "@/redux/slices/propertyFilterSlice";
 import { Pagination } from "@heroui/pagination";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -39,7 +39,6 @@ export default function PropertiesPage() {
     sort,
     activeFilters,
   } = useSelector((state) => state.propertyFilters);
-  const [filteredProperties, setFilteredProperties] = useState([]);
 
   // In a real app, this would be an API call with the filters
   useEffect(() => {
@@ -53,6 +52,7 @@ export default function PropertiesPage() {
       .then((result) => {
         if (result?.success) {
           setProperties(result?.data?.listings);
+          dispatch(setPriceRange([result?.data?.priceRange?.minPrice, result?.data?.priceRange?.maxPrice]))
           setPagination(result?.data?.pagination);
         }
       })

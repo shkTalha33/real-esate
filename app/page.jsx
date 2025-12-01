@@ -13,7 +13,7 @@ export default function Home() {
     <main className="lg:container mx-auto">
       <Hero />
       <FeaturedProperties />
-      <TopSellers />
+      {/* <TopSellers /> */}
       <LatestProperties />
       <RecentlySold />
     </main>
