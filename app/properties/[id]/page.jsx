@@ -18,14 +18,14 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaBath, FaBed, FaRulerCombined } from "react-icons/fa6";
 
 // Mock data for demonstration
 
 export default function PropertyDetailPage({ params }) {
-  const { id } = params;
+  const { id } = use(params);
   const { get } = ApiFunction();
   // const [property, setProperty] = useState(null);
   const [propertyData, setPropertyData] = useState(null);
