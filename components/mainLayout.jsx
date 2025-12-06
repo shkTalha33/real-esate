@@ -4,11 +4,10 @@ import React from "react";
 import NavHeader from "@/components/navHeader";
 import Footer from "./footer";
 import MobileBottomNav from "./MobileBottomNav";
-import { useMediaQuery } from "react-responsive";
 
 export default function MainLayout({ children }) {
   const pathname = usePathname();
-  const isMobile = useMediaQuery({ maxWidth: 640 });
+
   const headerLessRoutes = [
     "/login",
     "/signup",
@@ -22,15 +21,14 @@ export default function MainLayout({ children }) {
     "/settings/my-listings",
     "/settings/add-listing",
   ];
+
   return (
     <div>
       <div className={`relative flex flex-col h-screen`}>
         {!headerLessRoutes.includes(pathname) && <NavHeader />}
-        <main className={`w-full mx-auto ${isMobile ? "pb-16" : ""}`}>
-          {children}
-        </main>
+        <main className="w-full mx-auto pb-16 sm:pb-0">{children}</main>
         <MobileBottomNav />
-        {!headerLessRoutes.includes(pathname) && !isMobile && <Footer />}
+        {!headerLessRoutes.includes(pathname) && <Footer />}
       </div>
     </div>
   );

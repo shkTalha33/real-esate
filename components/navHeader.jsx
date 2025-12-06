@@ -32,7 +32,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { currentUser } from "./api/apiEndpoints";
 import ApiFunction from "./api/apiFunction";
 import { handleError } from "./api/errorHandler";
-import { useMediaQuery } from "react-responsive";
 import Cookies from "js-cookie";
 
 export const AcmeLogo = () => {
@@ -64,7 +63,6 @@ export default function App() {
   const [showTranslate, setShowTranslate] = useState(false);
   const translateRef = useRef(null);
   const { get } = ApiFunction();
-  const isMobile = useMediaQuery({ maxWidth: 640 });
 
   // Custom scroll handler
   useEffect(() => {
@@ -189,12 +187,10 @@ export default function App() {
         }`}
       >
         <NavbarContent>
-          {!isMobile && (
-            <NavbarMenuToggle
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              className="sm:hidden"
-            />
-          )}
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="sm:hidden"
+          />
           <NavbarBrand>
             <AcmeLogo />
             <Link

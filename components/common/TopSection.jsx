@@ -21,7 +21,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useMediaQuery } from "react-responsive";
 
 export default function TopSection({ page }) {
   const { theme, setTheme } = useTheme();
@@ -29,7 +28,6 @@ export default function TopSection({ page }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
-  const isMobile = useMediaQuery({ maxWidth: 639 });
 
   const handleNavigateBack = () => {
     router.back();
@@ -134,16 +132,14 @@ export default function TopSection({ page }) {
                   <p className="roboto_medium">Signed in as</p>
                   <p className="roboto_medium">zoey@example.com</p>
                 </DropdownItem>
-                {!isMobile && (
-                  <DropdownItem
-                    key="settings"
-                    className="gap-2"
-                    startContent={<IoMdSettings size={17} />}
-                    onClick={() => router.push("/settings")}
-                  >
-                    Settings
-                  </DropdownItem>
-                )}
+                <DropdownItem
+                  key="settings"
+                  className="gap-2 hidden sm:flex"
+                  startContent={<IoMdSettings size={17} />}
+                  onClick={() => router.push("/settings")}
+                >
+                  Settings
+                </DropdownItem>
                 <DropdownItem
                   onClick={handleLogout}
                   key="logout"
