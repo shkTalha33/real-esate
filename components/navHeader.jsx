@@ -175,7 +175,7 @@ export default function App() {
   ];
 
   return (
-    <div className="lg:container lg:mx-auto navheader">
+    <div className="!lg:container lg:mx-auto navheader">
       <Navbar
         isBordered
         isMenuOpen={isMenuOpen}

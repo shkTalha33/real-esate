@@ -16,7 +16,10 @@ import {
   Skeleton,
 } from "@/components/ui";
 import { house9 } from "@/public/assets/images";
-import { setPriceRange, setSortOption } from "@/redux/slices/propertyFilterSlice";
+import {
+  setPriceRange,
+  setSortOption,
+} from "@/redux/slices/propertyFilterSlice";
 import { Pagination } from "@heroui/pagination";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -125,7 +128,7 @@ export default function PropertiesPage() {
   };
 
   return (
-    <div className="min-h-screen lg:container mx-auto bg-brand-white dark:bg-brand-deepdark">
+    <div className="min-h-screen bg-brand-white dark:bg-brand-deepdark">
       {/* Hero Section */}
       <div className="relative h-96 overflow-hidden">
         <Image
@@ -145,82 +148,87 @@ export default function PropertiesPage() {
           </div>
         </div>
       </div>
+      <div className="lg:container mx-auto">
+        {/* Main Content */}
+        <div className="py-12">
+          <div className="flex flex-col lg:flex-row gap-8 px-4">
+            {/* Filters */}
+            <div className="w-full lg:w-80 flex-shrink-0">
+              <PropertyFilters />
+            </div>
 
-      {/* Main Content */}
-      <div className="py-12">
-        <div className="flex flex-col lg:flex-row gap-8 px-4">
-          {/* Filters */}
-          <div className="w-full lg:w-80 flex-shrink-0">
-            <PropertyFilters />
-          </div>
+            {/* Property List */}
+            <div className="flex-1">
+              {/* Sort and Results Count */}
+              <Card className="mb-8">
+                <CardBody>
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <h2 className="text-2xl roboto_medium text-foreground">
+                      {isLoading ? (
+                        <Skeleton className="h-8 w-48 rounded-md" />
+                      ) : (
+                        `${properties?.length} Properties Found`
+                      )}
+                    </h2>
 
-          {/* Property List */}
-          <div className="flex-1">
-            {/* Sort and Results Count */}
-            <Card className="mb-8">
-              <CardBody>
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <h2 className="text-2xl roboto_medium text-foreground">
-                    {isLoading ? (
-                      <Skeleton className="h-8 w-48 rounded-md" />
-                    ) : (
-                      `${properties?.length} Properties Found`
-                    )}
-                  </h2>
-
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-foreground-500 roboto_regular shrink-0">
-                      Sort by:
-                    </span>
-                    <Select
-                      size="md"
-                      className="min-w-[200px]"
-                      selectedKeys={new Set([sort || "latest"])}
-                      onSelectionChange={(keys) => {
-                        const selectedValue = Array.from(keys)[0];
-                        if (selectedValue) {
-                          dispatch(setSortOption(selectedValue));
-                        }
-                      }}
-                    >
-                      <SelectItem key="latest">Latest First</SelectItem>
-                      <SelectItem key="oldest">Oldest First</SelectItem>
-                      <SelectItem key="price-high-to-low">
-                        Price: High to Low
-                      </SelectItem>
-                      <SelectItem key="price-low-to-high">
-                        Price: Low to High
-                      </SelectItem>
-                      <SelectItem key="a-to-z">Name: A to Z</SelectItem>
-                      <SelectItem key="z-to-a">Name: Z to A</SelectItem>
-                    </Select>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-foreground-500 roboto_regular shrink-0">
+                        Sort by:
+                      </span>
+                      <Select
+                        size="md"
+                        className="min-w-[200px]"
+                        selectedKeys={new Set([sort || "latest"])}
+                        onSelectionChange={(keys) => {
+                          const selectedValue = Array.from(keys)[0];
+                          if (selectedValue) {
+                            dispatch(setSortOption(selectedValue));
+                          }
+                        }}
+                      >
+                        <SelectItem key="latest-first">
+                          Newest Listings
+                        </SelectItem>
+                        <SelectItem key="oldest-first">
+                          Oldest Listings
+                        </SelectItem>
+                        <SelectItem key="price-high-to-low">
+                          Price: High to Low
+                        </SelectItem>
+                        <SelectItem key="price-low-to-high">
+                          Price: Low to High
+                        </SelectItem>
+                        <SelectItem key="a-to-z">Name: A to Z</SelectItem>
+                        <SelectItem key="z-to-a">Name: Z to A</SelectItem>
+                      </Select>
+                    </div>
                   </div>
-                </div>
-              </CardBody>
-            </Card>
+                </CardBody>
+              </Card>
 
-            {/* Loading State */}
-            {isLoading ? (
-              <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                {[...Array(6)].map((_, index) => (
-                  <PropertySkeleton key={index} />
-                ))}
-              </div>
-            ) : (
-              <>
-                <PropertyList data={properties} />
-                <div className="flex justify-center mt-6">
-                  <Pagination
-                    isCompact={true}
-                    color="secondary"
-                    showControls
-                    onChange={setLastId}
-                    initialPage={pagination?.currentPage}
-                    total={pagination?.totalPages}
-                  />
-                </div>{" "}
-              </>
-            )}
+              {/* Loading State */}
+              {isLoading ? (
+                <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {[...Array(6)].map((_, index) => (
+                    <PropertySkeleton key={index} />
+                  ))}
+                </div>
+              ) : (
+                <>
+                  <PropertyList data={properties} />
+                  <div className="flex justify-center mt-6">
+                    <Pagination
+                      isCompact={true}
+                      color="secondary"
+                      showControls
+                      onChange={setLastId}
+                      initialPage={pagination?.currentPage}
+                      total={pagination?.totalPages}
+                    />
+                  </div>{" "}
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

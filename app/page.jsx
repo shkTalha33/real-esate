@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 export default function Home() {
   return (
-    <main className="lg:container mx-auto">
+    <main className="mx-auto">
       <Hero />
       <FeaturedProperties />
       {/* <TopSellers /> */}
