@@ -53,8 +53,12 @@ import { uploadFile } from "../api/uploadFile";
 import toast from "react-hot-toast";
 import { HashLoader } from "react-spinners";
 import ApiFunction from "../api/apiFunction";
-import { createListing } from "../api/apiEndpoints";
-import { useRouter } from "next/navigation";
+import {
+  createListing,
+  propertyDetail,
+  updateListing,
+} from "../api/apiEndpoints";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function AddListing() {
   const [step, setStep] = useState(1);
@@ -66,8 +70,11 @@ export default function AddListing() {
   const [newAmenity, setNewAmenity] = useState("");
   const [newTag, setNewTag] = useState("");
   const [completedSteps, setCompletedSteps] = useState([]); // Track completed steps
-  const { post } = ApiFunction();
+  const { post, get, put } = ApiFunction();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const slug = searchParams.get("slug");
+  const isEditMode = !!slug;
 
   const totalSteps = 4;
 
@@ -254,9 +261,76 @@ export default function AddListing() {
     if (selectedCountry) {
       const country = countriesWithCities[selectedCountry];
       setAvailableCities(country.cities || []);
-      setValue("city", "");
+      // Only reset city if it's not the initial population (or handle it gracefully)
+      // For simplicity in this edit, we might want to check if the current city value is valid for the new country
+      // But since we are populating data, we should be careful not to wipe it immediately if it's correct.
+      // A simple check: if the form city is not in the new available cities, reset it.
+      // However, for the initial load, setValue is called after this effect might run or before.
+      // To be safe for edit mode, we can depend on 'isEditMode' or just let the user re-select if they change country.
+      if (!isEditMode) {
+        setValue("city", "");
+      }
     }
-  }, [selectedCountry, setValue]);
+  }, [selectedCountry, setValue, isEditMode]);
+
+  // Fetch listing details if in edit mode
+  useEffect(() => {
+    if (isEditMode && slug) {
+      const fetchListingDetails = async () => {
+        setIsLoading("fetch");
+        try {
+          const response = await get(`${propertyDetail}/${slug}`);
+          if (response?.success && response?.data) {
+            const data = response.data;
+
+            // Populate form fields
+            setValue("title", data.title);
+            setValue("description", data.description);
+            setValue("listingType", data.listingType);
+            setValue("furnishingStatus", data.furnishingStatus);
+            setValue("price", data.price);
+            setValue("sizeValue", data.size?.value);
+            setValue("sizeUnit", data.size?.unit);
+            setValue("bedrooms", data.bedrooms);
+            setValue("bathrooms", data.bathrooms);
+            setValue("kitchens", data.kitchens);
+            setValue("floors", data.floors);
+            setValue("parkingSpaces", data.parkingSpaces);
+            setValue("yearBuilt", data.yearBuilt);
+            setValue("country", data.location?.country);
+            setValue("city", data.location?.city);
+            setValue("address", data.location?.address);
+            setValue("latitude", data.location?.geoLocation?.coordinates[1]);
+            setValue("longitude", data.location?.geoLocation?.coordinates[0]);
+            setValue("hasElectricity", data.utilities?.hasElectricity);
+            setValue("hasWater", data.utilities?.hasWater);
+            setValue("hasGas", data.utilities?.hasGas);
+            setValue("phoneContact", data.contactPreferences?.phone);
+            setValue("emailContact", data.contactPreferences?.email);
+            setValue("inAppMessage", data.contactPreferences?.inAppMessage);
+
+            // Populate state variables
+            setSelectedImages(data.images || []);
+            setSelectedVideos(data.videos || []);
+            setCustomAmenities(data.amenities || []);
+            setCustomTags(data.tags || []);
+
+            if (data.location?.country) {
+              const country = countriesWithCities[data.location?.country];
+              setAvailableCities(country?.cities || []);
+            }
+          }
+        } catch (error) {
+          toast.error("Failed to fetch listing details");
+          console.error(error);
+        } finally {
+          setIsLoading("");
+        }
+      };
+
+      fetchListingDetails();
+    }
+  }, []);
 
   const handleImageUpload = async (event) => {
     const files = Array.from(event.target.files);
@@ -431,29 +505,33 @@ export default function AddListing() {
       videos: selectedVideos,
     };
 
-    await post(createListing, formData)
-      .then((response) => {
-        if (response?.success) {
-          toast.success(response?.message);
+    try {
+      let response;
+      if (isEditMode) {
+        response = await put(`${updateListing}/${slug}`, formData);
+      } else {
+        response = await post(createListing, formData);
+      }
 
-          // Reset all form data
-          reset();
-          setSelectedImages([]);
-          setSelectedVideos([]);
-          setCustomAmenities([]);
-          setCustomTags([]);
-          setStep(1);
+      if (response?.success) {
+        toast.success(response?.message);
 
-          // Navigate to my-listings page
-          router.push("/settings/my-listings");
-        }
-      })
-      .catch((error) => {
-        toast.error(error?.response?.data?.message);
-      })
-      .finally(() => {
-        setIsLoading("");
-      });
+        // Reset all form data
+        reset();
+        setSelectedImages([]);
+        setSelectedVideos([]);
+        setCustomAmenities([]);
+        setCustomTags([]);
+        setStep(1);
+
+        // Navigate to my-listings page
+        router.push("/settings/my-listings");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
+    } finally {
+      setIsLoading("");
+    }
   };
 
   // Add a separate submit handler for the final step
@@ -1380,7 +1458,7 @@ export default function AddListing() {
                     isLoading={isLoading === "publish"}
                     loadingText="Publishing..."
                   >
-                    Publish Listing
+                    {isEditMode ? "Update Listing" : "Publish Listing"}
                   </Button>
                 )}
               </div>

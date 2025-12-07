@@ -17,10 +17,10 @@ const deactivateuser = "users/deactivate";
 const contactPost = "contact/create";
 // listing endpoints
 const createListing = "listing/add-listing";
-const updateListing = "listings/update";
-const deleteListing = "listings/delete";
+const updateListing = "listing/update-listing";
+const deleteListing = "listing/delete-listing";
 const getListing = "listing/get-listings";
-const getListingById = "listings/getById";
+const getListingBySlug = "listings/my-listing";
 const getListingByUserId = "listings/getByUserId";
 const getAllListings = "listings/getAll";
 const getFeaturedListings = "listing/featured-listings";
@@ -56,7 +56,7 @@ export {
   updateListing,
   deleteListing,
   getListing,
-  getListingById,
+  getListingBySlug,
   getListingByUserId,
   getAllListings,
   getFeaturedListings,

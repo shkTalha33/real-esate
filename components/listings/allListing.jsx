@@ -13,7 +13,7 @@ import {
   FaEdit,
   FaTrash,
 } from "react-icons/fa";
-import { myListings } from "../api/apiEndpoints";
+import { deleteListing, myListings } from "../api/apiEndpoints";
 import ApiFunction from "../api/apiFunction";
 import { formatCurrency } from "@/utils/formatters";
 import { Pagination } from "@heroui/pagination";
@@ -23,16 +23,26 @@ import {
   CardFooter,
   CardHeader,
   Skeleton,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
 } from "@/components/ui";
+import { toast } from "react-hot-toast";
 import { handleError } from "../api/errorHandler";
 import Link from "next/link";
 
 export default function AllListings() {
-  const { get } = ApiFunction();
+  const { get, put } = ApiFunction();
   const [listings, setListings] = useState([]);
   const [pagination, setPagination] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [propertyToDelete, setPropertyToDelete] = useState(null);
 
   const handleChangePagination = (page) => {
     setCurrentPage(page);
@@ -54,6 +64,28 @@ export default function AllListings() {
         setIsLoading(false);
       });
   });
+
+  const handleDeleteClick = (property) => {
+    setPropertyToDelete(property);
+    onOpen();
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!propertyToDelete) return;
+
+    try {
+      const response = await put(`${deleteListing}/${propertyToDelete.slug}`);
+      if (response?.success) {
+        toast.success(response.message || "Listing deleted successfully");
+        fetchListings(); // Refresh the list
+        onOpenChange(false); // Close modal
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to delete listing");
+    } finally {
+      setPropertyToDelete(null);
+    }
+  };
 
   useEffect(() => {
     fetchListings();
@@ -270,10 +302,16 @@ export default function AllListings() {
                       >
                         View Details
                       </Link>
-                      <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                      <Link
+                        href={`/settings/add-listing?slug=${property?.slug}`}
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center p-0"
+                      >
                         <FaEdit />
-                      </button>
-                      <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                      </Link>
+                      <button
+                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
+                        onClick={() => handleDeleteClick(property)}
+                      >
                         <FaTrash />
                       </button>
                     </div>
@@ -298,6 +336,33 @@ export default function AllListings() {
           </>
         )}
       </div>
+      {/* Delete Confirmation Modal */}
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Delete Listing
+              </ModalHeader>
+              <ModalBody>
+                <p>
+                  Are you sure you want to delete{" "}
+                  <span className="font-bold">{propertyToDelete?.title}</span>?
+                  This action cannot be undone.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="default" variant="light" onPress={onClose}>
+                  Cancel
+                </Button>
+                <Button color="danger" onPress={handleConfirmDelete}>
+                  Delete
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </section>
   );
 }
