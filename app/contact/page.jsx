@@ -19,7 +19,7 @@ import { contactPost } from "@/components/api/apiEndpoints";
 const ContactPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { post } = ApiFunction()
+  const { post } = ApiFunction();
 
   useEffect(() => {
     setIsMounted(true);
@@ -69,36 +69,43 @@ const ContactPage = () => {
       fullname: data?.name,
       email: data?.email,
       phone: data?.phone,
-      subject: data?.subject,  
+      subject: data?.subject,
       message: data?.message,
-    }
+    };
     post(contactPost, apiData)
       .then((result) => {
         if (result?.success) {
           toast.success(result?.message);
           reset();
         }
-      }).catch((err) => {
-        handleError(err)
-      }).finally(() => setIsSubmitting(false));
-
+      })
+      .catch((err) => {
+        handleError(err);
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   const contactInfo = [
     {
       icon: <FaMapMarkerAlt className="text-2xl text-brand-primary" />,
       title: "Our Location",
-      description: "123 Real Estate Avenue, Suite 100, New York, NY 10001",
+      description: "Ali Housing Colony, Faisalabad, Pakistan",
+      href: "https://www.google.com/maps/search/?api=1&query=Ali+Housing+Colony+Faisalabad+Pakistan",
+      type: "link",
     },
     {
       icon: <FaPhoneAlt className="text-2xl text-brand-primary" />,
       title: "Phone Number",
-      description: "+1 (555) 123-4567",
+      description: "+92 318 7019892",
+      href: "tel:+923187019892",
+      type: "link",
     },
     {
       icon: <FaEnvelope className="text-2xl text-brand-primary" />,
       title: "Email Address",
-      description: "info@realestate.com",
+      description: "shykhtalha33@gmail.com",
+      href: "mailto:shykhtalha33@gmail.com",
+      type: "link",
     },
   ];
 
@@ -116,9 +123,9 @@ const ContactPage = () => {
 
         {/* Content */}
         <div className="relative container mx-auto px-4 text-center">
-          <h1 className="text-5xl poppins_semibold mb-4">
+          <h2 className="text-4xl sm:text-5xl poppins_semibold mb-4">
             Get In <span className="text-brand-warning"> Touch</span>
-          </h1>
+          </h2>
           <p className="text-lg text-white/90 nunito_regular">
             Have questions or ready to start your real estate journey? <br />
             Our team is here to help you every step of the way
@@ -127,7 +134,7 @@ const ContactPage = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-16 md:py-24 relative">
+      <section className="py-20 md:py-28 relative bg-gradient-to-br from-brand-light to-white dark:from-brand-dark dark:to-gray-900">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(45rem_50%_50%_50%_50%,rgba(79,70,229,0.1),rgba(255,255,255,0))]"></div>
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-brand-primary/5 to-transparent -z-10"></div>
@@ -135,7 +142,7 @@ const ContactPage = () => {
 
         <div className="container mx-auto px-4">
           <motion.div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -180,6 +187,8 @@ const ContactPage = () => {
                     icon={item.icon}
                     title={item.title}
                     description={item.description}
+                    href={item.href}
+                    type={item.type}
                   />
                 ))}
               </motion.div>
@@ -187,7 +196,7 @@ const ContactPage = () => {
 
             {/* Contact Form */}
             <motion.div
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 md:p-8"
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100 dark:border-gray-700"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -212,7 +221,7 @@ const ContactPage = () => {
       </section>
 
       {/* Map Section */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900">
+      <section className="py-16 bg-brand-light dark:bg-brand-dark">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -222,14 +231,14 @@ const ContactPage = () => {
             className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.2152562781307!2d-73.98784492406115!3d40.75798597139021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3405.0234567890123!2d73.0479!3d31.4504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDI3JzAxLjQiTiA3M8KwMDInNTIuNCJF!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s"
               width="100%"
               height="450"
               style={{ border: 0 }}
               allowFullScreen=""
               loading="lazy"
               className="w-full h-[400px] md:h-[500px]"
-              title="Our Location"
+              title="Our Location - Ali Housing Colony, Faisalabad"
             ></iframe>
           </motion.div>
         </div>

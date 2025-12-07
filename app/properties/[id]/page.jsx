@@ -1,8 +1,5 @@
 "use client";
-import {
-  getRecommendedListings,
-  propertyDetail,
-} from "@/components/api/apiEndpoints";
+import { propertyDetail } from "@/components/api/apiEndpoints";
 import ApiFunction from "@/components/api/apiFunction";
 import debounce from "debounce";
 import {
@@ -152,7 +149,7 @@ export default function PropertyDetailPage({ params }) {
 
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-brand-deepdark">
-      <div className="max-w-7xl">
+      <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <button
             className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-400 dark:hover:text-gray-300"

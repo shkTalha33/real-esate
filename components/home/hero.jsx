@@ -72,7 +72,7 @@ export default function Hero() {
               className="bg-transparent hover:bg-white/10 text-white border-2 border-white/20 px-6 py-3 sm:px-8 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 roboto_medium"
               style={{ fontSize: "1.125rem" }}
             >
-              Contact Agent
+              Contact Us
             </Link>
           </div>
 

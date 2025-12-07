@@ -16,18 +16,18 @@ html {
 
 @media (max-width: 768px) {
   html {
-    font-size: 13px; /* Small tablets / large phones */
+    font-size: 14px; /* Small tablets / large phones */
   }
 }
 
 @media (max-width: 576px) {
   html {
-    font-size: 12px; /* Small phones */
+    font-size: 14px; /* Small phones */
   }
 }
 
 @media (max-width: 480px) {
   html {
-    font-size: 11px; /* ex Small phones */
+    font-size: 13.5px; /* ex Small phones */
   }
 }

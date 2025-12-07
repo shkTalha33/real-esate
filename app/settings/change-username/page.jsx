@@ -30,9 +30,10 @@ const schema = yup.object().shape({
 
 export default function ChangeUsername() {
   const user = useSelector((state) => state.auth.userData);
-  const { put } = ApiFunction()
-  const dispatch = useDispatch()
-  const [isLoading, setIsLoading] = useState(false)
+  console.log("user", user);
+  const { put } = ApiFunction();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -43,7 +44,7 @@ export default function ChangeUsername() {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      currentUsername: user?.username || '',
+      currentUsername: user?.username || "",
       newUsername: "",
     },
   });
@@ -57,19 +58,22 @@ export default function ChangeUsername() {
   const onSubmit = (data) => {
     const apiData = {
       username: data?.newUsername,
-    }
-    setIsLoading(true)
+    };
+    setIsLoading(true);
     put(updateUserName, apiData)
       .then((result) => {
         if (result?.success) {
+          setValue("currentUsername", result?.data?.username);
+          console.log(result?.data?.username);
+          setValue("newUsername", "");
           dispatch(setUserData(result?.data));
           toast.success(result?.message);
-          setValue("currentUsername", data?.username);
-          setValue("newUsername", "");
         }
-      }).catch((err) => {
-        handleError(err)
-      }).finally(() => setIsLoading(false));
+      })
+      .catch((err) => {
+        handleError(err);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -110,6 +114,7 @@ export default function ChangeUsername() {
                 isInvalid={!!errors.currentUsername}
                 errorMessage={errors.currentUsername?.message}
                 variant="bordered"
+                name="currentUsername"
                 fullWidth
                 labelPlacement="outside"
                 size="lg"
@@ -145,6 +150,7 @@ export default function ChangeUsername() {
                   isInvalid={!!errors.newUsername}
                   errorMessage={errors.newUsername?.message}
                   variant="bordered"
+                  name="newUsername"
                   labelPlacement="outside"
                   fullWidth
                   size="lg"
@@ -187,10 +193,11 @@ export default function ChangeUsername() {
               {newUsername && (
                 <div className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
                   <p
-                    className={`flex items-center ${newUsername.length >= 3
-                      ? "text-green-500"
-                      : "text-gray-500"
-                      }`}
+                    className={`flex items-center ${
+                      newUsername.length >= 3
+                        ? "text-green-500"
+                        : "text-gray-500"
+                    }`}
                   >
                     {newUsername.length >= 3 ? (
                       <FiCheck className="mr-2" />
@@ -200,10 +207,11 @@ export default function ChangeUsername() {
                     At least 3 characters
                   </p>
                   <p
-                    className={`flex items-center ${newUsername.length <= 20
-                      ? "text-green-500"
-                      : "text-gray-500"
-                      }`}
+                    className={`flex items-center ${
+                      newUsername.length <= 20
+                        ? "text-green-500"
+                        : "text-gray-500"
+                    }`}
                   >
                     {newUsername.length <= 20 ? (
                       <FiCheck className="mr-2" />
@@ -213,10 +221,11 @@ export default function ChangeUsername() {
                     Maximum 20 characters
                   </p>
                   <p
-                    className={`flex items-center ${/^[a-zA-Z0-9_]+$/.test(newUsername)
-                      ? "text-green-500"
-                      : "text-gray-500"
-                      }`}
+                    className={`flex items-center ${
+                      /^[a-zA-Z0-9_]+$/.test(newUsername)
+                        ? "text-green-500"
+                        : "text-gray-500"
+                    }`}
                   >
                     {/^[a-zA-Z0-9_]+$/.test(newUsername) ? (
                       <FiCheck className="mr-2" />

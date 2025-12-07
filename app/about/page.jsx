@@ -1,18 +1,18 @@
 "use client";
 
+import { house4, house8, team1 } from "@/public/assets/images";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import {
   FaAward,
-  FaHome,
-  FaUsers,
   FaChartLine,
   FaHandshake,
-  FaLightbulb,
   FaHeart,
+  FaHome,
+  FaLightbulb,
+  FaUsers,
 } from "react-icons/fa";
-import { motion } from "framer-motion";
 import { teamMembers } from "./teamData";
-import { house8, team1 } from "@/public/assets/images";
 
 const AboutPage = () => {
   const stats = [
@@ -62,19 +62,25 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen bg-brand-light dark:bg-brand-dark">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/10 to-brand-accent/10 -skew-y-6 transform origin-top-left"></div>
-        <div className="container mx-auto px-4 relative z-10">
+      <section
+        className="relative bg-cover bg-center text-white py-28 overflow-hidden"
+        style={{ backgroundImage: `url(${house4.src})` }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/50"></div>
+
+        {/* Content */}
+        <div className="lg:container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-5xl md:text-6xl nunito_bold mb-6 bg-clip-text  text-brand-white">
+            <h1 className="text-5xl md:text-6xl nunito_bold mb-6 bg-clip-text text-white">
               <span className="text-brand-warning">About</span> Our Vision
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 roboto_medium">
+            <p className="text-xl text-white/90 mb-12 roboto_medium">
               Transforming real estate with innovation, integrity, and a
               commitment to excellence. We're not just selling properties; we're
               creating communities and building dreams.
@@ -85,7 +91,7 @@ const AboutPage = () => {
 
       {/* Stats Section */}
       <section className="py-16 bg-white dark:bg-brand-deepdark">
-        <div className="container mx-auto px-4">
+        <div className="lg:container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
@@ -111,7 +117,7 @@ const AboutPage = () => {
 
       {/* Our Story Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
+        <div className="lg:container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <motion.div
               className="lg:w-1/2"
@@ -168,7 +174,7 @@ const AboutPage = () => {
 
       {/* Our Values */}
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-4">
+        <div className="lg:container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl text-gray-900 dark:text-white mb-4 poppins_semibold">
               Our <span className="text-brand-warning">Core</span> Values
@@ -202,7 +208,7 @@ const AboutPage = () => {
 
       {/* Team Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
+        <div className="lg:container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl text-gray-900 dark:text-white mb-4 poppins_semibold">
               Meet Our <span className="text-brand-warning">Team</span>
@@ -273,8 +279,8 @@ const AboutPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-brand-primary to-brand-accent">
-        <div className="container mx-auto px-4 text-center">
+      <section className="mb-20 lg:container mx-auto px-4">
+        <div className="text-center bg-gradient-to-r rounded-3xl py-10 from-brand-primary to-brand-accent">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

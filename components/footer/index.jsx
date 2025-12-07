@@ -12,6 +12,7 @@ import {
   FaClock,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { FaGithub } from "react-icons/fa6";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -43,7 +44,7 @@ const Footer = () => {
         { name: "FAQ", href: "/faq" },
         { name: "Privacy Policy", href: "/privacy-policy" },
         { name: "Terms & Conditions", href: "/terms-condition" },
-        { name: "Sitemap", href: "/sitemap" },
+        // { name: "Sitemap", href: "/sitemap" },
       ],
     },
   ];
@@ -51,31 +52,47 @@ const Footer = () => {
   const contactInfo = [
     {
       icon: <FaMapMarkerAlt className="text-brand-primary" />,
-      text: "123 Real Estate Ave, New York, NY 10001",
+      text: "Ali Housing Colony, Faisalabad, Pakistan",
+      href: "https://www.google.com/maps/search/?api=1&query=Ali+Housing+Colony+Faisalabad+Pakistan",
+      type: "link",
     },
     {
       icon: <FaPhoneAlt className="text-brand-primary" />,
-      text: "+1 (555) 123-4567",
+      text: "+92 318 7019892",
+      href: "tel:+923187019892",
+      type: "link",
     },
     {
       icon: <FaEnvelope className="text-brand-primary" />,
-      text: "info@realestate.com",
+      text: "shykhtalha33@gmail.com",
+      href: "mailto:shykhtalha33@gmail.com",
+      type: "link",
     },
     {
       icon: <FaClock className="text-brand-primary" />,
       text: "Mon - Fri: 9:00 - 18:00",
+      type: "text",
     },
   ];
 
   const socialLinks = [
-    { icon: <FaFacebook />, href: "https://facebook.com" },
-    { icon: <FaTwitter />, href: "https://twitter.com" },
-    { icon: <FaInstagram />, href: "https://instagram.com" },
-    { icon: <FaLinkedin />, href: "https://linkedin.com" },
+    {
+      icon: <FaFacebook size="22" />,
+      href: "https://www.facebook.com/shktalha33/",
+    },
+    { icon: <FaGithub size="22" />, href: "https://github.com/shkTalha33" },
+    {
+      icon: <FaInstagram size="22" />,
+      href: "https://www.instagram.com/codecanvaas/",
+    },
+    {
+      icon: <FaLinkedin size="22" />,
+      href: "https://www.linkedin.com/in/muhammad-talha-774111399/",
+    },
   ];
 
   return (
-    <footer className="hidden sm:block bg-gray-900 text-white pt-16 pb-8">
+    <footer className="hidden sm:block dark:bg-black bg-brand-white text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Logo and Description */}
@@ -88,7 +105,7 @@ const Footer = () => {
           >
             <Link
               href="/"
-              className="text-2xl font-bold text-white poppins_bold"
+              className="text-2xl font-bold dark:text-white text-brand-dark poppins_bold"
             >
               Real<span className="text-brand-primary"> Estate</span>
             </Link>
@@ -104,7 +121,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-brand-primary hover:text-white transition-colors duration-300"
+                  className="w-10 h-10 rounded-full bg-brand-light dark:bg-brand-dark flex items-center justify-center text-brand-dark dark:text-brand-white hover:bg-brand-primary hover:text-white transition-colors duration-300"
                   whileHover={{ y: -3 }}
                 >
                   {social.icon}
@@ -123,7 +140,7 @@ const Footer = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="space-y-4"
             >
-              <h3 className="text-lg font-semibold text-white poppins_medium">
+              <h3 className="text-lg font-semibold dark:text-white text-black poppins_medium">
                 {section.title}
               </h3>
               <ul className="space-y-3">
@@ -149,16 +166,32 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="space-y-4"
           >
-            <h3 className="text-lg font-semibold text-white poppins_medium">
+            <h3 className="text-lg font-semibold dark:text-white text-black poppins_medium">
               Contact Us
             </h3>
             <ul className="space-y-4">
               {contactInfo.map((item, index) => (
-                <li key={index} className="flex items-start space-x-3">
-                  <span className="mt-1">{item.icon}</span>
-                  <span className="text-gray-400 roboto_regular">
-                    {item.text}
-                  </span>
+                <li key={index}>
+                  {item.type === "link" ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start space-x-3 text-gray-400 roboto_regular hover:text-brand-primary transition-colors cursor-pointer group"
+                    >
+                      <span className="mt-1 group-hover:scale-110 transition-transform">
+                        {item.icon}
+                      </span>
+                      <span>{item.text}</span>
+                    </a>
+                  ) : (
+                    <div className="flex items-start space-x-3">
+                      <span className="mt-1">{item.icon}</span>
+                      <span className="text-gray-400 roboto_regular">
+                        {item.text}
+                      </span>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
@@ -192,12 +225,12 @@ const Footer = () => {
             >
               Terms & Conditions
             </Link>
-            <Link
+            {/* <Link
               href="/sitemap"
               className="text-gray-400 hover:text-brand-primary text-sm transition-colors duration-300 roboto_regular"
             >
               Sitemap
-            </Link>
+            </Link> */}
           </div>
         </motion.div>
       </div>
