@@ -3,6 +3,7 @@
 import { house4, house8, team1 } from "@/public/assets/images";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import {
   FaAward,
   FaChartLine,
@@ -295,12 +296,18 @@ const AboutPage = () => {
               estate journey.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button className="bg-white text-brand-primary px-8 py-3 rounded-full hover:bg-gray-100 transition-colors roboto_medium">
+              <Link
+                href="/properties"
+                className="bg-white text-brand-primary px-8 py-3 rounded-full hover:bg-gray-100 transition-colors roboto_medium"
+              >
                 Browse Properties
-              </button>
-              <button className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white/10 transition-colors roboto_medium">
+              </Link>
+              <Link
+                href="/contact"
+                className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white/10 transition-colors roboto_medium"
+              >
                 Contact Us
-              </button>
+              </Link>
             </div>
           </motion.div>
         </div>

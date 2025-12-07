@@ -54,6 +54,7 @@ import toast from "react-hot-toast";
 import { HashLoader } from "react-spinners";
 import ApiFunction from "../api/apiFunction";
 import { createListing } from "../api/apiEndpoints";
+import { useRouter } from "next/navigation";
 
 export default function AddListing() {
   const [step, setStep] = useState(1);
@@ -66,6 +67,7 @@ export default function AddListing() {
   const [newTag, setNewTag] = useState("");
   const [completedSteps, setCompletedSteps] = useState([]); // Track completed steps
   const { post } = ApiFunction();
+  const router = useRouter();
 
   const totalSteps = 4;
 
@@ -120,7 +122,6 @@ export default function AddListing() {
     description: Yup.string()
       .required("Description is required")
       .min(10, "Description must be at least 10 characters"),
-    status: Yup.string(), // Made optional since it's commented out in the form
     listingType: Yup.string().required("Listing type is required"),
     furnishingStatus: Yup.string().required("Furnishing status is required"),
     price: Yup.number()
@@ -202,12 +203,12 @@ export default function AddListing() {
     watch,
     trigger,
     setValue,
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       title: "",
       description: "",
-      status: "",
       listingType: "",
       furnishingStatus: "",
       price: "",
@@ -434,7 +435,17 @@ export default function AddListing() {
       .then((response) => {
         if (response?.success) {
           toast.success(response?.message);
-          // router.push("/");
+
+          // Reset all form data
+          reset();
+          setSelectedImages([]);
+          setSelectedVideos([]);
+          setCustomAmenities([]);
+          setCustomTags([]);
+          setStep(1);
+
+          // Navigate to my-listings page
+          router.push("/settings/my-listings");
         }
       })
       .catch((error) => {
@@ -446,9 +457,7 @@ export default function AddListing() {
   };
 
   // Add a separate submit handler for the final step
-  const handleFinalSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleFinalSubmit = async () => {
     // Validate that we have at least one image
     if (selectedImages.length === 0) {
       toast.error("Please upload at least one property image");
@@ -457,6 +466,8 @@ export default function AddListing() {
 
     // Trigger form validation for all fields
     const isValid = await trigger();
+
+    console.log("isValid", isValid);
 
     if (isValid) {
       // Call the form submit handler
@@ -1145,6 +1156,11 @@ export default function AddListing() {
                     customAmenities.includes(amenity) ? "warning" : "default"
                   }
                   className="cursor-pointer"
+                  classNames={{
+                    content: customAmenities.includes(amenity)
+                      ? "text-white"
+                      : "",
+                  }}
                   onClick={() => {
                     if (customAmenities.includes(amenity)) {
                       removeAmenity(amenity);
@@ -1192,6 +1208,9 @@ export default function AddListing() {
                       key={amenity}
                       color="warning"
                       variant="solid"
+                      classNames={{
+                        content: "text-white",
+                      }}
                       onClose={() => removeAmenity(amenity)}
                     >
                       {amenity}
@@ -1246,6 +1265,9 @@ export default function AddListing() {
                       key={tag}
                       color="warning"
                       variant="solid"
+                      classNames={{
+                        content: "text-white",
+                      }}
                       onClose={() => removeTag(tag)}
                     >
                       #{tag}

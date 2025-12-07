@@ -265,7 +265,7 @@ export default function AllListings() {
                     {/* Action Buttons */}
                     <div className="flex gap-2">
                       <Link
-                        href={`/properties/${property?._id}`}
+                        href={`/properties/${property?.slug}`}
                         className="flex-1 text-center bg-brand-primary hover:bg-brand-primary/90 text-white px-4 py-2 rounded-lg transition-colors roboto_medium text-sm"
                       >
                         View Details
