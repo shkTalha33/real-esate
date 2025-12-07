@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Card, CardBody, CardHeader, Input } from "@/components/ui";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FiUser, FiSave, FiArrowLeft, FiCheck, FiX } from "react-icons/fi";
@@ -30,13 +30,12 @@ const schema = yup.object().shape({
 
 export default function ChangeUsername() {
   const user = useSelector((state) => state.auth.userData);
-  console.log("user", user);
   const { put } = ApiFunction();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
-    register,
+    control,
     handleSubmit,
     watch,
     setValue,
@@ -64,7 +63,6 @@ export default function ChangeUsername() {
       .then((result) => {
         if (result?.success) {
           setValue("currentUsername", result?.data?.username);
-          console.log(result?.data?.username);
           setValue("newUsername", "");
           dispatch(setUserData(result?.data));
           toast.success(result?.message);
@@ -107,77 +105,103 @@ export default function ChangeUsername() {
         <CardBody className="p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-5">
-              <Input
-                {...register("currentUsername")}
-                label="Current Username"
-                placeholder="Enter your current username"
-                isInvalid={!!errors.currentUsername}
-                errorMessage={errors.currentUsername?.message}
-                variant="bordered"
+              {/* Current Username */}
+              <Controller
+                control={control}
                 name="currentUsername"
-                fullWidth
-                labelPlacement="outside"
-                size="lg"
-                isReadOnly
-                classNames={{
-                  input: [
-                    "dark:text-white",
-                    "placeholder:text-gray-400 dark:placeholder:text-gray-500",
-                  ],
-                  inputWrapper: [
-                    "bg-gray-100 dark:bg-gray-700/50",
-                    "border border-gray-300 dark:border-gray-600",
-                    "rounded-xl",
-                    "px-3",
-                  ],
-                  label: [
-                    "text-gray-700 dark:text-gray-300",
-                    "text-sm",
-                    "font-medium",
-                    "mb-1",
-                  ],
-                  errorMessage: ["text-red-500", "text-sm", "mt-1"],
-                }}
+                render={({
+                  field: { name, value, onChange },
+                  fieldState: { invalid, error },
+                }) => (
+                  <div className="space-y-1 w-full">
+                    <Input
+                      label="Current Username"
+                      placeholder="Enter your current username"
+                      isInvalid={invalid}
+                      errorMessage={error?.message}
+                      variant="bordered"
+                      name={name}
+                      onChange={onChange}
+                      fullWidth
+                      labelPlacement="outside"
+                      size="lg"
+                      isReadOnly
+                      value={value || ""}
+                      classNames={{
+                        input: [
+                          "dark:text-white",
+                          "placeholder:text-gray-400 dark:placeholder:text-gray-500",
+                        ],
+                        inputWrapper: [
+                          "bg-gray-100 dark:bg-gray-700/50",
+                          "border border-gray-300 dark:border-gray-600",
+                          "rounded-xl",
+                          "px-3",
+                        ],
+                        label: [
+                          "text-gray-700 dark:text-gray-300",
+                          "text-sm",
+                          "font-medium",
+                          "mb-1",
+                        ],
+                        errorMessage: ["text-red-500", "text-sm", "mt-1"],
+                      }}
+                    />
+                  </div>
+                )}
               />
 
               <Divider className="my-6" />
 
               <div className="relative">
-                <Input
-                  {...register("newUsername")}
-                  label="New Username"
-                  placeholder="Enter a new username"
-                  isInvalid={!!errors.newUsername}
-                  errorMessage={errors.newUsername?.message}
-                  variant="bordered"
+                {/* New Username */}
+                <Controller
+                  control={control}
                   name="newUsername"
-                  labelPlacement="outside"
-                  fullWidth
-                  size="lg"
-                  classNames={{
-                    input: [
-                      "dark:text-white",
-                      "placeholder:text-gray-400 dark:placeholder:text-gray-500",
-                      "pr-10",
-                    ],
-                    inputWrapper: [
-                      "bg-white dark:bg-gray-700",
-                      "border border-gray-300 dark:border-gray-600",
-                      "hover:border-brand-primary/50 dark:hover:border-brand-accent/50",
-                      "focus-within:border-brand-primary dark:focus-within:border-brand-accent",
-                      "focus-within:ring-1 focus-within:ring-brand-primary/30 dark:focus-within:ring-brand-accent/30",
-                      "transition-all duration-200",
-                      "rounded-xl",
-                      "px-3",
-                    ],
-                    label: [
-                      "text-gray-700 dark:text-gray-300",
-                      "text-sm",
-                      "font-medium",
-                      "mb-1",
-                    ],
-                    errorMessage: ["text-red-500", "text-sm", "mt-1"],
-                  }}
+                  render={({
+                    field: { name, value, onChange },
+                    fieldState: { invalid, error },
+                  }) => (
+                    <div className="space-y-1 w-full">
+                      <Input
+                        label="New Username"
+                        placeholder="Enter a new username"
+                        isInvalid={invalid}
+                        errorMessage={error?.message}
+                        variant="bordered"
+                        name={name}
+                        onChange={onChange}
+                        labelPlacement="outside"
+                        fullWidth
+                        size="lg"
+                        value={value || ""}
+                        classNames={{
+                          input: [
+                            "dark:text-white",
+                            "placeholder:text-gray-400 dark:placeholder:text-gray-500",
+                            "pr-10",
+                          ],
+                          inputWrapper: [
+                            "bg-white dark:bg-gray-700",
+                            "border border-gray-300 dark:border-gray-600",
+                            "hover:border-brand-primary/50 dark:hover:border-brand-accent/50",
+                            "focus-within:border-brand-primary dark:focus-within:border-brand-accent",
+                            "focus-within:ring-1 focus-within:ring-brand-primary/30 dark:focus-within:ring-brand-accent/30",
+                            "transition-all duration-200",
+                            "rounded-xl",
+                            "px-3",
+                          ],
+                          label: [
+                            "text-gray-700 dark:text-gray-300",
+                            "text-sm",
+                            "font-medium",
+                            "mb-1",
+                          ],
+                          errorMessage: ["text-red-500", "text-sm", "mt-1"],
+                        }}
+                      />
+                    </div>
+                  )}
                 />
                 {newUsername && (
                   <div className="absolute right-3 top-1/2 -translate-y-1/2">

@@ -490,44 +490,27 @@ export default function AddListing() {
         <p className="text-brand-muted">Tell us about your property</p>
       </div>
 
-      <Controller
-        control={control}
-        name="title"
-        render={({ field, fieldState: { invalid, error } }) => (
-          <Input
-            {...field}
-            label="Property Title"
-            placeholder="Enter an attractive title for your property"
-            startContent={<HiOutlineSparkles className="text-brand-warning" />}
-            errorMessage={error?.message}
-            isInvalid={invalid}
-            labelPlacement="outside"
-            size="lg"
-            className="text-lg"
-          />
-        )}
-      />
-
-      <Controller
-        control={control}
-        name="description"
-        render={({ field, fieldState: { invalid, error } }) => (
-          <Textarea
-            {...field}
-            label="Property Description"
-            placeholder="Describe your property in detail..."
-            minRows={4}
-            maxRows={8}
-            errorMessage={error?.message}
-            isInvalid={invalid}
-            labelPlacement="outside"
-            size="lg"
-          />
-        )}
-      />
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Controller
+          control={control}
+          name="title"
+          render={({ field, fieldState: { invalid, error } }) => (
+            <Input
+              {...field}
+              label="Property Title"
+              placeholder="Enter an attractive title for your property"
+              startContent={
+                <HiOutlineSparkles className="text-brand-warning" />
+              }
+              errorMessage={error?.message}
+              isInvalid={invalid}
+              labelPlacement="outside"
+              size="lg"
+              className="text-lg"
+            />
+          )}
+        />
+        {/* <Controller
           control={control}
           name="status"
           render={({ field, fieldState: { invalid, error } }) => (
@@ -548,7 +531,7 @@ export default function AddListing() {
               ))}
             </Select>
           )}
-        />
+        /> */}
 
         <Controller
           control={control}
@@ -576,6 +559,24 @@ export default function AddListing() {
           )}
         />
       </div>
+
+      <Controller
+        control={control}
+        name="description"
+        render={({ field, fieldState: { invalid, error } }) => (
+          <Textarea
+            {...field}
+            label="Property Description"
+            placeholder="Describe your property in detail..."
+            minRows={4}
+            maxRows={8}
+            errorMessage={error?.message}
+            isInvalid={invalid}
+            labelPlacement="outside"
+            size="lg"
+          />
+        )}
+      />
     </div>
   );
 
@@ -1277,7 +1278,7 @@ export default function AddListing() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-light via-white to-brand-light dark:from-brand-dark dark:via-gray-900 dark:to-brand-deepdark">
-      <div className="container mx-auto px-4 py-8">
+      <div className="lg:container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-2">
@@ -1331,7 +1332,7 @@ export default function AddListing() {
         </Card>
 
         {/* Form */}
-        <Card className="max-w-4xl mx-auto">
+        <Card className="mx-auto">
           <CardBody className="p-8">
             <form onSubmit={handleSubmit(onSubmit)}>
               {step === 1 && renderStep1()}

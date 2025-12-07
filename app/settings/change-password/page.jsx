@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Card, CardBody, CardHeader, Input } from "@/components/ui";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Divider } from "antd";
@@ -43,18 +43,23 @@ export default function ChangePassword() {
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const router = useRouter();
   const user = useSelector((state) => state.auth.userData);
-  const dispatch = useDispatch()
-  const { put } = ApiFunction()
-  const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useDispatch();
+  const { put } = ApiFunction();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
-    register,
+    control,
     handleSubmit,
     watch,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    },
   });
 
   const newPassword = watch("newPassword", "");
@@ -70,20 +75,21 @@ export default function ChangePassword() {
     const apiData = {
       newPassword: data?.newPassword,
       oldPassword: data?.currentPassword,
-    }
-    setIsLoading(true)
+    };
+    setIsLoading(true);
     put(changePassword, apiData)
       .then((result) => {
         if (result?.success) {
           dispatch(setUserData(result?.data));
           toast.success(result?.message);
-          setValue("currentPassword", "");
-          setValue("newPassword", "");
-          setValue("confirmPassword", "");
+          // Reset all form fields
+          reset();
         }
-      }).catch((err) => {
-        handleError(err)
-      }).finally(() => setIsLoading(false));
+      })
+      .catch((err) => {
+        handleError(err);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const toggleCurrentVisibility = () => setIsCurrentVisible(!isCurrentVisible);
@@ -120,113 +126,142 @@ export default function ChangePassword() {
         <CardBody className="p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-5">
-              <Input
-                {...register("currentPassword")}
-                label="Current Password"
-                placeholder="Enter your current password"
-                isInvalid={!!errors.currentPassword}
-                errorMessage={errors.currentPassword?.message}
-                variant="bordered"
-                labelPlacement="outside"
-                fullWidth
-                size="lg"
-                type={isCurrentVisible ? "text" : "password"}
-                endContent={
-                  <button
-                    className="focus:outline-none"
-                    type="button"
-                    onClick={toggleCurrentVisibility}
-                  >
-                    {isCurrentVisible ? (
-                      <FiEyeOff className="text-xl text-gray-500 dark:text-gray-400" />
-                    ) : (
-                      <FiEye className="text-xl text-gray-500 dark:text-gray-400" />
-                    )}
-                  </button>
-                }
-                classNames={{
-                  input: [
-                    "dark:text-white",
-                    "placeholder:text-gray-400 dark:placeholder:text-gray-500",
-                    "pr-10",
-                  ],
-                  inputWrapper: [
-                    "bg-white dark:bg-gray-700",
-                    "border border-gray-300 dark:border-gray-600",
-                    "hover:border-brand-primary/50 dark:hover:border-brand-accent/50",
-                    "focus-within:border-brand-primary dark:focus-within:border-brand-accent",
-                    "focus-within:ring-1 focus-within:ring-brand-primary/30 dark:focus-within:ring-brand-accent/30",
-                    "transition-all duration-200",
-                    "rounded-xl",
-                    "px-3",
-                  ],
-                  label: [
-                    "text-gray-700 dark:text-gray-300",
-                    "text-sm",
-                    "font-medium",
-                    "mb-1",
-                  ],
-                  errorMessage: ["text-red-500", "text-sm", "mt-1"],
-                }}
+              {/* Current Password */}
+              <Controller
+                control={control}
+                name="currentPassword"
+                render={({
+                  field: { name, value, onChange },
+                  fieldState: { invalid, error },
+                }) => (
+                  <div className="space-y-1 w-full">
+                    <Input
+                      label="Current Password"
+                      placeholder="Enter your current password"
+                      isInvalid={invalid}
+                      errorMessage={error?.message}
+                      variant="bordered"
+                      name={name}
+                      onChange={onChange}
+                      value={value || ""}
+                      labelPlacement="outside"
+                      fullWidth
+                      size="lg"
+                      type={isCurrentVisible ? "text" : "password"}
+                      endContent={
+                        <button
+                          className="focus:outline-none"
+                          type="button"
+                          onClick={toggleCurrentVisibility}
+                        >
+                          {isCurrentVisible ? (
+                            <FiEyeOff className="text-xl text-gray-500 dark:text-gray-400" />
+                          ) : (
+                            <FiEye className="text-xl text-gray-500 dark:text-gray-400" />
+                          )}
+                        </button>
+                      }
+                      classNames={{
+                        input: [
+                          "dark:text-white",
+                          "placeholder:text-gray-400 dark:placeholder:text-gray-500",
+                          "pr-10",
+                        ],
+                        inputWrapper: [
+                          "bg-white dark:bg-gray-700",
+                          "border border-gray-300 dark:border-gray-600",
+                          "hover:border-brand-primary/50 dark:hover:border-brand-accent/50",
+                          "focus-within:border-brand-primary dark:focus-within:border-brand-accent",
+                          "focus-within:ring-1 focus-within:ring-brand-primary/30 dark:focus-within:ring-brand-accent/30",
+                          "transition-all duration-200",
+                          "rounded-xl",
+                          "px-3",
+                        ],
+                        label: [
+                          "text-gray-700 dark:text-gray-300",
+                          "text-sm",
+                          "font-medium",
+                          "mb-1",
+                        ],
+                        errorMessage: ["text-red-500", "text-sm", "mt-1"],
+                      }}
+                    />
+                  </div>
+                )}
               />
 
               <Divider className="my-6" />
 
               <div className="space-y-4">
-                <Input
-                  {...register("newPassword")}
-                  label="New Password"
-                  placeholder="Create a new password"
-                  isInvalid={!!errors.newPassword}
-                  errorMessage={errors.newPassword?.message}
-                  variant="bordered"
-                  labelPlacement="outside"
-                  fullWidth
-                  size="lg"
-                  type={isNewVisible ? "text" : "password"}
-                  endContent={
-                    <button
-                      className="focus:outline-none"
-                      type="button"
-                      onClick={toggleNewVisibility}
-                    >
-                      {isNewVisible ? (
-                        <FiEyeOff className="text-xl text-gray-500 dark:text-gray-400" />
-                      ) : (
-                        <FiEye className="text-xl text-gray-500 dark:text-gray-400" />
-                      )}
-                    </button>
-                  }
-                  classNames={{
-                    input: [
-                      "dark:text-white",
-                      "placeholder:text-gray-400 dark:placeholder:text-gray-500",
-                      "pr-10",
-                    ],
-                    inputWrapper: [
-                      "bg-white dark:bg-gray-700",
-                      "border border-gray-300 dark:border-gray-600",
-                      "hover:border-brand-primary/50 dark:hover:border-brand-accent/50",
-                      "focus-within:border-brand-primary dark:focus-within:border-brand-accent",
-                      "focus-within:ring-1 focus-within:ring-brand-primary/30 dark:focus-within:ring-brand-accent/30",
-                      "transition-all duration-200",
-                      "rounded-xl",
-                      "px-3",
-                    ],
-                    label: [
-                      "text-gray-700 dark:text-gray-300",
-                      "text-sm",
-                      "font-medium",
-                      "mb-1",
-                    ],
-                    errorMessage: ["text-red-500", "text-sm", "mt-1"],
-                  }}
+                {/* New Password */}
+                <Controller
+                  control={control}
+                  name="newPassword"
+                  render={({
+                    field: { name, value, onChange },
+                    fieldState: { invalid, error },
+                  }) => (
+                    <div className="space-y-1 w-full">
+                      <Input
+                        label="New Password"
+                        placeholder="Create a new password"
+                        isInvalid={invalid}
+                        errorMessage={error?.message}
+                        variant="bordered"
+                        name={name}
+                        onChange={onChange}
+                        value={value || ""}
+                        labelPlacement="outside"
+                        fullWidth
+                        size="lg"
+                        type={isNewVisible ? "text" : "password"}
+                        endContent={
+                          <button
+                            className="focus:outline-none"
+                            type="button"
+                            onClick={toggleNewVisibility}
+                          >
+                            {isNewVisible ? (
+                              <FiEyeOff className="text-xl text-gray-500 dark:text-gray-400" />
+                            ) : (
+                              <FiEye className="text-xl text-gray-500 dark:text-gray-400" />
+                            )}
+                          </button>
+                        }
+                        classNames={{
+                          input: [
+                            "dark:text-white",
+                            "placeholder:text-gray-400 dark:placeholder:text-gray-500",
+                            "pr-10",
+                          ],
+                          inputWrapper: [
+                            "bg-white dark:bg-gray-700",
+                            "border border-gray-300 dark:border-gray-600",
+                            "hover:border-brand-primary/50 dark:hover:border-brand-accent/50",
+                            "focus-within:border-brand-primary dark:focus-within:border-brand-accent",
+                            "focus-within:ring-1 focus-within:ring-brand-primary/30 dark:focus-within:ring-brand-accent/30",
+                            "transition-all duration-200",
+                            "rounded-xl",
+                            "px-3",
+                          ],
+                          label: [
+                            "text-gray-700 dark:text-gray-300",
+                            "text-sm",
+                            "font-medium",
+                            "mb-1",
+                          ],
+                          errorMessage: ["text-red-500", "text-sm", "mt-1"],
+                        }}
+                      />
+                    </div>
+                  )}
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                   <div
-                    className={`flex items-center ${hasMinLength ? "text-green-500" : "text-gray-500"
-                      }`}
+                    className={`flex items-center ${
+                      hasMinLength ? "text-green-500" : "text-gray-500"
+                    }`}
                   >
                     {hasMinLength ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -236,8 +271,9 @@ export default function ChangePassword() {
                     At least 8 characters
                   </div>
                   <div
-                    className={`flex items-center ${hasUppercase ? "text-green-500" : "text-gray-500"
-                      }`}
+                    className={`flex items-center ${
+                      hasUppercase ? "text-green-500" : "text-gray-500"
+                    }`}
                   >
                     {hasUppercase ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -247,8 +283,9 @@ export default function ChangePassword() {
                     Uppercase letter
                   </div>
                   <div
-                    className={`flex items-center ${hasLowercase ? "text-green-500" : "text-gray-500"
-                      }`}
+                    className={`flex items-center ${
+                      hasLowercase ? "text-green-500" : "text-gray-500"
+                    }`}
                   >
                     {hasLowercase ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -258,8 +295,9 @@ export default function ChangePassword() {
                     Lowercase letter
                   </div>
                   <div
-                    className={`flex items-center ${hasNumber ? "text-green-500" : "text-gray-500"
-                      }`}
+                    className={`flex items-center ${
+                      hasNumber ? "text-green-500" : "text-gray-500"
+                    }`}
                   >
                     {hasNumber ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -269,8 +307,9 @@ export default function ChangePassword() {
                     Number
                   </div>
                   <div
-                    className={`flex items-center ${hasSpecialChar ? "text-green-500" : "text-gray-500"
-                      }`}
+                    className={`flex items-center ${
+                      hasSpecialChar ? "text-green-500" : "text-gray-500"
+                    }`}
                   >
                     {hasSpecialChar ? (
                       <FiCheck className="mr-2 flex-shrink-0" />
@@ -284,54 +323,68 @@ export default function ChangePassword() {
 
               <Divider className="my-6" />
 
-              <Input
-                {...register("confirmPassword")}
-                label="Confirm New Password"
-                placeholder="Confirm your new password"
-                isInvalid={!!errors.confirmPassword}
-                errorMessage={errors.confirmPassword?.message}
-                variant="bordered"
-                fullWidth
-                labelPlacement="outside"
-                size="lg"
-                type={isConfirmVisible ? "text" : "password"}
-                endContent={
-                  <button
-                    className="focus:outline-none"
-                    type="button"
-                    onClick={toggleConfirmVisibility}
-                  >
-                    {isConfirmVisible ? (
-                      <FiEyeOff className="text-xl text-gray-500 dark:text-gray-400" />
-                    ) : (
-                      <FiEye className="text-xl text-gray-500 dark:text-gray-400" />
-                    )}
-                  </button>
-                }
-                classNames={{
-                  input: [
-                    "dark:text-white",
-                    "placeholder:text-gray-400 dark:placeholder:text-gray-500",
-                    "pr-10",
-                  ],
-                  inputWrapper: [
-                    "bg-white dark:bg-gray-700",
-                    "border border-gray-300 dark:border-gray-600",
-                    "hover:border-brand-primary/50 dark:hover:border-brand-accent/50",
-                    "focus-within:border-brand-primary dark:focus-within:border-brand-accent",
-                    "focus-within:ring-1 focus-within:ring-brand-primary/30 dark:focus-within:ring-brand-accent/30",
-                    "transition-all duration-200",
-                    "rounded-xl",
-                    "px-3",
-                  ],
-                  label: [
-                    "text-gray-700 dark:text-gray-300",
-                    "text-sm",
-                    "font-medium",
-                    "mb-1",
-                  ],
-                  errorMessage: ["text-red-500", "text-sm", "mt-1"],
-                }}
+              {/* Confirm Password */}
+              <Controller
+                control={control}
+                name="confirmPassword"
+                render={({
+                  field: { name, value, onChange },
+                  fieldState: { invalid, error },
+                }) => (
+                  <div className="space-y-1 w-full">
+                    <Input
+                      label="Confirm New Password"
+                      placeholder="Confirm your new password"
+                      isInvalid={invalid}
+                      errorMessage={error?.message}
+                      variant="bordered"
+                      name={name}
+                      onChange={onChange}
+                      value={value || ""}
+                      fullWidth
+                      labelPlacement="outside"
+                      size="lg"
+                      type={isConfirmVisible ? "text" : "password"}
+                      endContent={
+                        <button
+                          className="focus:outline-none"
+                          type="button"
+                          onClick={toggleConfirmVisibility}
+                        >
+                          {isConfirmVisible ? (
+                            <FiEyeOff className="text-xl text-gray-500 dark:text-gray-400" />
+                          ) : (
+                            <FiEye className="text-xl text-gray-500 dark:text-gray-400" />
+                          )}
+                        </button>
+                      }
+                      classNames={{
+                        input: [
+                          "dark:text-white",
+                          "placeholder:text-gray-400 dark:placeholder:text-gray-500",
+                          "pr-10",
+                        ],
+                        inputWrapper: [
+                          "bg-white dark:bg-gray-700",
+                          "border border-gray-300 dark:border-gray-600",
+                          "hover:border-brand-primary/50 dark:hover:border-brand-accent/50",
+                          "focus-within:border-brand-primary dark:focus-within:border-brand-accent",
+                          "focus-within:ring-1 focus-within:ring-brand-primary/30 dark:focus-within:ring-brand-accent/30",
+                          "transition-all duration-200",
+                          "rounded-xl",
+                          "px-3",
+                        ],
+                        label: [
+                          "text-gray-700 dark:text-gray-300",
+                          "text-sm",
+                          "font-medium",
+                          "mb-1",
+                        ],
+                        errorMessage: ["text-red-500", "text-sm", "mt-1"],
+                      }}
+                    />
+                  </div>
+                )}
               />
             </div>
 
