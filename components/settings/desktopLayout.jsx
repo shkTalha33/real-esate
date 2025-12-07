@@ -156,7 +156,7 @@ export default function DesktopLayout({ children }) {
                           href={subItem.path}
                           className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
                             pathname === subItem.path
-                              ? "bg-brand-dark text-brand-white dark:bg-brand-900/30 dark:text-brand-400 roboto_medium"
+                              ? "bg-brand-primary text-brand-white dark:bg-brand-900/30 dark:text-brand-400 roboto_medium"
                               : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                           }`}
                         >

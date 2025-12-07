@@ -120,29 +120,57 @@ export default function AddListing() {
     description: Yup.string()
       .required("Description is required")
       .min(10, "Description must be at least 10 characters"),
-    status: Yup.string().required("Status is required"),
+    status: Yup.string(), // Made optional since it's commented out in the form
     listingType: Yup.string().required("Listing type is required"),
     furnishingStatus: Yup.string().required("Furnishing status is required"),
     price: Yup.number()
+      .transform((value, originalValue) =>
+        originalValue === "" ? undefined : value
+      )
+      .typeError("Price must be a number")
       .required("Price is required")
       .min(1, "Price must be greater than 0"),
     sizeValue: Yup.number()
+      .transform((value, originalValue) =>
+        originalValue === "" ? undefined : value
+      )
+      .typeError("Size must be a number")
       .required("Size is required")
       .min(1, "Size must be greater than 0"),
     sizeUnit: Yup.string().required("Size unit is required"),
     bedrooms: Yup.number()
+      .transform((value, originalValue) =>
+        originalValue === "" ? undefined : value
+      )
+      .typeError("Bedrooms must be a number")
       .required("Number of bedrooms is required")
       .min(0, "Bedrooms cannot be negative"),
     bathrooms: Yup.number()
+      .transform((value, originalValue) =>
+        originalValue === "" ? undefined : value
+      )
+      .typeError("Bathrooms must be a number")
       .required("Number of bathrooms is required")
       .min(0, "Bathrooms cannot be negative"),
     kitchens: Yup.number()
+      .transform((value, originalValue) =>
+        originalValue === "" ? undefined : value
+      )
+      .typeError("Kitchens must be a number")
       .required("Number of kitchens is required")
       .min(0, "Kitchens cannot be negative"),
     floors: Yup.number()
+      .transform((value, originalValue) =>
+        originalValue === "" ? undefined : value
+      )
+      .typeError("Floors must be a number")
       .required("Number of floors is required")
       .min(1, "Must have at least 1 floor"),
     yearBuilt: Yup.number()
+      .transform((value, originalValue) =>
+        originalValue === "" ? undefined : value
+      )
+      .typeError("Year built must be a number")
       .required("Year built is required")
       .min(1800, "Year must be after 1800")
       .max(new Date().getFullYear(), "Year cannot be in the future"),
@@ -150,10 +178,18 @@ export default function AddListing() {
     city: Yup.string().required("City is required"),
     address: Yup.string().required("Address is required"),
     latitude: Yup.number()
+      .transform((value, originalValue) =>
+        originalValue === "" ? undefined : value
+      )
+      .typeError("Latitude must be a number")
       .required("Latitude is required")
       .min(-90, "Invalid latitude")
       .max(90, "Invalid latitude"),
     longitude: Yup.number()
+      .transform((value, originalValue) =>
+        originalValue === "" ? undefined : value
+      )
+      .typeError("Longitude must be a number")
       .required("Longitude is required")
       .min(-180, "Invalid longitude")
       .max(180, "Invalid longitude"),
@@ -204,61 +240,11 @@ export default function AddListing() {
   // Watch form values to calculate progress
   const watchedValues = watch();
 
-  // Calculate progress based on completed fields
+  // Calculate progress based on current step (not form completion)
   const calculateProgress = () => {
-    const step1Fields = ["title", "description", "status", "listingType"];
-    const step2Fields = [
-      "furnishingStatus",
-      "price",
-      "sizeValue",
-      "sizeUnit",
-      "bedrooms",
-      "bathrooms",
-      "kitchens",
-      "floors",
-      "yearBuilt",
-    ];
-    const step3Fields = ["country", "city", "address", "latitude", "longitude"];
-
-    const step1Complete = step1Fields.every((field) => {
-      const value = watchedValues[field];
-      return (
-        value !== undefined &&
-        value !== null &&
-        value !== "" &&
-        value.toString().trim() !== ""
-      );
-    });
-
-    const step2Complete = step2Fields.every((field) => {
-      const value = watchedValues[field];
-      return (
-        value !== undefined &&
-        value !== null &&
-        value !== "" &&
-        value.toString().trim() !== ""
-      );
-    });
-
-    const step3Complete = step3Fields.every((field) => {
-      const value = watchedValues[field];
-      return (
-        value !== undefined &&
-        value !== null &&
-        value !== "" &&
-        value.toString().trim() !== ""
-      );
-    });
-
-    const step4Complete = selectedImages.length > 0;
-
-    let completedStepsCount = 0;
-    if (step1Complete) completedStepsCount++;
-    if (step2Complete) completedStepsCount++;
-    if (step3Complete) completedStepsCount++;
-    if (step4Complete) completedStepsCount++;
-
-    return (completedStepsCount / totalSteps) * 100;
+    // Progress starts at 0% and increases as user moves through steps
+    // Step 1 = 0%, Step 2 = 25%, Step 3 = 50%, Step 4 = 75%, Completed = 100%
+    return ((step - 1) / totalSteps) * 100;
   };
 
   const progressValue = calculateProgress();
@@ -364,7 +350,8 @@ export default function AddListing() {
   const getFieldsForStep = (currentStep) => {
     switch (currentStep) {
       case 1:
-        return ["title", "description", "status", "listingType"];
+        // Removed 'status' since it's commented out in the form
+        return ["title", "description", "listingType"];
       case 2:
         return [
           "furnishingStatus",
@@ -388,13 +375,10 @@ export default function AddListing() {
 
   const onSubmit = async (data) => {
     // Validate that at least one image is uploaded
-    if (step < 4) {
+    if (selectedImages.length === 0) {
+      toast.error("Please upload at least one property image");
       return;
     }
-    // if (selectedImages.length === 0) {
-    //   toast.error("Please upload at least one property image");
-    //   return;
-    // }
 
     const {
       sizeValue,
@@ -1334,7 +1318,7 @@ export default function AddListing() {
         {/* Form */}
         <Card className="mx-auto">
           <CardBody className="p-8">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form>
               {step === 1 && renderStep1()}
               {step === 2 && renderStep2()}
               {step === 3 && renderStep3()}
@@ -1344,6 +1328,7 @@ export default function AddListing() {
               <Divider className="my-8" />
               <div className="flex justify-between">
                 <Button
+                  type="button"
                   onClick={prevStep}
                   variant="bordered"
                   color="warning"
@@ -1355,6 +1340,7 @@ export default function AddListing() {
                 </Button>
                 {step < totalSteps ? (
                   <Button
+                    type="button"
                     onClick={nextStep}
                     color="warning"
                     size="lg"
@@ -1364,7 +1350,8 @@ export default function AddListing() {
                   </Button>
                 ) : (
                   <Button
-                    type="submit"
+                    onClick={handleFinalSubmit}
+                    type="button"
                     color="warning"
                     size="lg"
                     className="px-8 bg-brand-warning text-white"
