@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import debounce from "debounce";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setSearch,
@@ -19,7 +20,7 @@ import ApiFunction from "../api/apiFunction";
 
 export default function PropertyFilters() {
   const dispatch = useDispatch();
-  const { get } = ApiFunction()
+  const { get } = ApiFunction();
   const { search, priceRange, rating, bedrooms, bathrooms, hasKitchen } =
     useSelector((state) => state.propertyFilters);
 
@@ -27,6 +28,32 @@ export default function PropertyFilters() {
   const [isBedroomsOpen, setIsBedroomsOpen] = useState(true);
   const [isBathroomsOpen, setIsBathroomsOpen] = useState(true);
   const [isPriceRangeOpen, setIsPriceRangeOpen] = useState(true);
+
+  // Local state for debounced inputs
+  const [searchInput, setSearchInput] = useState(search);
+  const [localPriceRange, setLocalPriceRange] = useState(priceRange);
+
+  // Create debounced dispatch functions (500ms delay)
+  const debouncedSearchDispatch = useRef(
+    debounce((value) => {
+      dispatch(setSearch(value));
+    }, 500)
+  ).current;
+
+  const debouncedPriceDispatch = useRef(
+    debounce((min, max) => {
+      dispatch(setPriceRange([min, max]));
+    }, 500)
+  ).current;
+
+  // Sync local state with Redux when Redux state changes externally (e.g., clear filters)
+  useEffect(() => {
+    setSearchInput(search);
+  }, [search]);
+
+  useEffect(() => {
+    setLocalPriceRange(priceRange);
+  }, [priceRange]);
 
   // Log active filters whenever they change
   useEffect(() => {
@@ -52,12 +79,25 @@ export default function PropertyFilters() {
     dispatch(setRating(rating === value ? null : value));
   };
 
+  const handleSearchChange = (value) => {
+    setSearchInput(value); // Update local state immediately for responsive UI
+    debouncedSearchDispatch(value); // Dispatch to Redux after 500ms delay
+  };
+
   const handlePriceRangeChange = (min, max) => {
-    dispatch(setPriceRange([min, max]));
+    setLocalPriceRange([min, max]); // Update local state immediately for responsive slider
+    debouncedPriceDispatch(min, max); // Dispatch to Redux after 500ms delay
   };
 
   const handleClearFilters = () => {
     dispatch(resetFilters());
+    // Reset price range to actual API values instead of hardcoded defaults
+    if (
+      priceBarRange?.minPrice !== undefined &&
+      priceBarRange?.maxPrice !== undefined
+    ) {
+      dispatch(setPriceRange([priceBarRange.minPrice, priceBarRange.maxPrice]));
+    }
   };
 
   useEffect(() => {
@@ -68,15 +108,19 @@ export default function PropertyFilters() {
     get(`${getPriceRange}`)
       .then((result) => {
         if (result?.success) {
-          setPriceBarRange(result?.data?.priceRange)
-          dispatch(setPriceRange([result?.data?.priceRange?.minPrice, result?.data?.priceRange?.maxPrice]));
+          setPriceBarRange(result?.data?.priceRange);
+          dispatch(
+            setPriceRange([
+              result?.data?.priceRange?.minPrice,
+              result?.data?.priceRange?.maxPrice,
+            ])
+          );
         }
       })
       .catch((err) => {
         handleError(err);
-      })
+      });
   };
-
 
   return (
     <Card className="w-full">
@@ -101,13 +145,13 @@ export default function PropertyFilters() {
           <Input
             type="text"
             placeholder="Search properties..."
-            value={search}
-            onChange={(e) => dispatch(setSearch(e.target.value))}
+            value={searchInput}
+            onChange={(e) => handleSearchChange(e.target.value)}
             startContent={<HiSearch className="text-default-400 h-5 w-5" />}
             endContent={
-              search && (
+              searchInput && (
                 <button
-                  onClick={() => dispatch(setSearch(""))}
+                  onClick={() => handleSearchChange("")}
                   className="text-default-400 hover:text-foreground"
                 >
                   <HiX className="h-4 w-4" />
@@ -140,7 +184,7 @@ export default function PropertyFilters() {
                   <Input
                     type="number"
                     disabled
-                    value={priceRange[0]}
+                    value={localPriceRange[0]}
                     placeholder="Min"
                     size="sm"
                   />
@@ -152,7 +196,7 @@ export default function PropertyFilters() {
                   <Input
                     type="number"
                     disabled
-                    value={priceRange[1]}
+                    value={localPriceRange[1]}
                     placeholder="Max"
                     size="sm"
                   />
@@ -164,7 +208,10 @@ export default function PropertyFilters() {
                   step={10000}
                   minValue={priceBarRange?.minPrice}
                   maxValue={priceBarRange?.maxPrice}
-                  value={[priceRange[0] || 0, priceRange[1] || 1000000]}
+                  value={[
+                    localPriceRange[0] || 0,
+                    localPriceRange[1] || 1000000,
+                  ]}
                   onChange={([min, max]) => handlePriceRangeChange(min, max)}
                   className="max-w-md"
                 />
