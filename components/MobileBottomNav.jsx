@@ -26,7 +26,7 @@ export default function MobileBottomNav() {
     {
       name: "Settings",
       icon: <BsGear className="w-6 h-6" />,
-      path: "/settings",
+      path: "/settings", // Mobile users go to menu list
     },
   ];
 

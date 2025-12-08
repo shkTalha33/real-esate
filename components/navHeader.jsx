@@ -187,10 +187,10 @@ export default function App() {
         }`}
       >
         <NavbarContent>
-          <NavbarMenuToggle
+          {/* <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="sm:hidden"
-          />
+          /> */}
           <NavbarBrand>
             <AcmeLogo />
             <Link
@@ -288,7 +288,7 @@ export default function App() {
                 </DropdownItem>
                 <DropdownItem
                   key="settings"
-                  className="gap-2"
+                  className="gap-2 hidden sm:block"
                   startContent={<IoMdSettings size={17} />}
                   onClick={() => router.push("/settings/account-details")}
                 >
