@@ -18,9 +18,70 @@ import { getRecentlySoldProperties } from "../api/apiEndpoints";
 import moment from "moment";
 import { formatCurrency } from "@/utils/formatters";
 
+// Skeleton loader component for recently sold properties
+const RecentlySoldSkeleton = () => (
+  <div className="bg-white dark:bg-brand-dark rounded-xl overflow-hidden shadow-lg">
+    {/* Image skeleton */}
+    <div className="relative h-60 bg-gray-200 dark:bg-gray-700 animate-pulse">
+      <div className="absolute top-4 left-4">
+        <div className="bg-gray-300 dark:bg-gray-600 h-6 w-16 rounded-full"></div>
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+        <div className="flex justify-between items-end">
+          <div>
+            <div className="bg-gray-300 dark:bg-gray-600 h-3 w-16 rounded mb-1"></div>
+            <div className="bg-gray-300 dark:bg-gray-600 h-5 w-24 rounded"></div>
+          </div>
+          <div className="text-right">
+            <div className="bg-gray-300 dark:bg-gray-600 h-3 w-20 rounded mb-1"></div>
+            <div className="bg-gray-300 dark:bg-gray-600 h-3 w-24 rounded"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Details skeleton */}
+    <div className="p-6">
+      <div className="mb-3">
+        <div className="bg-gray-200 dark:bg-gray-700 h-6 w-3/4 rounded mb-1 animate-pulse"></div>
+        <div className="bg-gray-200 dark:bg-gray-700 h-4 w-1/2 rounded animate-pulse"></div>
+      </div>
+
+      {/* Features skeleton */}
+      <div className="grid grid-cols-3 gap-3 my-5 py-4 border-y border-gray-100 dark:border-gray-700">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="text-center">
+            <div className="w-12 h-12 mx-auto bg-gray-200 dark:bg-gray-700 rounded-full mb-1.5 animate-pulse"></div>
+            <div className="bg-gray-200 dark:bg-gray-700 h-4 w-16 mx-auto rounded animate-pulse"></div>
+          </div>
+        ))}
+      </div>
+
+      {/* Sale details skeleton */}
+      <div className="flex justify-between items-center mt-4">
+        <div className="flex items-center">
+          <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full mr-3 animate-pulse"></div>
+          <div>
+            <div className="bg-gray-200 dark:bg-gray-700 h-3 w-12 rounded mb-1 animate-pulse"></div>
+            <div className="bg-gray-200 dark:bg-gray-700 h-4 w-20 rounded animate-pulse"></div>
+          </div>
+        </div>
+        <div className="flex items-center justify-end">
+          <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full mr-3 animate-pulse"></div>
+          <div>
+            <div className="bg-gray-200 dark:bg-gray-700 h-3 w-16 rounded mb-1 animate-pulse"></div>
+            <div className="bg-gray-200 dark:bg-gray-700 h-4 w-16 rounded animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 export default function RecentlySold() {
   const { get } = ApiFunction();
   const [recentlySold, setRecentlySold] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Function to format date
   const formatDate = (dateString) => {
@@ -29,6 +90,7 @@ export default function RecentlySold() {
   };
 
   const fetchRecentlySold = debounce(async () => {
+    setIsLoading(true);
     await get(getRecentlySoldProperties)
       .then((res) => {
         if (res?.success) {
@@ -37,6 +99,9 @@ export default function RecentlySold() {
       })
       .catch((err) => {
         console.log("err", err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, 300);
 
@@ -55,130 +120,133 @@ export default function RecentlySold() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {recentlySold?.map((property) => (
-            <div
-              key={property?._id}
-              className="group bg-white dark:bg-brand-dark rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3"
-            >
-              {/* Property Image */}
-              <div className="relative h-60 overflow-hidden">
-                <Image
-                  src={property?.images[0]}
-                  alt={property?.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                {/* Status Badge */}
-                <div className="absolute top-4 left-4 bg-brand-warning text-white text-xs font-medium px-3 py-1 rounded-full">
-                  Sold
-                </div>
-                {/* Price Tag */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                  <div className="flex justify-between items-end">
-                    <div>
-                      <p className="text-xs text-white/80 mb-1">Sold For</p>
-                      <p className="text-xl font-bold text-white">
-                        {formatCurrency(property?.dispatchPrice)}
-                      </p>
+          {isLoading
+            ? // Show 3 skeleton loaders
+              [1, 2, 3].map((i) => <RecentlySoldSkeleton key={i} />)
+            : recentlySold?.map((property) => (
+                <div
+                  key={property?._id}
+                  className="group bg-white dark:bg-brand-dark rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3"
+                >
+                  {/* Property Image */}
+                  <div className="relative h-60 overflow-hidden">
+                    <Image
+                      src={property?.images[0]}
+                      alt={property?.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    {/* Status Badge */}
+                    <div className="absolute top-4 left-4 bg-brand-warning text-white text-xs font-medium px-3 py-1 rounded-full">
+                      Sold
                     </div>
-                    <div className="text-right">
-                      <p className="text-xs text-white/80 line-through mb-1">
-                        Listed at {formatCurrency(property?.price)}
-                      </p>
-                      <p className="text-xs text-brand-warning font-medium">
-                        <FaTag className="inline mr-1" />
-                        {Math.round(
-                          (1 -
-                            parseFloat(property?.dispatchPrice) /
-                              parseFloat(property?.price)) *
-                            100
-                        )}
-                        % Below Ask
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Property Details */}
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="text-xl poppins_semibold text-dark-900 dark:text-white mb-1">
-                      {property?.title}
-                    </h3>
-                    <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
-                      <FaTag className="mr-1.5 text-brand-primary" />
-                      <span>
-                        {property?.location?.country},{" "}
-                        {property?.location?.city}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Property Features */}
-                <div className="grid grid-cols-3 gap-3 my-5 py-4 border-y border-gray-100 dark:border-gray-700">
-                  <div className="text-center">
-                    <div className="w-12 h-12 mx-auto bg-brand-primary/10 rounded-full flex items-center justify-center mb-1.5">
-                      <FaBed className="text-brand-primary text-xl" />
-                    </div>
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
-                      {property?.bedrooms} Beds
-                    </span>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 mx-auto bg-brand-primary/10 rounded-full flex items-center justify-center mb-1.5">
-                      <FaBath className="text-brand-primary text-xl" />
-                    </div>
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
-                      {property?.bathrooms} Baths
-                    </span>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 mx-auto bg-brand-primary/10 rounded-full flex items-center justify-center mb-1.5">
-                      <FaRulerCombined className="text-brand-primary text-lg" />
-                    </div>
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
-                      {property?.size?.value} {property?.size?.unit}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Sale Details */}
-                <div className="flex justify-between items-center mt-4">
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 bg-brand-warning/10 rounded-full flex items-center justify-center mr-3">
-                      <FaCalendarAlt className="text-brand-warning" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Sold On
-                      </p>
-                      <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                        {moment(property?.updatedAt).format("DD MMM YYYY")}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="flex items-center justify-end">
-                      <div className="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center mr-3">
-                        <FaClock className="text-brand-primary" />
+                    {/* Price Tag */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                      <div className="flex justify-between items-end">
+                        <div>
+                          <p className="text-xs text-white/80 mb-1">Sold For</p>
+                          <p className="text-xl font-bold text-white">
+                            {formatCurrency(property?.dispatchPrice)}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-xs text-white/80 line-through mb-1">
+                            Listed at {formatCurrency(property?.price)}
+                          </p>
+                          <p className="text-xs text-brand-warning font-medium">
+                            <FaTag className="inline mr-1" />
+                            {Math.round(
+                              (1 -
+                                parseFloat(property?.dispatchPrice) /
+                                  parseFloat(property?.price)) *
+                                100
+                            )}
+                            % Below Ask
+                          </p>
+                        </div>
                       </div>
+                    </div>
+                  </div>
+
+                  {/* Property Details */}
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-3">
                       <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                          On Market
-                        </p>
-                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                          {moment(property?.createdAt).fromNow()}
-                        </p>
+                        <h3 className="text-xl poppins_semibold text-dark-900 dark:text-white mb-1">
+                          {property?.title}
+                        </h3>
+                        <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
+                          <FaTag className="mr-1.5 text-brand-primary" />
+                          <span>
+                            {property?.location?.country},{" "}
+                            {property?.location?.city}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Property Features */}
+                    <div className="grid grid-cols-3 gap-3 my-5 py-4 border-y border-gray-100 dark:border-gray-700">
+                      <div className="text-center">
+                        <div className="w-12 h-12 mx-auto bg-brand-primary/10 rounded-full flex items-center justify-center mb-1.5">
+                          <FaBed className="text-brand-primary text-xl" />
+                        </div>
+                        <span className="text-sm text-gray-600 dark:text-gray-300">
+                          {property?.bedrooms} Beds
+                        </span>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-12 h-12 mx-auto bg-brand-primary/10 rounded-full flex items-center justify-center mb-1.5">
+                          <FaBath className="text-brand-primary text-xl" />
+                        </div>
+                        <span className="text-sm text-gray-600 dark:text-gray-300">
+                          {property?.bathrooms} Baths
+                        </span>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-12 h-12 mx-auto bg-brand-primary/10 rounded-full flex items-center justify-center mb-1.5">
+                          <FaRulerCombined className="text-brand-primary text-lg" />
+                        </div>
+                        <span className="text-sm text-gray-600 dark:text-gray-300">
+                          {property?.size?.value} {property?.size?.unit}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Sale Details */}
+                    <div className="flex justify-between items-center mt-4">
+                      <div className="flex items-center">
+                        <div className="w-10 h-10 bg-brand-warning/10 rounded-full flex items-center justify-center mr-3">
+                          <FaCalendarAlt className="text-brand-warning" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Sold On
+                          </p>
+                          <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                            {moment(property?.updatedAt).format("DD MMM YYYY")}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex items-center justify-end">
+                          <div className="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <FaClock className="text-brand-primary" />
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              On Market
+                            </p>
+                            <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                              {moment(property?.createdAt).fromNow()}
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              ))}
         </div>
       </div>
     </section>
