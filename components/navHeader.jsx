@@ -253,7 +253,7 @@ export default function App() {
               <NavbarItem>
                 <Button
                   as={Link}
-                  className="bg-brand-primary hover:bg-brand-primary/80 text-brand-white"
+                  className="bg-brand-warning !h-8 flex items-center hover:bg-brand-warningdark text-brand-white"
                   href="/signup"
                   variant="flat"
                 >

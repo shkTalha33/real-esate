@@ -37,7 +37,7 @@ export default function Hero() {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-white mb-6 leading-tight poppins_bold text-[4rem]">
+          <h1 className="text-white mb-6 leading-tight poppins_bold text-[2.5rem] sm:text-[4rem]">
             <span className="block" style={{ lineHeight: "1.1" }}>
               Find Your
             </span>
@@ -59,17 +59,17 @@ export default function Hero() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex  flex-row justify-center gap-4">
+          <div className="flex justify-center items-center gap-4">
             <Link
               href="/properties"
-              className="bg-brand-warning hover:bg-brand-warningdark text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 mb-0 shadow-lg shadow-brand-warning/30 roboto_medium"
+              className="bg-brand-warning hover:bg-brand-warningdark text-white px-5 py-2 sm:px-8 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-brand-warning/30 roboto_medium"
               style={{ fontSize: "1.125rem" }}
             >
               Explore Properties
             </Link>
             <Link
               href="/contact"
-              className="bg-transparent hover:bg-white/10 text-white border-2 border-white/20 px-6 py-3 sm:px-8 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 roboto_medium"
+              className="bg-transparent hover:bg-white/10 text-white border-2 border-white/20 px-5 py-2 sm:px-8 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 roboto_medium"
               style={{ fontSize: "1.125rem" }}
             >
               Contact Us
@@ -85,10 +85,7 @@ export default function Hero() {
               { value: "50+", label: "Awards Won" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <div
-                  className="text-white mb-2 poppins_bold"
-                  style={{ fontSize: "2.25rem" }}
-                >
+                <div className="text-white mb-2 poppins_bold text-[2rem] sm:text-[2.25rem]">
                   {stat.value}
                 </div>
                 <div

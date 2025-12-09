@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BsHouseDoor, BsCalculator, BsGear } from "react-icons/bs";
-import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
+import { BsHouseDoor, BsGear } from "react-icons/bs";
+import { HiOutlineBuildingOffice2, HiOutlineUserGroup } from "react-icons/hi2";
+import { IoCallOutline } from "react-icons/io5";
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
@@ -19,14 +20,19 @@ export default function MobileBottomNav() {
       path: "/properties",
     },
     {
-      name: "Mortgage",
-      icon: <BsCalculator className="w-6 h-6" />,
-      path: "/mortgage-calculator",
+      name: "About",
+      icon: <HiOutlineUserGroup className="w-6 h-6" />,
+      path: "/about",
+    },
+    {
+      name: "Contact",
+      icon: <IoCallOutline className="w-6 h-6" />,
+      path: "/contact",
     },
     {
       name: "Settings",
       icon: <BsGear className="w-6 h-6" />,
-      path: "/settings", // Mobile users go to menu list
+      path: "/settings",
     },
   ];
 
@@ -39,7 +45,7 @@ export default function MobileBottomNav() {
             href={item.path}
             className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors ${
               pathname === item.path
-                ? "text-blue-400"
+                ? "text-brand-warning"
                 : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
             }`}
           >
