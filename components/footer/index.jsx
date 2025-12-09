@@ -25,7 +25,6 @@ const Footer = () => {
         { name: "Properties", href: "/properties" },
         { name: "Agents", href: "/agents" },
         { name: "About Us", href: "/about" },
-        { name: "Contact", href: "/contact" },
       ],
     },
     {
@@ -35,15 +34,16 @@ const Footer = () => {
         { name: "Villas", href: "/properties?type=villa" },
         { name: "Offices", href: "/properties?type=office" },
         { name: "Commercial", href: "/properties?type=commercial" },
-        { name: "View All", href: "/properties" },
+        // { name: "View All", href: "/properties" },
       ],
     },
     {
       title: "Support",
       links: [
-        // { name: "FAQ", href: "/faq" },
+        { name: "Contact", href: "/contact" },
         { name: "Privacy Policy", href: "/privacy-policy" },
         { name: "Terms & Conditions", href: "/terms-condition" },
+        // { name: "FAQ", href: "/faq" },
         // { name: "Sitemap", href: "/sitemap" },
       ],
     },

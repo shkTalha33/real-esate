@@ -22,11 +22,17 @@ export default function MainLayout({ children }) {
     "/settings/add-listing",
   ];
 
+  // Auth pages that don't need bottom padding
+  const authPages = ["/login", "/signup"];
+  const isAuthPage = authPages.includes(pathname);
+
   return (
     <div>
       <div className={`relative flex flex-col h-screen`}>
         {!headerLessRoutes.includes(pathname) && <NavHeader />}
-        <main className="w-full mx-auto pb-16 sm:pb-0">{children}</main>
+        <main className={`w-full mx-auto ${isAuthPage ? "" : "pb-16 sm:pb-0"}`}>
+          {children}
+        </main>
         <MobileBottomNav />
         {!headerLessRoutes.includes(pathname) && <Footer />}
       </div>

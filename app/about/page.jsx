@@ -78,10 +78,10 @@ const AboutPage = () => {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-5xl md:text-6xl nunito_bold mb-6 bg-clip-text text-white">
+            <h1 className="text-4xl sm:text-5xl nunito_bold mb-6 bg-clip-text text-white">
               <span className="text-brand-warning">About</span> Our Vision
             </h1>
-            <p className="text-xl text-white/90 mb-12 roboto_medium">
+            <p className="text-lg sm:text-xl text-white/90 mb-12 roboto_medium">
               Transforming real estate with innovation, integrity, and a
               commitment to excellence. We're not just selling properties; we're
               creating communities and building dreams.
@@ -147,40 +147,39 @@ const AboutPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h2 className="text-4xl poppins-semibold text-gray-900 dark:text-white mb-6 poppins_bold">
+              <h2 className="text-3xl sm:text-4xl poppins-semibold text-gray-900 dark:text-white mb-4 sm:mb-6 poppins_bold">
                 Our
                 <span className="text-brand-warning"> Journey</span> in Real
                 Estate
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-6 roboto_regular">
+              <p className="text-gray-600 dark:text-gray-300 mb-3 sm:mb-6 roboto_regular">
                 Founded in 2010, our journey began with a simple mission: to
                 make real estate transactions seamless and transparent. What
                 started as a small local agency has grown into a trusted name in
                 the industry, serving clients across the country.
               </p>
-              <p className="text-gray-600 dark:text-gray-300 mb-8 roboto_regular">
+              <p className="text-gray-600 text-lg sm:text-xl dark:text-gray-300 mb-8 roboto_regular">
                 Our team of experienced professionals combines market knowledge
                 with cutting-edge technology to deliver exceptional service and
                 results. We pride ourselves on building lasting relationships
                 and helping our clients make informed decisions about their real
                 estate investments.
               </p>
-              <button className="bg-gradient-to-r from-brand-primary to-brand-accent text-white px-8 py-3 rounded-full hover:opacity-90 transition-opacity roboto_medium">
+              {/* <button className="bg-brand-primary text-white px-8 py-3 rounded-full hover:opacity-90 transition-opacity roboto_medium">
                 Learn More About Us
-              </button>
+              </button> */}
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Our Values */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-brand-white dark:bg-brand-deepdark">
         <div className="lg:container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl text-gray-900 dark:text-white mb-4 poppins_semibold">
+            <h2 className="text-3xl sm:text-4xl text-gray-900 dark:text-white mb-3 sm:mb-4 poppins_semibold">
               Our <span className="text-brand-warning">Core</span> Values
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-brand-primary to-brand-accent mx-auto"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {values.map((value, index) => (
@@ -190,7 +189,7 @@ const AboutPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 text-center"
+                className="bg-brand-light dark:bg-brand-dark p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 text-center"
               >
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-brand-primary/10 dark:bg-brand-primary/20 flex items-center justify-center">
                   {value.icon}
@@ -211,15 +210,15 @@ const AboutPage = () => {
       <section className="py-20">
         <div className="lg:container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl text-gray-900 dark:text-white mb-4 poppins_semibold">
+            <h2 className="text-3xl sm:text-4xl text-gray-900 dark:text-white mb-3 sm:mb-4 poppins_semibold">
               Meet Our <span className="text-brand-warning">Team</span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto roboto_regular">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto roboto_regular">
               Our dedicated team of real estate professionals is here to guide
               you every step of the way.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
@@ -280,31 +279,32 @@ const AboutPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="mb-20 lg:container mx-auto px-4">
-        <div className="text-center bg-gradient-to-r rounded-3xl py-10 from-brand-primary to-brand-accent">
+      <section className="pb-12 lg:container mx-auto px-4">
+        <div className="text-center rounded-3xl py-10 bg-brand-primary">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="px-4"
           >
-            <h2 className="text-4xl text-white mb-6 poppins_semibold">
+            <h2 className="text-2xl sm:text-3xl text-white mb-6 poppins_semibold">
               Ready to Find Your Dream Property?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto roboto_regular">
+            <p className="text-lg max-w-[430px] text-white/90 mb-8 mx-auto roboto_regular">
               Let our expert team guide you through every step of your real
               estate journey.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
               <Link
                 href="/properties"
-                className="bg-white text-brand-primary px-8 py-3 rounded-full hover:bg-gray-100 transition-colors roboto_medium"
+                className="bg-white text-brand-primary px-5 sm:px-8 py-2 flex items-center justify-center sm:py-3 rounded-full hover:bg-gray-100 transition-colors roboto_medium"
               >
                 Browse Properties
               </Link>
               <Link
                 href="/contact"
-                className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white/10 transition-colors roboto_medium"
+                className="bg-transparent border-2 border-white flex items-center justify-center text-white px-5 sm:px-8 py-2 sm:py-3 rounded-full hover:bg-white/10 transition-colors roboto_medium"
               >
                 Contact Us
               </Link>

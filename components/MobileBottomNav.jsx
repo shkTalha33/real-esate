@@ -4,9 +4,17 @@ import { usePathname } from "next/navigation";
 import { BsHouseDoor, BsGear } from "react-icons/bs";
 import { HiOutlineBuildingOffice2, HiOutlineUserGroup } from "react-icons/hi2";
 import { IoCallOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
+  const isLogin = useSelector((state) => state?.auth?.isLogin);
+
+  // Hide nav on auth pages (login, signup)
+  const authPages = ["/login", "/signup"];
+  if (authPages.includes(pathname)) {
+    return null;
+  }
 
   const navItems = [
     {
@@ -29,12 +37,16 @@ export default function MobileBottomNav() {
       icon: <IoCallOutline className="w-6 h-6" />,
       path: "/contact",
     },
-    {
+  ];
+
+  // Add Settings only if user is logged in
+  if (isLogin) {
+    navItems.push({
       name: "Settings",
       icon: <BsGear className="w-6 h-6" />,
       path: "/settings",
-    },
-  ];
+    });
+  }
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-brand-deepdark border-t border-gray-200 dark:border-gray-700 z-50 sm:hidden">

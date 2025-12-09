@@ -122,7 +122,7 @@ const ContactPage = () => {
         <div className="absolute inset-0 bg-black/50"></div>
 
         {/* Content */}
-        <div className="relative container mx-auto px-4 text-center">
+        <div className="relative lg:container mx-auto px-4 text-center">
           <h2 className="text-4xl sm:text-5xl poppins_semibold mb-4">
             Get In <span className="text-brand-warning"> Touch</span>
           </h2>
@@ -140,7 +140,7 @@ const ContactPage = () => {
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-brand-primary/5 to-transparent -z-10"></div>
         </div>
 
-        <div className="container mx-auto px-4">
+        <div className="lg:container mx-auto px-4">
           <motion.div
             className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
             initial={{ opacity: 0, y: 20 }}
@@ -222,7 +222,7 @@ const ContactPage = () => {
 
       {/* Map Section */}
       <section className="py-16 bg-brand-light dark:bg-brand-dark">
-        <div className="container mx-auto px-4">
+        <div className="lg:container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

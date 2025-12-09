@@ -53,13 +53,13 @@ const MobileLayout = () => {
   return (
     <>
       <NavHeader />
-      <div className="dark:bg-brand-deepdark text-gray-900 dark:text-gray-100 p-4 mt-20">
+      <div className="p-4 mt-20">
         <div className=" mx-auto space-y-4">
           {menuItems.map((item, index) => (
             <div
               key={index}
               onClick={() => handleNavigation(item.path)}
-              className="bg-brand-light dark:bg-brand-dark border-[0.5px] border-gray-100 dark:border-gray-600 flex items-center justify-between px-12 py-5 rounded-lg shadow-medium cursor-pointer hover:shadow-large transition-shadow"
+              className="bg-brand-light dark:bg-brand-dark border-[0.5px] border-gray-100 dark:border-brand-dark flex items-center justify-between px-12 py-5 rounded-lg shadow-medium cursor-pointer hover:shadow-large transition-shadow"
             >
               <div className="flex items-center gap-4">
                 <span className="text-xl text-brand-muted dark:text-brand-white">
