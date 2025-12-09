@@ -110,7 +110,7 @@ export default function RecentlySold() {
   }, []);
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-brand-deepdark">
+    <section className="py-20 bg-brand-light dark:bg-brand-deepdark">
       <div className="lg:container mx-auto px-4">
         <SectionHeading
           tag="RECENTLY SOLD"

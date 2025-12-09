@@ -93,7 +93,7 @@ export default function FeaturedProperties() {
   }, []);
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-brand-dark">
+    <section className="py-20 bg-brand-light dark:bg-brand-dark">
       <div className="lg:container mx-auto px-4">
         <SectionHeading
           tag="FEATURED PROPERTIES"
