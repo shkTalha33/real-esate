@@ -8,17 +8,15 @@ import PropertyList from "@/components/properties/PropertyList";
 import {
   Card,
   CardBody,
-  CardHeader,
   CardFooter,
-  Container,
+  CardHeader,
   Select,
   SelectItem,
-  Skeleton,
+  Skeleton
 } from "@/components/ui";
 import { house9 } from "@/public/assets/images";
 import {
-  setPriceRange,
-  setSortOption,
+  setSortOption
 } from "@/redux/slices/propertyFilterSlice";
 import { Pagination } from "@heroui/pagination";
 import Image from "next/image";
@@ -33,12 +31,6 @@ export default function PropertiesPage() {
   const [lastId, setLastId] = useState(1);
   const { get } = ApiFunction();
   const {
-    search,
-    priceRange,
-    rating,
-    bedrooms,
-    bathrooms,
-    hasKitchen,
     sort,
     activeFilters,
   } = useSelector((state) => state.propertyFilters);
