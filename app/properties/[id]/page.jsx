@@ -110,9 +110,9 @@ export default function PropertyDetailPage({ params }) {
           <div className="lg:col-span-2 space-y-6">
             {/* Property Header */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
-              <div className="flex justify-between items-start mb-4">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-4">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center flex-wrap gap-2 mb-3">
                     <span className="px-4 py-1.5 bg-blue-100 poppins_regular dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm rounded-full capitalize">
                       {propertyData?.listingType}
                     </span>
@@ -144,11 +144,11 @@ export default function PropertyDetailPage({ params }) {
                     </span>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-lg poppins_regular text-gray-500 dark:text-gray-400 mb-1">
+                <div className="sm:text-right">
+                  <p className="text-sm poppins_regular text-gray-500 dark:text-gray-400 mb-1">
                     Price
                   </p>
-                  <p className="text-2xl poppins_medium text-orange-600 dark:text-orange-400">
+                  <p className="text-3xl poppins_semibold text-orange-600 dark:text-orange-400">
                     {propertyData?.currency}{" "}
                     {propertyData?.price?.toLocaleString()}
                   </p>

@@ -19,54 +19,10 @@ import { getFeaturedListings } from "../api/apiEndpoints";
 import debounce from "debounce";
 import { formatCurrency } from "@/utils/formatters";
 import { useRouter } from "next/navigation";
-
-// Skeleton loader component
-const PropertyCardSkeleton = () => (
-  <div className="bg-white dark:bg-brand-deepdark rounded-xl overflow-hidden shadow-lg">
-    {/* Image skeleton */}
-    <div className="relative h-64 bg-gray-200 dark:bg-gray-700 animate-pulse">
-      <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-        <div className="bg-gray-300 dark:bg-gray-600 h-6 w-20 rounded-full"></div>
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-        <div className="flex justify-between items-end">
-          <div>
-            <div className="bg-gray-300 dark:bg-gray-600 h-3 w-20 rounded mb-2"></div>
-            <div className="bg-gray-300 dark:bg-gray-600 h-6 w-24 rounded"></div>
-          </div>
-          <div className="bg-gray-300 dark:bg-gray-600 h-6 w-20 rounded-full"></div>
-        </div>
-      </div>
-    </div>
-
-    {/* Details skeleton */}
-    <div className="p-6">
-      <div className="mb-3">
-        <div className="bg-gray-200 dark:bg-gray-700 h-6 w-3/4 rounded mb-2 animate-pulse"></div>
-        <div className="bg-gray-200 dark:bg-gray-700 h-4 w-1/2 rounded animate-pulse"></div>
-      </div>
-
-      {/* Features skeleton */}
-      <div className="grid grid-cols-3 gap-3 mb-5 py-4 border-y border-gray-100 dark:border-gray-700">
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="text-center">
-            <div className="w-12 h-12 mx-auto bg-gray-200 dark:bg-gray-700 rounded-full mb-1.5 animate-pulse"></div>
-            <div className="bg-gray-200 dark:bg-gray-700 h-4 w-16 mx-auto rounded animate-pulse"></div>
-          </div>
-        ))}
-      </div>
-
-      {/* Footer skeleton */}
-      <div className="flex justify-between items-center">
-        <div>
-          <div className="bg-gray-200 dark:bg-gray-700 h-3 w-16 rounded mb-1 animate-pulse"></div>
-          <div className="bg-gray-200 dark:bg-gray-700 h-4 w-12 rounded animate-pulse"></div>
-        </div>
-        <div className="bg-gray-200 dark:bg-gray-700 h-4 w-24 rounded animate-pulse"></div>
-      </div>
-    </div>
-  </div>
-);
+import PropertyCard from "../properties/PropertyCard";
+import PropertyCardSkeleton from "../properties/PropertyCardSkeleton";
+import { Card, CardBody } from "@/components/ui";
+import { BsBuilding } from "react-icons/bs";
 
 export default function FeaturedProperties() {
   const { get } = ApiFunction();
@@ -104,111 +60,10 @@ export default function FeaturedProperties() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {isLoading
-            ? // Show 3 skeleton loaders
+            ? // Show 6 skeleton loaders
               [1, 2, 3, 4, 5, 6].map((i) => <PropertyCardSkeleton key={i} />)
             : listings.map((property) => (
-                <div
-                  key={property?._id}
-                  className="group bg-white dark:bg-brand-deepdark rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3"
-                >
-                  {/* Property Image */}
-                  <div className="relative h-64 overflow-hidden">
-                    <Image
-                      src={property?.images?.[0]}
-                      alt={property?.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    {/* Badges */}
-                    <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                      <span className="bg-white dark:bg-brand-primary text-dark-900 dark:text-white text-xs poppins_medium px-3 py-1 rounded-full capitalize">
-                        {property?.listingType}
-                      </span>
-                    </div>
-                    {/* Price Tag */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                      <div className="flex justify-between items-end">
-                        <div>
-                          <p className="text-sm text-white/80">Starting From</p>
-                          <p className="text-2xl poppins_semibold text-white">
-                            {formatCurrency(property?.price)}
-                          </p>
-                        </div>
-                        <div className="flex items-center bg-gradient-to-r text-white from-brand-warning  px-3 py-1 rounded-full roboto_regular">
-                          <FaStar className="dark:text-brand-white text-brand-white mr-1" />{" "}
-                          <span className="dark:text-brand-white">
-                            Featured
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Property Details */}
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h3 className="text-xl poppins_semibold text-dark-900 dark:text-white mb-2 line-clamp-1 capitalize">
-                          {property?.title}
-                        </h3>
-                        <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-4">
-                          <FaMapMarkerAlt className="mr-1.5 text-brand-primary" />
-                          <span className="truncate capitalize">
-                            {property?.location?.city}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Property Features */}
-                    <div className="grid grid-cols-3 gap-3 mb-5 py-4 border-y border-gray-100 dark:border-gray-700">
-                      <div className="text-center">
-                        <div className="w-12 h-12 mx-auto bg-brand-primary/10 rounded-full flex items-center justify-center mb-1.5">
-                          <FaBed className="text-brand-primary text-xl" />
-                        </div>
-                        <span className="text-sm text-gray-600 dark:text-gray-300">
-                          {property?.bedrooms} Beds
-                        </span>
-                      </div>
-                      <div className="text-center">
-                        <div className="w-12 h-12 mx-auto bg-brand-primary/10 rounded-full flex items-center justify-center mb-1.5">
-                          <FaBath className="text-brand-primary text-xl" />
-                        </div>
-                        <span className="text-sm text-gray-600 dark:text-gray-300">
-                          {property?.bathrooms} Baths
-                        </span>
-                      </div>
-                      <div className="text-center">
-                        <div className="w-12 h-12 mx-auto bg-brand-primary/10 rounded-full flex items-center justify-center mb-1.5">
-                          <FaRulerCombined className="text-brand-primary text-lg" />
-                        </div>
-                        <span className="text-sm text-gray-600 dark:text-gray-300">
-                          {property?.size?.value} {property?.size?.unit}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Additional Info */}
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                          Year Built
-                        </p>
-                        <p className="text-sm poppins_medium text-gray-800 dark:text-gray-200">
-                          {property?.yearBuilt}
-                        </p>
-                      </div>
-                      <button
-                        className="text-sm poppins_medium text-brand-warning hover:text-brand-warningdark transition-colors"
-                        onClick={() =>
-                          router.push(`/properties/${property?.slug}`)
-                        }
-                      >
-                        View Details →
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <PropertyCard key={property?._id} property={property} />
               ))}
         </div>
         {/* View All Button */}
