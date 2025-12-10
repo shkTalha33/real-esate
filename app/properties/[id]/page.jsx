@@ -132,7 +132,7 @@ export default function PropertyDetailPage({ params }) {
                       </span>
                     )}
                   </div>
-                  <h1 className="text-3xl poppins_semibold text-gray-900 mb-3 dark:text-white capitalize">
+                  <h1 className="text-2xl sm:text-3xl poppins_semibold text-gray-900 mb-3 dark:text-white capitalize">
                     {propertyData?.title}
                   </h1>
                   <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4">
@@ -156,40 +156,40 @@ export default function PropertyDetailPage({ params }) {
               </div>
 
               {/* Property Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
-                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-4 text-center transition-shadow">
+              <div className="grid grid-cols-4 gap-2 sm:gap-4 mt-6">
+                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-2 sm:p-4 text-center transition-shadow">
                   <Bed className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
                   <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
                     Bedrooms
                   </span>
-                  <span className="text-xl poppins_semibold text-gray-900 dark:text-white">
+                  <span className="text-xl poppins_medium text-gray-900 dark:text-white">
                     {propertyData?.bedrooms}
                   </span>
                 </div>
-                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-4 text-center transition-shadow">
+                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-2 sm:p-4 text-center transition-shadow">
                   <Bath className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
                   <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
                     Bathrooms
                   </span>
-                  <span className="text-xl poppins_semibold text-gray-900 dark:text-white poppins_regular">
+                  <span className="text-xl poppins_medium text-gray-900 dark:text-white poppins_regular">
                     {propertyData?.bathrooms}
                   </span>
                 </div>
-                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-4 text-center transition-shadow">
+                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-2 sm:p-4 text-center transition-shadow">
                   <Square className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
                   <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
                     Area
                   </span>
-                  <span className="text-xl poppins_semibold text-gray-900 dark:text-white">
+                  <span className="text-xl poppins_medium text-gray-900 dark:text-white">
                     {propertyData?.size?.value} {propertyData?.size?.unit}
                   </span>
                 </div>
-                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-4 text-center transition-shadow">
+                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-2 sm:p-4 text-center transition-shadow">
                   <Building className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
                   <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
                     Year Built
                   </span>
-                  <span className="text-xl poppins_semibold text-gray-900 dark:text-white">
+                  <span className="text-xl poppins_medium text-gray-900 dark:text-white">
                     {propertyData?.yearBuilt}
                   </span>
                 </div>
@@ -427,7 +427,7 @@ export default function PropertyDetailPage({ params }) {
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="max-w-[500px] w-full mx-auto lg:max-w-full lg:col-span-1">
             {/* Contact Agent Card */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 sticky top-8">
               <h3 className="text-xl poppins_medium text-gray-900 dark:text-white mb-6 flex items-center gap-2">
