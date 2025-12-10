@@ -283,8 +283,8 @@ export default function App() {
                   className="h-14 gap-2"
                   startContent={<FaUser size={17} />}
                 >
-                  <p className="font-semibold">Signed in as</p>
-                  <p className="font-semibold">{user?.email}</p>
+                  <p className="poppins_medium">Signed in as</p>
+                  <p className="poppins_medium">{user?.email}</p>
                 </DropdownItem>
                 <DropdownItem
                   key="settings"
@@ -317,8 +317,8 @@ export default function App() {
                   index === 2
                     ? "warning"
                     : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
+                      ? "danger"
+                      : "foreground"
                 }
                 href={item.href}
                 size="lg"

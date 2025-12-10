@@ -114,7 +114,7 @@ export default function ChangePassword() {
               <FiLock className="text-xl text-brand-primary dark:text-brand-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-xl poppins_semibold text-gray-900 dark:text-white">
                 Change Password
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -180,7 +180,7 @@ export default function ChangePassword() {
                         label: [
                           "text-gray-700 dark:text-gray-300",
                           "text-sm",
-                          "font-medium",
+                          "poppins_medium",
                           "mb-1",
                         ],
                         errorMessage: ["text-red-500", "text-sm", "mt-1"],
@@ -247,7 +247,7 @@ export default function ChangePassword() {
                           label: [
                             "text-gray-700 dark:text-gray-300",
                             "text-sm",
-                            "font-medium",
+                            "poppins_medium",
                             "mb-1",
                           ],
                           errorMessage: ["text-red-500", "text-sm", "mt-1"],
@@ -377,7 +377,7 @@ export default function ChangePassword() {
                         label: [
                           "text-gray-700 dark:text-gray-300",
                           "text-sm",
-                          "font-medium",
+                          "poppins_medium",
                           "mb-1",
                         ],
                         errorMessage: ["text-red-500", "text-sm", "mt-1"],
@@ -396,7 +396,7 @@ export default function ChangePassword() {
                 isLoading={isLoading}
                 isDisabled={!isPasswordValid || !!errors.confirmPassword}
                 startContent={!isLoading && <FiSave className="text-lg" />}
-                className="min-w-[120px] font-medium"
+                className="min-w-[120px] poppins_medium"
               >
                 {isLoading ? "Updating..." : "Update Password"}
               </Button>

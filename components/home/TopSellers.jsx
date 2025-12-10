@@ -83,7 +83,7 @@ export default function TopSellers() {
                     </div>
                   </div>
                 </div> */}
-                <div className="absolute top-4 right-4 bg-brand-warning text-white text-xs font-medium px-3 py-1 rounded-full">
+                <div className="absolute top-4 right-4 bg-brand-warning text-white text-xs poppins_medium px-3 py-1 rounded-full">
                   Top Rated
                 </div>
               </div>

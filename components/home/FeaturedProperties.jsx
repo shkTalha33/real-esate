@@ -121,7 +121,7 @@ export default function FeaturedProperties() {
                     />
                     {/* Badges */}
                     <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                      <span className="bg-white dark:bg-brand-primary text-dark-900 dark:text-white text-xs font-medium px-3 py-1 rounded-full capitalize">
+                      <span className="bg-white dark:bg-brand-primary text-dark-900 dark:text-white text-xs poppins_medium px-3 py-1 rounded-full capitalize">
                         {property?.listingType}
                       </span>
                     </div>
@@ -130,7 +130,7 @@ export default function FeaturedProperties() {
                       <div className="flex justify-between items-end">
                         <div>
                           <p className="text-sm text-white/80">Starting From</p>
-                          <p className="text-2xl font-bold text-white">
+                          <p className="text-2xl poppins_semibold text-white">
                             {formatCurrency(property?.price)}
                           </p>
                         </div>
@@ -194,12 +194,12 @@ export default function FeaturedProperties() {
                         <p className="text-xs text-gray-500 dark:text-gray-400">
                           Year Built
                         </p>
-                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                        <p className="text-sm poppins_medium text-gray-800 dark:text-gray-200">
                           {property?.yearBuilt}
                         </p>
                       </div>
                       <button
-                        className="text-sm font-medium text-brand-warning hover:text-brand-warningdark transition-colors"
+                        className="text-sm poppins_medium text-brand-warning hover:text-brand-warningdark transition-colors"
                         onClick={() =>
                           router.push(`/properties/${property?.slug}`)
                         }

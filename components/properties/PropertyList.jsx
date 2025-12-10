@@ -147,26 +147,26 @@ export default function PropertyList({ data }) {
               <div className="grid grid-cols-4 gap-2 py-3 border-y border-divider mb-4">
                 <div className="flex flex-col items-center">
                   <FaBed className="text-brand-warning text-lg mb-1" />
-                  <span className="text-xs text-foreground-500 font-medium">
+                  <span className="text-xs text-foreground-500 poppins_medium">
                     {property?.bedrooms || 0} Beds
                   </span>
                 </div>
                 <div className="flex flex-col items-center">
                   <FaBath className="text-brand-warning text-lg mb-1" />
-                  <span className="text-xs text-foreground-500 font-medium">
+                  <span className="text-xs text-foreground-500 poppins_medium">
                     {property?.bathrooms || 0} Baths
                   </span>
                 </div>
                 <div className="flex flex-col items-center">
                   <FaRulerCombined className="text-brand-warning text-lg mb-1" />
-                  <span className="text-xs text-foreground-500 font-medium">
+                  <span className="text-xs text-foreground-500 poppins_medium">
                     {property?.size?.value || 0}{" "}
                     {property?.size?.unit || "sqft"}
                   </span>
                 </div>
                 <div className="flex flex-col items-center">
                   <BsBuilding className="text-brand-warning text-lg mb-1" />
-                  <span className="text-xs text-foreground-500 font-medium">
+                  <span className="text-xs text-foreground-500 poppins_medium">
                     {property?.floors || 1} Floor
                     {property?.floors > 1 ? "s" : ""}
                   </span>
@@ -179,14 +179,14 @@ export default function PropertyList({ data }) {
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5 text-foreground-500 bg-gray-100 dark:bg-gray-800/50 px-3 py-1.5 rounded-full">
                     <FaCalendarAlt className="text-brand-primary shrink-0 text-xs" />
-                    <span className="font-semibold text-xs">
+                    <span className="poppins_medium text-xs">
                       {property?.yearBuilt || "N/A"}
                     </span>
                   </div>
                   {property?.furnishingStatus && (
                     <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-gray-800/50 px-3 py-1.5 rounded-full">
                       <FaCouch className="text-brand-primary text-sm shrink-0" />
-                      <span className="text-foreground-500 text-xs capitalize font-semibold">
+                      <span className="text-foreground-500 text-xs capitalize poppins_medium">
                         {property.furnishingStatus}
                       </span>
                     </div>
@@ -249,13 +249,13 @@ export default function PropertyList({ data }) {
                   {property.amenities.slice(0, 3).map((amenity, index) => (
                     <span
                       key={index}
-                      className="text-[11px] px-3 py-1.5 bg-gradient-to-r from-brand-primary/5 to-brand-primary/10 text-brand-primary border border-brand-primary/20 rounded-full capitalize font-semibold"
+                      className="text-[11px] px-3 py-1.5 bg-gradient-to-r from-brand-primary/5 to-brand-primary/10 text-brand-primary border border-brand-primary/20 rounded-full capitalize poppins_medium"
                     >
                       {amenity}
                     </span>
                   ))}
                   {property.amenities.length > 3 && (
-                    <span className="text-[11px] px-3 py-1.5 bg-gradient-to-r from-brand-primary to-indigo-600 text-white rounded-full font-semibold shadow-sm">
+                    <span className="text-[11px] px-3 py-1.5 bg-gradient-to-r from-brand-primary to-indigo-600 text-white rounded-full poppins_medium shadow-sm">
                       +{property.amenities.length - 3} more
                     </span>
                   )}

@@ -28,13 +28,13 @@ const schema = yup.object().shape({
 
 export default function AccountDetails() {
   const user = useSelector((state) => state.auth.userData);
-  const { put } = ApiFunction()
-  const dispatch = useDispatch()
+  const { put } = ApiFunction();
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState({
     updateDetails: false,
     updateAvatar: false,
-  })
-  const [avatar, setAvatar] = useState(null)
+  });
+  const [avatar, setAvatar] = useState(null);
   const {
     control,
     handleSubmit,
@@ -55,7 +55,6 @@ export default function AccountDetails() {
     },
   });
 
-
   const onSubmit = (data) => {
     const apiData = {
       fullname: data.fullName,
@@ -64,55 +63,58 @@ export default function AccountDetails() {
       city: data.city,
       country: data.country,
       zipCode: data.postalCode,
-    }
-    setIsLoading({ updateDetails: true })
+    };
+    setIsLoading({ updateDetails: true });
     put(updateDetails, apiData)
       .then((result) => {
         if (result?.success) {
           dispatch(setUserData(result?.data));
           toast.success(result?.message);
         }
-      }).catch((err) => {
-        handleError(err)
-      }).finally(() => setIsLoading({ updateDetails: false }));
+      })
+      .catch((err) => {
+        handleError(err);
+      })
+      .finally(() => setIsLoading({ updateDetails: false }));
   };
   useEffect(() => {
     if (user?.avatar) {
-      setAvatar(user?.avatar)
+      setAvatar(user?.avatar);
     }
   }, [user]);
   const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setIsLoading({ updateAvatar: true })
+      setIsLoading({ updateAvatar: true });
       const newFile = await uploadFile({ file });
       setAvatar(newFile?.data?.data);
 
-      setIsLoading({ updateAvatar: false })
+      setIsLoading({ updateAvatar: false });
       await put(updateAvatar, { avatar: newFile?.data?.data })
         .then((result) => {
           if (result?.success) {
             dispatch(setUserData(result?.data));
             toast.success(result?.message);
           }
-        }).catch((err) => {
-          handleError(err)
-        }).finally(() => setIsLoading({ updateAvatar: false }));
+        })
+        .catch((err) => {
+          handleError(err);
+        })
+        .finally(() => setIsLoading({ updateAvatar: false }));
     }
   };
-  console.log('user', user)
+  console.log("user", user);
 
   return (
     <div className="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       <Card className="border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden">
         <CardHeader className="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-xl poppins_semibold text-gray-900 dark:text-white">
             Account Details
           </h2>
         </CardHeader>
         <CardBody className="p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-
             <div className="text-center">
               <div
                 style={{
@@ -147,8 +149,18 @@ export default function AccountDetails() {
                     </>
                   ) : (
                     <>
-                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      <svg
+                        className="w-4 h-4 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
                       </svg>
                       Upload Avatar
                     </>
@@ -163,7 +175,6 @@ export default function AccountDetails() {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
               <FormInput
                 control={control}
                 name="fullName"
@@ -236,10 +247,12 @@ export default function AccountDetails() {
                 color="primary"
                 variant="flat"
                 isLoading={isLoading.updateDetails}
-                startContent={!isLoading.updateDetails && <FiSave className="text-lg" />}
-                className="min-w-[120px] font-medium"
+                startContent={
+                  !isLoading.updateDetails && <FiSave className="text-lg" />
+                }
+                className="min-w-[120px] poppins_medium"
               >
-                 Save Changes
+                Save Changes
               </Button>
             </div>
           </form>

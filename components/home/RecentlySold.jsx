@@ -137,7 +137,7 @@ export default function RecentlySold() {
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     {/* Status Badge */}
-                    <div className="absolute top-4 left-4 bg-brand-warning text-white text-xs font-medium px-3 py-1 rounded-full">
+                    <div className="absolute top-4 left-4 bg-brand-warning text-white text-xs poppins_medium px-3 py-1 rounded-full">
                       Sold
                     </div>
                     {/* Price Tag */}
@@ -145,7 +145,7 @@ export default function RecentlySold() {
                       <div className="flex justify-between items-end">
                         <div>
                           <p className="text-xs text-white/80 mb-1">Sold For</p>
-                          <p className="text-xl font-bold text-white">
+                          <p className="text-xl poppins_semibold text-white">
                             {formatCurrency(property?.dispatchPrice)}
                           </p>
                         </div>
@@ -153,7 +153,7 @@ export default function RecentlySold() {
                           <p className="text-xs text-white/80 line-through mb-1">
                             Listed at {formatCurrency(property?.price)}
                           </p>
-                          <p className="text-xs text-brand-warning font-medium">
+                          <p className="text-xs text-brand-warning poppins_medium">
                             <FaTag className="inline mr-1" />
                             {Math.round(
                               (1 -
@@ -223,7 +223,7 @@ export default function RecentlySold() {
                           <p className="text-xs text-gray-500 dark:text-gray-400">
                             Sold On
                           </p>
-                          <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                          <p className="text-sm poppins_medium text-gray-800 dark:text-gray-200">
                             {moment(property?.updatedAt).format("DD MMM YYYY")}
                           </p>
                         </div>
@@ -237,7 +237,7 @@ export default function RecentlySold() {
                             <p className="text-xs text-gray-500 dark:text-gray-400">
                               On Market
                             </p>
-                            <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                            <p className="text-sm poppins_medium text-gray-800 dark:text-gray-200">
                               {moment(property?.createdAt).fromNow()}
                             </p>
                           </div>

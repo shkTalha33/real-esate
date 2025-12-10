@@ -50,7 +50,7 @@ const PrivacyPolicy = () => {
               <section className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaShieldAlt className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     Introduction
                   </h2>
                 </div>
@@ -66,12 +66,12 @@ const PrivacyPolicy = () => {
               <section className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaInfoCircle className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     Information We Collect
                   </h2>
                 </div>
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                  <h3 className="text-lg poppins_medium text-gray-800 dark:text-gray-200">
                     Personal Information
                   </h3>
                   <ul className="list-disc pl-6 space-y-2 text-gray-600 dark:text-gray-300 roboto_regular">
@@ -83,7 +83,7 @@ const PrivacyPolicy = () => {
                     <li>Communication preferences</li>
                   </ul>
 
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-4">
+                  <h3 className="text-lg poppins_medium text-gray-800 dark:text-gray-200 mt-4">
                     Usage Data
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 roboto_regular">
@@ -103,7 +103,7 @@ const PrivacyPolicy = () => {
               <section className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaDatabase className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     How We Use Your Information
                   </h2>
                 </div>
@@ -122,7 +122,7 @@ const PrivacyPolicy = () => {
               <section className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaUserLock className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     Data Sharing and Disclosure
                   </h2>
                 </div>
@@ -145,7 +145,7 @@ const PrivacyPolicy = () => {
               <section className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaCookieBite className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     Cookies and Tracking Technologies
                   </h2>
                 </div>
@@ -159,7 +159,7 @@ const PrivacyPolicy = () => {
 
               {/* Your Rights */}
               <section className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                   Your Data Protection Rights
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 roboto_regular">
@@ -176,7 +176,7 @@ const PrivacyPolicy = () => {
 
               {/* Changes to This Policy */}
               <section className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                   Changes to This Policy
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 roboto_regular">
@@ -188,7 +188,7 @@ const PrivacyPolicy = () => {
 
               {/* Contact Us */}
               <section className="space-y-4 pt-4">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                   Contact Us
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 roboto_regular">

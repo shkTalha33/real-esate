@@ -60,7 +60,7 @@ export default function PropertyDetailPage({ params }) {
 
   if (isLoading) {
     return (
-      <div className=" mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div className=" mx-auto lg:container px-4 sm:px-6 lg:px-8 py-8">
         <div className="animate-pulse">
           <div className="h-8 bg-gray-200 dark:bg-brand-deepdark rounded w-1/4 mb-6"></div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -79,9 +79,9 @@ export default function PropertyDetailPage({ params }) {
 
   if (!propertyData) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="lg:container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl poppins_semibold text-gray-900 mb-4">
             Property Not Found
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
@@ -94,16 +94,16 @@ export default function PropertyDetailPage({ params }) {
 
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-6">
+      <div className="lg:container mx-auto">
+        {/* <div className="mb-6">
           <button
-            className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-400 dark:hover:text-gray-300 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md"
+            className="flex items-center poppins_regular gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-400 dark:hover:text-gray-300 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md"
             onClick={() => window.history.back()}
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Properties
           </button>
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
@@ -113,11 +113,11 @@ export default function PropertyDetailPage({ params }) {
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="px-4 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-semibold rounded-full capitalize">
+                    <span className="px-4 py-1.5 bg-blue-100 poppins_regular dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm rounded-full capitalize">
                       {propertyData?.listingType}
                     </span>
                     <span
-                      className={`px-4 py-1.5 text-sm font-semibold rounded-full capitalize ${
+                      className={`px-4 py-1.5 text-sm poppins_regular rounded-full capitalize ${
                         propertyData?.status === "available"
                           ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
                           : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300"
@@ -126,18 +126,18 @@ export default function PropertyDetailPage({ params }) {
                       {propertyData?.status}
                     </span>
                     {propertyData?.isFeatured && (
-                      <span className="px-4 py-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm font-semibold rounded-full flex items-center gap-1">
+                      <span className="px-4 py-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm poppins_medium rounded-full flex items-center gap-1">
                         <Award className="w-3.5 h-3.5" />
                         Featured
                       </span>
                     )}
                   </div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-3 dark:text-white capitalize">
+                  <h1 className="text-3xl poppins_semibold text-gray-900 mb-3 dark:text-white capitalize">
                     {propertyData?.title}
                   </h1>
                   <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4">
                     <MapPin className="w-5 h-5 mr-2 text-brand-primary" />
-                    <span className="text-base capitalize">
+                    <span className="text-base capitalize poppins_regular">
                       {propertyData?.location?.address},{" "}
                       {propertyData?.location?.city},{" "}
                       {propertyData?.location?.country}
@@ -145,10 +145,10 @@ export default function PropertyDetailPage({ params }) {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-lg font-regular text-gray-500 dark:text-gray-400 mb-1">
+                  <p className="text-lg poppins_regular text-gray-500 dark:text-gray-400 mb-1">
                     Price
                   </p>
-                  <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                  <p className="text-2xl poppins_medium text-orange-600 dark:text-orange-400">
                     {propertyData?.currency}{" "}
                     {propertyData?.price?.toLocaleString()}
                   </p>
@@ -159,37 +159,37 @@ export default function PropertyDetailPage({ params }) {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
                 <div className="bg-white dark:bg-gray-700/30 rounded-xl p-4 text-center transition-shadow">
                   <Bed className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
-                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1">
+                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
                     Bedrooms
                   </span>
-                  <span className="text-xl font-bold text-gray-900 dark:text-white">
+                  <span className="text-xl poppins_semibold text-gray-900 dark:text-white">
                     {propertyData?.bedrooms}
                   </span>
                 </div>
                 <div className="bg-white dark:bg-gray-700/30 rounded-xl p-4 text-center transition-shadow">
                   <Bath className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
-                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1">
+                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
                     Bathrooms
                   </span>
-                  <span className="text-xl font-bold text-gray-900 dark:text-white">
+                  <span className="text-xl poppins_semibold text-gray-900 dark:text-white poppins_regular">
                     {propertyData?.bathrooms}
                   </span>
                 </div>
                 <div className="bg-white dark:bg-gray-700/30 rounded-xl p-4 text-center transition-shadow">
                   <Square className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
-                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1">
+                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
                     Area
                   </span>
-                  <span className="text-xl font-bold text-gray-900 dark:text-white">
+                  <span className="text-xl poppins_semibold text-gray-900 dark:text-white">
                     {propertyData?.size?.value} {propertyData?.size?.unit}
                   </span>
                 </div>
                 <div className="bg-white dark:bg-gray-700/30 rounded-xl p-4 text-center transition-shadow">
                   <Building className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
-                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1">
+                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
                     Year Built
                   </span>
-                  <span className="text-xl font-bold text-gray-900 dark:text-white">
+                  <span className="text-xl poppins_semibold text-gray-900 dark:text-white">
                     {propertyData?.yearBuilt}
                   </span>
                 </div>
@@ -218,7 +218,7 @@ export default function PropertyDetailPage({ params }) {
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm flex items-center justify-center hover:bg-white dark:hover:bg-gray-800 transition-all shadow-xl"
                       aria-label="Previous image"
                     >
-                      <span className="text-gray-800 dark:text-white text-xl font-bold">
+                      <span className="text-gray-800 dark:text-white text-xl poppins_semibold">
                         <FaChevronLeft />
                       </span>
                     </button>
@@ -231,7 +231,7 @@ export default function PropertyDetailPage({ params }) {
                       className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm flex items-center justify-center hover:bg-white dark:hover:bg-gray-800 transition-all shadow-xl"
                       aria-label="Next image"
                     >
-                      <span className="text-gray-800 dark:text-white text-xl font-bold">
+                      <span className="text-gray-800 dark:text-white text-xl poppins_semibold">
                         <FaChevronRight />
                       </span>
                     </button>
@@ -266,7 +266,7 @@ export default function PropertyDetailPage({ params }) {
 
             {/* Property Details */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+              <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                 <Home className="w-6 h-6 text-brand-primary" />
                 Property Details
               </h2>
@@ -275,11 +275,11 @@ export default function PropertyDetailPage({ params }) {
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <UtensilsCrossed className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
                       Kitchens
                     </span>
                   </div>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
                     {propertyData?.kitchens}
                   </p>
                 </div>
@@ -287,11 +287,11 @@ export default function PropertyDetailPage({ params }) {
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Car className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
                       Parking
                     </span>
                   </div>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
                     {propertyData?.parkingSpaces}{" "}
                     {propertyData?.parkingSpaces === 1 ? "Space" : "Spaces"}
                   </p>
@@ -300,11 +300,11 @@ export default function PropertyDetailPage({ params }) {
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Layers className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
                       Floors
                     </span>
                   </div>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
                     {propertyData?.floors}
                   </p>
                 </div>
@@ -312,11 +312,11 @@ export default function PropertyDetailPage({ params }) {
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Sofa className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
                       Furnishing
                     </span>
                   </div>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white capitalize">
+                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white capitalize">
                     {propertyData?.furnishingStatus}
                   </p>
                 </div>
@@ -324,11 +324,11 @@ export default function PropertyDetailPage({ params }) {
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Eye className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
                       Views
                     </span>
                   </div>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
                     {propertyData?.viewCount}
                   </p>
                 </div>
@@ -336,11 +336,11 @@ export default function PropertyDetailPage({ params }) {
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Heart className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
                       Favorites
                     </span>
                   </div>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
                     {propertyData?.favoriteCount}
                   </p>
                 </div>
@@ -348,26 +348,28 @@ export default function PropertyDetailPage({ params }) {
 
               {/* Utilities */}
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg poppins_medium text-gray-900 dark:text-white mb-4">
                   Utilities Available
                 </h3>
                 <div className="flex flex-wrap gap-3">
                   {propertyData?.utilities?.hasElectricity && (
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800">
                       <Zap className="w-4 h-4" />
-                      <span className="text-sm font-medium">Electricity</span>
+                      <span className="text-sm poppins_medium">
+                        Electricity
+                      </span>
                     </div>
                   )}
                   {propertyData?.utilities?.hasWater && (
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300 rounded-full border border-cyan-200 dark:border-cyan-800">
                       <Droplet className="w-4 h-4" />
-                      <span className="text-sm font-medium">Water</span>
+                      <span className="text-sm poppins_medium">Water</span>
                     </div>
                   )}
                   {propertyData?.utilities?.hasGas && (
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 rounded-full border border-orange-200 dark:border-orange-800">
                       <Flame className="w-4 h-4" />
-                      <span className="text-sm font-medium">Gas</span>
+                      <span className="text-sm poppins_medium">Gas</span>
                     </div>
                   )}
                 </div>
@@ -375,24 +377,24 @@ export default function PropertyDetailPage({ params }) {
 
               {/* Description */}
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                <h3 className="text-lg poppins_medium text-gray-900 dark:text-white mb-3">
                   Description
                 </h3>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed poppins_regular">
                   {propertyData?.description}
                 </p>
               </div>
 
               {/* Amenities */}
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg poppins_medium text-gray-900 dark:text-white mb-4">
                   Amenities & Features
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {propertyData?.amenities?.map((feature, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg hover:shadow-md transition-shadow"
+                      className="flex items-center poppins_regular gap-2 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg hover:shadow-md transition-shadow"
                     >
                       <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
                       <span className="text-sm text-gray-700 dark:text-gray-300 capitalize">
@@ -406,14 +408,14 @@ export default function PropertyDetailPage({ params }) {
               {/* Tags */}
               {propertyData?.tags && propertyData.tags.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  <h3 className="text-lg poppins_medium text-gray-900 dark:text-white mb-3">
                     Tags
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {propertyData?.tags?.map((tag, index) => (
                       <span
                         key={index}
-                        className="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium rounded-full capitalize"
+                        className="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm poppins_medium rounded-full capitalize"
                       >
                         #{tag}
                       </span>
@@ -441,17 +443,17 @@ export default function PropertyDetailPage({ params }) {
                     className="w-24 h-24 rounded-full object-cover"
                   />
                   {propertyData?.owner?.isBestSeller && (
-                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs poppins_semibold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
                       <Award className="w-3 h-3" />
                       Best Seller
                     </div>
                   )}
                 </div>
 
-                <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1 capitalize">
+                <h4 className="text-xl poppins_semibold text-gray-900 dark:text-white mb-1 capitalize">
                   {propertyData?.owner?.fullname}
                 </h4>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                <p className="text-sm text-gray-500 poppins_regular dark:text-gray-400 mb-1">
                   @{propertyData?.owner?.username}
                 </p>
               </div>
@@ -459,20 +461,20 @@ export default function PropertyDetailPage({ params }) {
               {/* Agent Details */}
               <div className="space-y-3 mb-6 bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
                 <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                  <span className="text-sm text-gray-700 dark:text-gray-300 truncate">
+                  <Mail className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                  <span className="text-base text-gray-700 poppins_regular dark:text-gray-300 truncate">
                     {propertyData?.owner?.email}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                  <Phone className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                  <span className="text-base text-gray-700 poppins_regular dark:text-gray-300">
                     {propertyData?.owner?.phone}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MapPin className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                  <span className="text-sm text-gray-700 dark:text-gray-300 capitalize">
+                  <MapPin className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                  <span className="text-base text-gray-700 poppins_regular dark:text-gray-300 capitalize">
                     {propertyData?.owner?.city}, {propertyData?.owner?.country}
                   </span>
                 </div>
@@ -480,22 +482,22 @@ export default function PropertyDetailPage({ params }) {
 
               {/* Contact Preferences */}
               <div className="mb-6">
-                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+                <p className="text-base poppins_medium text-gray-500 dark:text-gray-400 capitalize tracking-wider mb-3">
                   Preferred Contact Methods
                 </p>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="flex items-center gap-5">
                   {propertyData?.contactPreferences?.phone && (
                     <div className="flex flex-col items-center gap-1.5 p-2 rounded-lg">
-                      <Phone className="w-4 h-4 text-brand-primary" />
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                      <Phone className="w-6 h-6 text-brand-primary" />
+                      <span className="text-sm text-gray-600 poppins_regular dark:text-gray-400">
                         Phone
                       </span>
                     </div>
                   )}
                   {propertyData?.contactPreferences?.email && (
                     <div className="flex flex-col items-center gap-1.5 p-2 rounded-lg">
-                      <Mail className="w-4 h-4 text-brand-primary" />
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                      <Mail className="w-6 h-6 text-brand-primary" />
+                      <span className="text-sm text-gray-600 poppins_regular dark:text-gray-400">
                         Email
                       </span>
                     </div>
@@ -503,7 +505,7 @@ export default function PropertyDetailPage({ params }) {
                   {propertyData?.contactPreferences?.inAppMessage && (
                     <div className="flex flex-col items-center gap-1.5 p-2 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
                       <MessageSquare className="w-4 h-4 text-brand-primary" />
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                      <span className="text-xs text-gray-600 poppins_regular dark:text-gray-400">
                         Message
                       </span>
                     </div>
@@ -515,7 +517,7 @@ export default function PropertyDetailPage({ params }) {
               <div className="space-y-3">
                 <a
                   href={`tel:${propertyData?.owner?.phone}`}
-                  className="w-full flex items-center justify-center gap-2 bg-brand-primary text-white py-3.5 px-4 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="w-full flex items-center justify-center gap-2 bg-brand-primary text-white py-3.5 px-4 rounded-xl poppins_medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
                   <Phone className="w-5 h-5" />
                   Call Now
@@ -523,7 +525,7 @@ export default function PropertyDetailPage({ params }) {
 
                 <a
                   href={`mailto:${propertyData?.owner?.email}`}
-                  className="w-full flex items-center justify-center gap-2 bg-white dark:bg-brand-dark text-gray-700 dark:text-gray-200 py-3.5 px-4 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                  className="w-full flex items-center justify-center gap-2 bg-white dark:bg-brand-dark text-gray-700 dark:text-gray-200 py-3.5 px-4 rounded-xl poppins_medium hover:bg-gray-50 dark:hover:bg-gray-600 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                 >
                   <Mail className="w-5 h-5" />
                   Send Email
@@ -532,7 +534,7 @@ export default function PropertyDetailPage({ params }) {
 
               {/* Property Posted Date */}
               <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center justify-center gap-2 text-sm text-gray-500 poppins_regular dark:text-gray-400">
                   <Calendar className="w-4 h-4" />
                   <span>
                     Posted on{" "}

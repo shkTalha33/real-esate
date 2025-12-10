@@ -105,7 +105,7 @@ const Footer = () => {
           >
             <Link
               href="/"
-              className="text-2xl font-bold dark:text-white text-brand-dark poppins_bold"
+              className="text-2xl poppins_semibold dark:text-white text-brand-dark poppins_bold"
             >
               Real<span className="text-brand-primary"> Estate</span>
             </Link>
@@ -140,7 +140,7 @@ const Footer = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="space-y-4"
             >
-              <h3 className="text-lg font-semibold dark:text-white text-black poppins_medium">
+              <h3 className="text-lg poppins_medium dark:text-white text-black poppins_medium">
                 {section.title}
               </h3>
               <ul className="space-y-3">
@@ -166,7 +166,7 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="space-y-4"
           >
-            <h3 className="text-lg font-semibold dark:text-white text-black poppins_medium">
+            <h3 className="text-lg poppins_medium dark:text-white text-black poppins_medium">
               Contact Us
             </h3>
             <ul className="space-y-4">

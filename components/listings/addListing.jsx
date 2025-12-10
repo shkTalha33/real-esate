@@ -557,7 +557,7 @@ export default function AddListing() {
     <div className="space-y-6">
       <div className="text-center mb-8">
         <HiOutlineHome className="mx-auto text-6xl text-brand-warning mb-4" />
-        <h2 className="text-2xl font-bold text-brand-dark dark:text-brand-white mb-2">
+        <h2 className="text-2xl poppins_semibold text-brand-dark dark:text-brand-white mb-2">
           Basic Information
         </h2>
         <p className="text-brand-muted">Tell us about your property</p>
@@ -657,7 +657,7 @@ export default function AddListing() {
     <div className="space-y-6">
       <div className="text-center mb-8">
         <BiArea className="mx-auto text-6xl text-brand-warning mb-4" />
-        <h2 className="text-2xl font-bold text-brand-dark dark:text-brand-white mb-2">
+        <h2 className="text-2xl poppins_semibold text-brand-dark dark:text-brand-white mb-2">
           Property Details
         </h2>
         <p className="text-brand-muted">
@@ -869,7 +869,7 @@ export default function AddListing() {
 
       <Card className="p-4">
         <CardHeader>
-          <h3 className="text-lg font-semibold">Utilities Available</h3>
+          <h3 className="text-lg poppins_medium">Utilities Available</h3>
         </CardHeader>
         <CardBody>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -936,7 +936,7 @@ export default function AddListing() {
     <div className="space-y-6">
       <div className="text-center mb-8">
         <HiOutlineLocationMarker className="mx-auto text-6xl text-brand-warning mb-4" />
-        <h2 className="text-2xl font-bold text-brand-dark dark:text-brand-white mb-2">
+        <h2 className="text-2xl poppins_semibold text-brand-dark dark:text-brand-white mb-2">
           Location Details
         </h2>
         <p className="text-brand-muted">Where is your property located?</p>
@@ -1052,7 +1052,7 @@ export default function AddListing() {
 
       <Card className="p-4">
         <CardHeader>
-          <h3 className="text-lg font-semibold">Contact Preferences</h3>
+          <h3 className="text-lg poppins_medium">Contact Preferences</h3>
         </CardHeader>
         <CardBody className="space-y-4">
           <Controller
@@ -1099,7 +1099,7 @@ export default function AddListing() {
     <div className="space-y-6">
       <div className="text-center mb-8">
         <HiOutlinePhotograph className="mx-auto text-6xl text-brand-warning mb-4" />
-        <h2 className="text-2xl font-bold text-brand-dark dark:text-brand-white mb-2">
+        <h2 className="text-2xl poppins_semibold text-brand-dark dark:text-brand-white mb-2">
           Media & Additional Details
         </h2>
         <p className="text-brand-muted">
@@ -1111,7 +1111,7 @@ export default function AddListing() {
       <Card className="p-4">
         <CardHeader className="flex items-center gap-2">
           <HiOutlinePhotograph className="text-brand-warning" />
-          <h3 className="text-lg font-semibold">Property Images</h3>
+          <h3 className="text-lg poppins_medium">Property Images</h3>
         </CardHeader>
         <CardBody>
           <div className="space-y-4">
@@ -1166,7 +1166,7 @@ export default function AddListing() {
       <Card className="p-4">
         <CardHeader className="flex items-center gap-2">
           <HiOutlineVideoCamera className="text-brand-warning" />
-          <h3 className="text-lg font-semibold">Property Videos</h3>
+          <h3 className="text-lg poppins_medium">Property Videos</h3>
         </CardHeader>
         <CardBody>
           <div className="space-y-4">
@@ -1219,7 +1219,7 @@ export default function AddListing() {
       <Card className="p-4">
         <CardHeader className="flex items-center gap-2">
           <HiOutlineSparkles className="text-brand-warning" />
-          <h3 className="text-lg font-semibold">Property Amenities</h3>
+          <h3 className="text-lg poppins_medium">Property Amenities</h3>
         </CardHeader>
         <CardBody>
           <div className="space-y-4">
@@ -1305,7 +1305,7 @@ export default function AddListing() {
       <Card className="p-4">
         <CardHeader className="flex items-center gap-2">
           <FaTags className="text-brand-warning" />
-          <h3 className="text-lg font-semibold">Property Tags</h3>
+          <h3 className="text-lg poppins_medium">Property Tags</h3>
         </CardHeader>
         <CardBody>
           <div className="space-y-4">
@@ -1365,7 +1365,7 @@ export default function AddListing() {
       <div className="lg:container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-2">
+          <h1 className="text-4xl poppins_semibold mb-2">
             List Your <span className="text-brand-warning">Property</span>
           </h1>
           <p className="text-brand-muted text-lg">
@@ -1377,10 +1377,10 @@ export default function AddListing() {
         <Card className="mb-8">
           <CardBody className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-medium text-brand-muted">
+              <span className="text-sm poppins_medium text-brand-muted">
                 Step {step} of {totalSteps}
               </span>
-              <span className="text-sm font-medium text-brand-warning">
+              <span className="text-sm poppins_medium text-brand-warning">
                 {Math.round(progressValue)}% Complete
               </span>
             </div>
@@ -1392,22 +1392,22 @@ export default function AddListing() {
             />
             <div className="flex justify-between text-xs text-brand-muted">
               <span
-                className={step >= 1 ? "text-brand-warning font-medium" : ""}
+                className={step >= 1 ? "text-brand-warning poppins_medium" : ""}
               >
                 Basic Info
               </span>
               <span
-                className={step >= 2 ? "text-brand-warning font-medium" : ""}
+                className={step >= 2 ? "text-brand-warning poppins_medium" : ""}
               >
                 Details
               </span>
               <span
-                className={step >= 3 ? "text-brand-warning font-medium" : ""}
+                className={step >= 3 ? "text-brand-warning poppins_medium" : ""}
               >
                 Location
               </span>
               <span
-                className={step >= 4 ? "text-brand-warning font-medium" : ""}
+                className={step >= 4 ? "text-brand-warning poppins_medium" : ""}
               >
                 Media & Tags
               </span>

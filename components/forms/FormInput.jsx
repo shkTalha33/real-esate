@@ -42,7 +42,7 @@ const FormInput = ({
           label: [
             "text-gray-700 dark:text-gray-300",
             "text-sm",
-            "font-medium",
+            "poppins_medium",
             "mb-1",
           ],
           errorMessage: ["text-red-500", "text-sm", "mt-1"],

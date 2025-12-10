@@ -56,7 +56,7 @@ export default function ChangeEmail() {
               <FiMail className="text-xl text-brand-primary dark:text-brand-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-xl poppins_semibold text-gray-900 dark:text-white">
                 Change Email Address
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -97,7 +97,7 @@ export default function ChangeEmail() {
                   label: [
                     "text-gray-700 dark:text-gray-300",
                     "text-sm",
-                    "font-medium",
+                    "poppins_medium",
                     "mb-1",
                   ],
                   errorMessage: ["text-red-500", "text-sm", "mt-1"],
@@ -134,7 +134,7 @@ export default function ChangeEmail() {
                   label: [
                     "text-gray-700 dark:text-gray-300",
                     "text-sm",
-                    "font-medium",
+                    "poppins_medium",
                     "mb-1",
                   ],
                   errorMessage: ["text-red-500", "text-sm", "mt-1"],
@@ -149,7 +149,7 @@ export default function ChangeEmail() {
                 size="lg"
                 isLoading={isSubmitting}
                 startContent={!isSubmitting && <FiSave className="text-lg" />}
-                className="min-w-[120px] font-medium"
+                className="min-w-[120px] poppins_medium"
               >
                 {isSubmitting ? "Updating..." : "Update Email"}
               </Button>

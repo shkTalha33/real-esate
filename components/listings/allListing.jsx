@@ -213,12 +213,12 @@ export default function AllListings() {
                     />
                     {/* Badges */}
                     <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                      <span className="bg-white dark:bg-brand-primary text-dark-900 dark:text-white text-xs font-medium px-3 py-1 rounded-full">
+                      <span className="bg-white dark:bg-brand-primary text-dark-900 dark:text-white text-xs poppins_medium px-3 py-1 rounded-full">
                         {property?.listingType}
                       </span>
                       {property?.status && (
                         <span
-                          className={`text-xs font-medium px-3 py-1 rounded-full ${
+                          className={`text-xs poppins_medium px-3 py-1 rounded-full ${
                             property.status === "active"
                               ? "bg-green-500 text-white"
                               : "bg-gray-500 text-white"
@@ -233,7 +233,7 @@ export default function AllListings() {
                       <div className="flex justify-between items-end">
                         <div>
                           <p className="text-sm text-white/80">Starting From</p>
-                          <p className="text-2xl font-bold text-white">
+                          <p className="text-2xl poppins_semibold text-white">
                             {formatCurrency(property?.price)}
                           </p>
                         </div>
@@ -347,8 +347,10 @@ export default function AllListings() {
               <ModalBody>
                 <p>
                   Are you sure you want to delete{" "}
-                  <span className="font-bold">{propertyToDelete?.title}</span>?
-                  This action cannot be undone.
+                  <span className="poppins_semibold">
+                    {propertyToDelete?.title}
+                  </span>
+                  ? This action cannot be undone.
                 </p>
               </ModalBody>
               <ModalFooter>

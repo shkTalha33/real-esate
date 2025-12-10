@@ -50,7 +50,7 @@ const TermsCondition = () => {
               <section className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaGavel className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     Introduction
                   </h2>
                 </div>
@@ -67,7 +67,7 @@ const TermsCondition = () => {
               <section className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaInfoCircle className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     Account Registration
                   </h2>
                 </div>
@@ -94,7 +94,7 @@ const TermsCondition = () => {
               <section className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaHandshake className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     Use of Service
                   </h2>
                 </div>
@@ -116,7 +116,7 @@ const TermsCondition = () => {
 
               {/* Property Listings */}
               <section className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                   Property Listings
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 roboto_regular">
@@ -141,7 +141,7 @@ const TermsCondition = () => {
 
               {/* Intellectual Property */}
               <section className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                   Intellectual Property
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 roboto_regular">
@@ -156,7 +156,7 @@ const TermsCondition = () => {
               <section className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaExclamationTriangle className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     Limitation of Liability
                   </h2>
                 </div>
@@ -184,7 +184,7 @@ const TermsCondition = () => {
 
               {/* Governing Law */}
               <section className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                   Governing Law
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 roboto_regular">
@@ -196,7 +196,7 @@ const TermsCondition = () => {
 
               {/* Changes to Terms */}
               <section className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                   Changes to Terms
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 roboto_regular">
@@ -212,7 +212,7 @@ const TermsCondition = () => {
               <section className="space-y-4 pt-4">
                 <div className="flex items-center space-x-3">
                   <FaQuestionCircle className="text-2xl text-brand-primary" />
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white poppins_medium">
+                  <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white poppins_medium">
                     Contact Us
                   </h2>
                 </div>
