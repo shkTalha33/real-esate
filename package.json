@@ -38,7 +38,7 @@
     "@heroui/system": "^2.4.23",
     "@heroui/table": "^2.2.18",
     "@heroui/tabs": "^2.2.16",
-    "@heroui/theme": "2.4.13",
+    "@heroui/theme": "2.4.23",
     "@heroui/toast": "^2.0.9",
     "@heroui/tooltip": "^2.2.16",
     "@hookform/resolvers": "^5.0.1",
