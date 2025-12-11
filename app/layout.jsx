@@ -14,8 +14,23 @@ export const metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
+
+  // ✅ PWA META
+  manifest: "/manifest.json",
+  applicationName: siteConfig.name,
+  themeColor: "#000000",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: siteConfig.name,
+  },
+  mobileWebAppCapable: true,
+
+  // icon set (update paths as needed)
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icons/icon-192x192.png",
+    shortcut: "/icons/icon-512x512.png",
+    apple: "/icons/icon-192x192.png",
   },
 };
 

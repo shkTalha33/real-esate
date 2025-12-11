@@ -1,4 +1,11 @@
-/** @type {import('next').NextConfig} */
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development" ? false : false,
+  // ^ Enable PWA in development too.
+});
+
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
@@ -6,7 +13,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https", // or 'https' if your images use https
+        protocol: "https",
         hostname: "res.cloudinary.com",
         pathname: "/**",
       },
@@ -14,4 +21,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
