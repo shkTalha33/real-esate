@@ -5,6 +5,7 @@ import clsx from "clsx";
 import Providers from "./providers";
 
 import MainLayout from "@/components/mainLayout";
+import PWARegister from "@/components/PWARegister";
 import { nunito, poppins, roboto } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 
@@ -54,6 +55,7 @@ export default function RootLayout({ children }) {
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+          <PWARegister />
           <MainLayout>{children}</MainLayout>
         </Providers>
       </body>
