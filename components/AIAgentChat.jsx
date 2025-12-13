@@ -128,7 +128,7 @@ export default function AIAgentChat() {
     <>
       {/* Floating Chat Button */}
       <motion.div
-        className="fixed bottom-6 right-6 z-50"
+        className="fixed bottom-24 sm:bottom-6 right-6 z-50"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 0.5, type: "spring", stiffness: 260, damping: 20 }}
@@ -156,7 +156,7 @@ export default function AIAgentChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed bottom-28 right-6 z-50 w-96 max-w-[calc(100vw-3rem)]"
+            className="fixed bottom-48 sm:bottom-28 right-6 z-50 w-96 max-w-[calc(100vw-3rem)]"
           >
             <div className="bg-white dark:bg-brand-deepdark rounded-2xl shadow-2xl overflow-hidden">
               {/* Header */}
@@ -183,7 +183,7 @@ export default function AIAgentChat() {
               </div>
 
               {/* Chat Messages */}
-              <div className="h-[500px] overflow-y-auto p-4 space-y-4 bg-brand-light dark:bg-brand-dark">
+              <div className="h-[350px] overflow-y-auto p-4 space-y-4 bg-brand-light dark:bg-brand-dark">
                 {/* Welcome Message */}
                 {chatHistory.length === 0 && (
                   <div className="flex items-start gap-2">
