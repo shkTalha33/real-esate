@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import toast from "react-hot-toast";
 import { usePathname } from "next/navigation";
+import axios from "axios";
 
 export default function AIAgentChat() {
   const pathname = usePathname();
@@ -14,6 +15,16 @@ export default function AIAgentChat() {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
+  const messagesEndRef = useRef(null);
+
+  // Auto-scroll to bottom when new messages arrive
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatHistory, isLoading]);
 
   // Hide on auth pages
   if (
@@ -42,21 +53,20 @@ export default function AIAgentChat() {
     setMessage(""); // Clear input
 
     try {
-      const response = await fetch(
+      const response = await axios.post(
         "https://hook.eu1.make.com/dkhdswo943eo1zqded5h9pwttjl63l4u",
         {
-          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
+          data: JSON.stringify({
             message: userMessage,
           }),
         }
       );
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = response.data;
 
         // Check if response contains the "response" key
         if (data && data.response) {
@@ -69,7 +79,6 @@ export default function AIAgentChat() {
               timestamp: new Date(),
             },
           ]);
-          toast.success("Response received!");
         } else {
           // Fallback if no response key
           setChatHistory((prev) => [
@@ -262,6 +271,9 @@ export default function AIAgentChat() {
                     </div>
                   </div>
                 )}
+
+                {/* Scroll anchor */}
+                <div ref={messagesEndRef} />
               </div>
 
               {/* Input Area */}

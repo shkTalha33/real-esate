@@ -60,16 +60,163 @@ export default function PropertyDetailPage({ params }) {
 
   if (isLoading) {
     return (
-      <div className=" mx-auto lg:container px-4 sm:px-6 lg:px-8 py-8">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 dark:bg-brand-deepdark rounded w-1/4 mb-6"></div>
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-brand-white dark:bg-brand-dark min-h-screen">
+        <div className="lg:container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <div className="h-96 bg-gray-200 dark:bg-brand-deepdark rounded-xl mb-6"></div>
-              <div className="h-32 bg-gray-200 dark:bg-brand-deepdark rounded mb-4"></div>
+            {/* Main Content Skeleton */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Property Header Skeleton */}
+              <div className="bg-brand-white dark:bg-brand-deepdark rounded-2xl shadow-lg p-6 animate-pulse">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="h-7 w-24 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                      <div className="h-7 w-24 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                    </div>
+                    <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-3"></div>
+                    <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                  </div>
+                  <div className="sm:text-right">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16 mb-2"></div>
+                    <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
+                  </div>
+                </div>
+
+                {/* Stats Grid Skeleton */}
+                <div className="grid grid-cols-4 gap-2 sm:gap-4 mt-6">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className="bg-brand-light dark:bg-brand-dark rounded-xl p-2 sm:p-4 text-center"
+                    >
+                      <div className="w-7 h-7 bg-gray-200 dark:bg-gray-700 rounded-full mx-auto mb-2"></div>
+                      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mx-auto mb-1"></div>
+                      <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-12 mx-auto"></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Gallery Skeleton */}
+              <div className="bg-brand-white dark:bg-brand-deepdark rounded-2xl shadow-lg overflow-hidden animate-pulse">
+                <div className="aspect-video bg-gray-200 dark:bg-gray-700"></div>
+                <div className="grid grid-cols-6 gap-3 p-4">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div
+                      key={i}
+                      className="aspect-square bg-gray-200 dark:bg-gray-700 rounded-lg"
+                    ></div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Property Details Skeleton */}
+              <div className="bg-brand-white dark:bg-brand-deepdark rounded-2xl shadow-lg p-6 animate-pulse">
+                <div className="h-7 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-6"></div>
+
+                {/* Details Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div
+                      key={i}
+                      className="bg-brand-light dark:bg-brand-dark rounded-lg p-4"
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-5 h-5 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                      </div>
+                      <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Utilities Skeleton */}
+                <div className="mb-6">
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-40 mb-4"></div>
+                  <div className="flex gap-3">
+                    {[1, 2, 3].map((i) => (
+                      <div
+                        key={i}
+                        className="h-10 w-32 bg-gray-200 dark:bg-gray-700 rounded-full"
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Description Skeleton */}
+                <div className="mb-6">
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-32 mb-3"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                  </div>
+                </div>
+
+                {/* Amenities Skeleton */}
+                <div>
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-4"></div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                      <div
+                        key={i}
+                        className="h-12 bg-brand-light dark:bg-brand-dark rounded-lg"
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="lg:col-span-1">
-              <div className="h-64 bg-gray-200 dark:bg-brand-deepdark rounded"></div>
+
+            {/* Sidebar Skeleton */}
+            <div className="max-w-[500px] w-full mx-auto lg:max-w-full lg:col-span-1">
+              <div className="bg-brand-white dark:bg-brand-deepdark rounded-2xl shadow-lg p-6 animate-pulse">
+                <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-40 mb-6"></div>
+
+                {/* Agent Avatar */}
+                <div className="text-center mb-6">
+                  <div className="w-24 h-24 bg-gray-200 dark:bg-gray-700 rounded-full mx-auto mb-4"></div>
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-32 mx-auto mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24 mx-auto"></div>
+                </div>
+
+                {/* Agent Details */}
+                <div className="space-y-3 mb-6 bg-brand-light dark:bg-brand-dark rounded-xl p-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-5 h-5 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded flex-1"></div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Contact Methods */}
+                <div className="mb-6">
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-3"></div>
+                  <div className="flex gap-5">
+                    {[1, 2, 3].map((i) => (
+                      <div
+                        key={i}
+                        className="flex flex-col items-center gap-1.5"
+                      >
+                        <div className="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Contact Buttons */}
+                <div className="space-y-3">
+                  <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+                  <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+                </div>
+
+                {/* Posted Date */}
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-40 mx-auto"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -92,24 +239,54 @@ export default function PropertyDetailPage({ params }) {
     );
   }
 
-  return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
-      <div className="lg:container mx-auto">
-        {/* <div className="mb-6">
-          <button
-            className="flex items-center poppins_regular gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-400 dark:hover:text-gray-300 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md"
-            onClick={() => window.history.back()}
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Properties
-          </button>
-        </div> */}
+  // Property stats data
+  const propertyStats = [
+    { icon: Bed, label: "Bedrooms", value: propertyData?.bedrooms },
+    { icon: Bath, label: "Bathrooms", value: propertyData?.bathrooms },
+    {
+      icon: Square,
+      label: "Area",
+      value: `${propertyData?.size?.value} ${propertyData?.size?.unit}`,
+    },
+    { icon: Building, label: "Year Built", value: propertyData?.yearBuilt },
+  ];
 
+  // Property details data
+  const propertyDetails = [
+    { icon: UtensilsCrossed, label: "Kitchens", value: propertyData?.kitchens },
+    {
+      icon: Car,
+      label: "Parking",
+      value: `${propertyData?.parkingSpaces} ${
+        propertyData?.parkingSpaces === 1 ? "Space" : "Spaces"
+      }`,
+    },
+    { icon: Layers, label: "Floors", value: propertyData?.floors },
+    {
+      icon: Sofa,
+      label: "Furnishing",
+      value: propertyData?.furnishingStatus,
+      capitalize: true,
+    },
+    { icon: Eye, label: "Views", value: propertyData?.viewCount },
+    { icon: Heart, label: "Favorites", value: propertyData?.favoriteCount },
+  ];
+
+  // Contact preferences data
+  const contactMethods = [
+    { key: "phone", icon: Phone, label: "Phone" },
+    { key: "email", icon: Mail, label: "Email" },
+    { key: "inAppMessage", icon: MessageSquare, label: "Message" },
+  ].filter((method) => propertyData?.contactPreferences?.[method.key]);
+
+  return (
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-brand-white dark:bg-brand-dark min-h-screen">
+      <div className="lg:container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Property Header */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
+            <div className="bg-brand-white dark:bg-brand-deepdark rounded-2xl shadow-lg p-6">
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-4">
                 <div className="flex-1">
                   <div className="flex items-center flex-wrap gap-2 mb-3">
@@ -148,7 +325,7 @@ export default function PropertyDetailPage({ params }) {
                   <p className="text-sm poppins_regular text-gray-500 dark:text-gray-400 mb-1">
                     Price
                   </p>
-                  <p className="text-3xl poppins_semibold text-orange-600 dark:text-orange-400">
+                  <p className="text-2xl poppins_medium dark:text-brand-white text-brand-dark">
                     {propertyData?.currency}{" "}
                     {propertyData?.price?.toLocaleString()}
                   </p>
@@ -157,47 +334,28 @@ export default function PropertyDetailPage({ params }) {
 
               {/* Property Stats */}
               <div className="grid grid-cols-4 gap-2 sm:gap-4 mt-6">
-                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-2 sm:p-4 text-center transition-shadow">
-                  <Bed className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
-                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
-                    Bedrooms
-                  </span>
-                  <span className="text-xl poppins_medium text-gray-900 dark:text-white">
-                    {propertyData?.bedrooms}
-                  </span>
-                </div>
-                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-2 sm:p-4 text-center transition-shadow">
-                  <Bath className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
-                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
-                    Bathrooms
-                  </span>
-                  <span className="text-xl poppins_medium text-gray-900 dark:text-white poppins_regular">
-                    {propertyData?.bathrooms}
-                  </span>
-                </div>
-                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-2 sm:p-4 text-center transition-shadow">
-                  <Square className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
-                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
-                    Area
-                  </span>
-                  <span className="text-xl poppins_medium text-gray-900 dark:text-white">
-                    {propertyData?.size?.value} {propertyData?.size?.unit}
-                  </span>
-                </div>
-                <div className="bg-white dark:bg-gray-700/30 rounded-xl p-2 sm:p-4 text-center transition-shadow">
-                  <Building className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
-                  <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
-                    Year Built
-                  </span>
-                  <span className="text-xl poppins_medium text-gray-900 dark:text-white">
-                    {propertyData?.yearBuilt}
-                  </span>
-                </div>
+                {propertyStats.map((stat, index) => {
+                  const Icon = stat.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="bg-brand-light dark:bg-brand-dark rounded-xl p-2 sm:p-4 text-center transition-shadow"
+                    >
+                      <Icon className="w-7 h-7 text-brand-primary mb-2 mx-auto" />
+                      <span className="text-xs text-gray-600 dark:text-gray-400 block mb-1 poppins_regular">
+                        {stat.label}
+                      </span>
+                      <span className="text-xl poppins_medium text-gray-900 dark:text-white">
+                        {stat.value}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
             {/* Media Gallery */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div className="bg-brand-white dark:bg-brand-deepdark rounded-2xl shadow-lg overflow-hidden">
               <div className="relative rounded-2xl overflow-hidden bg-gray-100 aspect-video">
                 <img
                   src={propertyData?.images[activeMediaIndex]}
@@ -248,7 +406,7 @@ export default function PropertyDetailPage({ params }) {
                       onClick={() => setActiveMediaIndex(index)}
                       className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-all ${
                         activeMediaIndex === index
-                          ? "ring-4 ring-blue-500 scale-105"
+                          ? "scale-105"
                           : "opacity-60 hover:opacity-100 hover:scale-105"
                       }`}
                       aria-label={`View image ${index + 1}`}
@@ -265,85 +423,36 @@ export default function PropertyDetailPage({ params }) {
             </div>
 
             {/* Property Details */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
+            <div className="bg-brand-white dark:bg-brand-deepdark rounded-2xl shadow-lg p-6">
               <h2 className="text-2xl poppins_semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                 <Home className="w-6 h-6 text-brand-primary" />
                 Property Details
               </h2>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <UtensilsCrossed className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
-                      Kitchens
-                    </span>
-                  </div>
-                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
-                    {propertyData?.kitchens}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Car className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
-                      Parking
-                    </span>
-                  </div>
-                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
-                    {propertyData?.parkingSpaces}{" "}
-                    {propertyData?.parkingSpaces === 1 ? "Space" : "Spaces"}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Layers className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
-                      Floors
-                    </span>
-                  </div>
-                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
-                    {propertyData?.floors}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Sofa className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
-                      Furnishing
-                    </span>
-                  </div>
-                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white capitalize">
-                    {propertyData?.furnishingStatus}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Eye className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
-                      Views
-                    </span>
-                  </div>
-                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
-                    {propertyData?.viewCount}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Heart className="w-5 h-5 text-brand-primary" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
-                      Favorites
-                    </span>
-                  </div>
-                  <p className="text-lg poppins_semibold text-gray-900 dark:text-white">
-                    {propertyData?.favoriteCount}
-                  </p>
-                </div>
+                {propertyDetails.map((detail, index) => {
+                  const Icon = detail.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="bg-brand-light dark:bg-brand-dark rounded-lg p-4"
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <Icon className="w-5 h-5 text-brand-primary" />
+                        <span className="text-sm text-gray-600 dark:text-gray-400 poppins_regular">
+                          {detail.label}
+                        </span>
+                      </div>
+                      <p
+                        className={`text-lg poppins_semibold text-gray-900 dark:text-white ${
+                          detail.capitalize ? "capitalize" : ""
+                        }`}
+                      >
+                        {detail.value}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Utilities */}
@@ -394,7 +503,7 @@ export default function PropertyDetailPage({ params }) {
                   {propertyData?.amenities?.map((feature, index) => (
                     <div
                       key={index}
-                      className="flex items-center poppins_regular gap-2 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg hover:shadow-md transition-shadow"
+                      className="flex items-center poppins_regular gap-2 bg-brand-light dark:bg-brand-dark p-3 rounded-lg hover:shadow-md transition-shadow"
                     >
                       <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
                       <span className="text-sm text-gray-700 dark:text-gray-300 capitalize">
@@ -429,7 +538,7 @@ export default function PropertyDetailPage({ params }) {
           {/* Sidebar */}
           <div className="max-w-[500px] w-full mx-auto lg:max-w-full lg:col-span-1">
             {/* Contact Agent Card */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 sticky top-8">
+            <div className="bg-brand-white dark:bg-brand-deepdark rounded-2xl shadow-lg p-6 sticky top-8">
               <h3 className="text-xl poppins_medium text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                 <MessageSquare className="w-5 h-5 text-brand-primary" />
                 Property Agent
@@ -459,22 +568,22 @@ export default function PropertyDetailPage({ params }) {
               </div>
 
               {/* Agent Details */}
-              <div className="space-y-3 mb-6 bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
+              <div className="space-y-3 mb-6 bg-brand-light dark:bg-brand-dark rounded-xl p-4">
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-base text-gray-700 poppins_regular dark:text-gray-300 truncate">
+                  <span className="text-base text-gray-700 poppins_regular dark:text-brand-white truncate">
                     {propertyData?.owner?.email}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-base text-gray-700 poppins_regular dark:text-gray-300">
+                  <span className="text-base text-gray-700 poppins_regular dark:text-brand-white">
                     {propertyData?.owner?.phone}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-base text-gray-700 poppins_regular dark:text-gray-300 capitalize">
+                  <span className="text-base text-gray-700 poppins_regular dark:text-brand-white capitalize">
                     {propertyData?.owner?.city}, {propertyData?.owner?.country}
                   </span>
                 </div>
@@ -486,30 +595,20 @@ export default function PropertyDetailPage({ params }) {
                   Preferred Contact Methods
                 </p>
                 <div className="flex items-center gap-5">
-                  {propertyData?.contactPreferences?.phone && (
-                    <div className="flex flex-col items-center gap-1.5 p-2 rounded-lg">
-                      <Phone className="w-6 h-6 text-brand-primary" />
-                      <span className="text-sm text-gray-600 poppins_regular dark:text-gray-400">
-                        Phone
-                      </span>
-                    </div>
-                  )}
-                  {propertyData?.contactPreferences?.email && (
-                    <div className="flex flex-col items-center gap-1.5 p-2 rounded-lg">
-                      <Mail className="w-6 h-6 text-brand-primary" />
-                      <span className="text-sm text-gray-600 poppins_regular dark:text-gray-400">
-                        Email
-                      </span>
-                    </div>
-                  )}
-                  {propertyData?.contactPreferences?.inAppMessage && (
-                    <div className="flex flex-col items-center gap-1.5 p-2 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
-                      <MessageSquare className="w-4 h-4 text-brand-primary" />
-                      <span className="text-xs text-gray-600 poppins_regular dark:text-gray-400">
-                        Message
-                      </span>
-                    </div>
-                  )}
+                  {contactMethods.map((method, index) => {
+                    const Icon = method.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center gap-1.5 p-2 rounded-lg"
+                      >
+                        <Icon className="w-6 h-6 text-brand-primary" />
+                        <span className="text-sm text-gray-600 poppins_regular dark:text-gray-400">
+                          {method.label}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -525,7 +624,7 @@ export default function PropertyDetailPage({ params }) {
 
                 <a
                   href={`mailto:${propertyData?.owner?.email}`}
-                  className="w-full flex items-center justify-center gap-2 bg-white dark:bg-brand-dark text-gray-700 dark:text-gray-200 py-3.5 px-4 rounded-xl poppins_medium hover:bg-gray-50 dark:hover:bg-gray-600 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                  className="w-full flex items-center justify-center gap-2 bg-brand-light dark:bg-brand-dark text-gray-700 dark:text-gray-200 py-3.5 px-4 rounded-xl poppins_medium"
                 >
                   <Mail className="w-5 h-5" />
                   Send Email
