@@ -1,72 +1,187 @@
-import { Button } from "@/components/ui";
+import { Button, Input, Textarea } from "@/components/ui";
+import { Controller } from "react-hook-form";
 import { FaPaperPlane } from "react-icons/fa";
-import FormInput from "../forms/FormInput";
+import { HiOutlineUser, HiOutlineMail, HiOutlinePhone } from "react-icons/hi";
+import { MdOutlineSubject } from "react-icons/md";
 
 const ContactForm = ({ control, errors, isSubmitting, onSubmit }) => {
   return (
-    <form onSubmit={onSubmit} className="space-y-5">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-2">
-        <FormInput
+    <form onSubmit={onSubmit} className="space-y-4">
+      {/* Name and Email Row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Full Name */}
+        <Controller
           control={control}
           name="name"
-          label="Full Name"
-          placeholder="John Doe"
-          errors={errors}
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, error },
+          }) => (
+            <div className="space-y-1 w-full">
+              <Input
+                endContent={
+                  <HiOutlineUser className="text-brand-muted text-xl" />
+                }
+                errorMessage={error?.message}
+                isInvalid={invalid}
+                label="Full Name"
+                name={name}
+                onChange={onChange}
+                labelPlacement="outside"
+                size="lg"
+                placeholder="Enter your full name"
+                value={value || ""}
+                classNames={{
+                  input: "dark:text-white text-gray-800 outline-none",
+                  label: "text-base poppins_medium",
+                }}
+                className="w-full"
+              />
+            </div>
+          )}
         />
-        <FormInput
+
+        {/* Email */}
+        <Controller
           control={control}
           name="email"
-          type="email"
-          label="Email Address"
-          placeholder="user@example.com"
-          errors={errors}
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, error },
+          }) => (
+            <div className="space-y-1 w-full">
+              <Input
+                endContent={
+                  <HiOutlineMail className="text-brand-muted text-xl" />
+                }
+                errorMessage={error?.message}
+                isInvalid={invalid}
+                label="Email Address"
+                name={name}
+                onChange={onChange}
+                labelPlacement="outside"
+                size="lg"
+                placeholder="Enter your email"
+                value={value || ""}
+                classNames={{
+                  input: "dark:text-white text-gray-800 outline-none",
+                  label: "text-base poppins_medium",
+                }}
+                className="w-full"
+              />
+            </div>
+          )}
         />
       </div>
-      <div className="pt-2">
-        <FormInput
+      <div className="space-y-4">
+        {/* Phone Number */}
+        <Controller
           control={control}
           name="phone"
-          type="tel"
-          label="Phone Number"
-          placeholder="+1 (555) 123-4567"
-          errors={errors}
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, error },
+          }) => (
+            <div className="space-y-1 w-full">
+              <Input
+                endContent={
+                  <HiOutlinePhone className="text-brand-muted text-xl" />
+                }
+                errorMessage={error?.message}
+                isInvalid={invalid}
+                label="Phone Number"
+                name={name}
+                onChange={onChange}
+                labelPlacement="outside"
+                size="lg"
+                placeholder="Enter your phone number"
+                value={value || ""}
+                classNames={{
+                  input: "dark:text-white text-gray-800 outline-none",
+                  label: "text-base poppins_medium",
+                }}
+                className="w-full pt-6"
+              />
+            </div>
+          )}
         />
       </div>
-      <div className="pt-2">
-        <FormInput
+      <div className="space-y-4">
+        {/* Subject */}
+        <Controller
           control={control}
           name="subject"
-          label="Subject"
-          placeholder="How can we help you?"
-          errors={errors}
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, error },
+          }) => (
+            <div className="space-y-1 w-full">
+              <Input
+                endContent={
+                  <MdOutlineSubject className="text-brand-muted text-xl" />
+                }
+                errorMessage={error?.message}
+                isInvalid={invalid}
+                label="Subject"
+                name={name}
+                onChange={onChange}
+                labelPlacement="outside"
+                size="lg"
+                placeholder="How can we help you?"
+                value={value || ""}
+                classNames={{
+                  input: "dark:text-white text-gray-800 outline-none",
+                  label: "text-base poppins_medium",
+                }}
+                className="w-full pt-6"
+              />
+            </div>
+          )}
         />
       </div>
-      <div className="pt-2">
-        <FormInput
+      <div className="space-y-4">
+        {/* Message */}
+        <Controller
           control={control}
           name="message"
-          label="Message"
-          placeholder="Tell us about your real estate needs..."
-          errors={errors}
-          isTextarea
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, error },
+          }) => (
+            <div className="space-y-1 w-full">
+              <Textarea
+                errorMessage={error?.message}
+                isInvalid={invalid}
+                label="Message"
+                name={name}
+                onChange={onChange}
+                labelPlacement="outside"
+                minRows={5}
+                placeholder="Tell us about your real estate needs..."
+                value={value || ""}
+                classNames={{
+                  input: "dark:text-white text-gray-800 outline-none",
+                  label: "text-base poppins_medium",
+                }}
+                className="w-full"
+              />
+            </div>
+          )}
         />
       </div>
+
+      {/* Submit Button */}
       <div className="pt-2">
         <Button
           type="submit"
-          className={`w-full bg-brand-primary text-white py-3 rounded-xl roboto_medium transition-all duration-300 hover:shadow-lg ${
-            isSubmitting ? "opacity-80 cursor-not-allowed" : "hover:opacity-90"
-          }`}
+          isLoading={isSubmitting}
+          loadingText="Sending..."
+          className="w-full bg-brand-warning hover:bg-brand-warningdark text-white nunito_medium text-lg py-3 rounded-medium transition-all duration-300 hover:shadow-lg"
           disabled={isSubmitting}
+          size="lg"
         >
-          {isSubmitting ? (
-            "Sending..."
-          ) : (
-            <>
-              <span>Send Message</span>
-              <FaPaperPlane className="ml-2" />
-            </>
-          )}
+          <span>Send Message</span>
+          <FaPaperPlane className="ml-2" />
         </Button>
       </div>
     </form>
