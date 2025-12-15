@@ -114,7 +114,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen login bg-gradient-to-br from-brand-light to-white dark:from-brand-dark dark:to-gray-900">
+    <div className="min-h-screen login bg-brand-light dark:bg-brand-dark">
       <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
         {/* Left Side - Image */}
         <div className="relative hidden md:block overflow-hidden">
@@ -146,12 +146,12 @@ export default function Login() {
 
         {/* Right Side - Login Form */}
         <div className="flex items-center justify-center w-full p-2 md:p-6">
-          <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
+          <div className="w-full max-w-lg bg-white dark:bg-brand-deepdark rounded-2xl shadow-xl p-6">
             <div className="mb-4 text-center">
-              <h1 className="text-[2.25rem] roboto_bold text-brand-primary mb-1">
+              <h1 className="text-[2rem] roboto_bold text-brand-white mb-1">
                 Welcome Back
               </h1>
-              <p className="text-gray-500 poppins_medium text-base dark:text-gray-400">
+              <p className="text-gray-500 poppins_medium text-sm dark:text-gray-400">
                 Sign in to continue to your account
               </p>
             </div>
@@ -181,7 +181,10 @@ export default function Login() {
                       size="md"
                       placeholder="Enter Username or Email"
                       value={value || ""}
-                      className="dark:text-white text-gray-800 w-full focus:border-brand-primary"
+                      classNames={{
+                        input: "dark:text-white text-gray-800 outline-none",
+                      }}
+                      className="w-full"
                     />
                   </div>
                 )}
@@ -218,7 +221,10 @@ export default function Login() {
                       }
                       labelPlacement="outside"
                       value={value || ""}
-                      className="dark:text-white text-gray-800 rounded-medium focus:border-brand-primary"
+                      classNames={{
+                        input: "dark:text-white text-gray-800 outline-none",
+                      }}
+                      className="w-full"
                     />
                     <div className="flex justify-end">
                       <a
@@ -243,17 +249,17 @@ export default function Login() {
                 Sign In
               </Button>
 
-              <Divider
+              {/* <Divider
                 orientation="center"
                 style={{ borderColor: "#FBFBFB" }}
                 className="dark:text-gray-500 h-1 text-brand-black poppins_medium text-lg my-2"
               >
                 OR{" "}
-              </Divider>
+              </Divider> */}
 
-              <div className="flex flex-row gap-2 w-full">
-                {/* GitHub Button */}
-                {/* <Button
+              {/* <div className="flex flex-row gap-2 w-full"> */}
+              {/* GitHub Button */}
+              {/* <Button
                   className={`w-full flex items-center justify-center bg-black ${
                     !isLoading ? "hover:bg-gray-900" : ""
                   } text-white p-2 rounded-medium transition-all gap-1 duration-300 hover:shadow-md disabled:opacity-50`}
@@ -266,8 +272,8 @@ export default function Login() {
                   <span className="poppins_medium text-sm">Github</span>
                 </Button> */}
 
-                {/* Google Button */}
-                <Button
+              {/* Google Button */}
+              {/* <Button
                   className={`w-full flex items-center justify-center bg-red-500 ${
                     !isLoading ? "hover:bg-red-600" : ""
                   } text-white p-2 rounded-medium transition-all gap-1 duration-300 hover:shadow-md disabled:opacity-50`}
@@ -278,8 +284,8 @@ export default function Login() {
                 >
                   <SiGoogle className="text-[1rem]" />
                   <span className="poppins_medium text-sm">Google</span>
-                </Button>
-              </div>
+                </Button> */}
+              {/* </div> */}
 
               <div className="text-center mt-4">
                 <p className="text-gray-600 dark:text-gray-400 text-sm">
