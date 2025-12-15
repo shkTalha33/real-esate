@@ -54,7 +54,7 @@ const ContactForm = ({ control, errors, isSubmitting, onSubmit }) => {
       <div className="pt-2">
         <Button
           type="submit"
-          className={`w-full bg-gradient-to-r from-brand-primary to-brand-accent text-white py-3 rounded-xl roboto_medium transition-all duration-300 hover:shadow-lg ${
+          className={`w-full bg-brand-primary text-white py-3 rounded-xl roboto_medium transition-all duration-300 hover:shadow-lg ${
             isSubmitting ? "opacity-80 cursor-not-allowed" : "hover:opacity-90"
           }`}
           disabled={isSubmitting}

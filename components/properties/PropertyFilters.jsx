@@ -158,6 +158,9 @@ export default function PropertyFilters() {
                 </button>
               )
             }
+            classNames={{
+              input: "dark:text-white text-gray-800 outline-none",
+            }}
             className="w-full"
           />
         </div>

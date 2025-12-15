@@ -12,12 +12,10 @@ import {
   CardHeader,
   Select,
   SelectItem,
-  Skeleton
+  Skeleton,
 } from "@/components/ui";
 import { house9 } from "@/public/assets/images";
-import {
-  setSortOption
-} from "@/redux/slices/propertyFilterSlice";
+import { setSortOption } from "@/redux/slices/propertyFilterSlice";
 import { Pagination } from "@heroui/pagination";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -30,10 +28,7 @@ export default function PropertiesPage() {
   const [pagination, setPagination] = useState(null);
   const [lastId, setLastId] = useState(1);
   const { get } = ApiFunction();
-  const {
-    sort,
-    activeFilters,
-  } = useSelector((state) => state.propertyFilters);
+  const { sort, activeFilters } = useSelector((state) => state.propertyFilters);
 
   // In a real app, this would be an API call with the filters
   useEffect(() => {
@@ -146,7 +141,9 @@ export default function PropertiesPage() {
           <div className="flex flex-col lg:flex-row gap-8 px-4">
             {/* Filters */}
             <div className="w-full lg:w-80 flex-shrink-0">
-              <PropertyFilters />
+              <div className="lg:sticky lg:top-4">
+                <PropertyFilters />
+              </div>
             </div>
 
             {/* Property List */}
@@ -170,7 +167,7 @@ export default function PropertiesPage() {
                       <Select
                         size="md"
                         className="min-w-[200px]"
-                        selectedKeys={new Set([sort || "latest"])}
+                        selectedKeys={new Set([sort || "latest-first"])}
                         onSelectionChange={(keys) => {
                           const selectedValue = Array.from(keys)[0];
                           if (selectedValue) {

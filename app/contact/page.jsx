@@ -134,7 +134,7 @@ const ContactPage = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20 md:py-28 relative bg-gradient-to-br from-brand-light to-white dark:from-brand-dark dark:to-gray-900">
+      <section className="py-20 md:py-28 relative bg-brand-white dark:bg-brand-dark">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(45rem_50%_50%_50%_50%,rgba(79,70,229,0.1),rgba(255,255,255,0))]"></div>
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-brand-primary/5 to-transparent -z-10"></div>
@@ -195,17 +195,8 @@ const ContactPage = () => {
             </motion.div>
 
             {/* Contact Form */}
-            <motion.div
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100 dark:border-gray-700"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              whileHover={{
-                boxShadow:
-                  "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-              }}
-            >
-              <h3 className="text-2xl text-gray-900 dark:text-white mb-6 poppins_semibold">
+            <div className="bg-brand-white dark:bg-brand-deepdark rounded-2xl p-6 md:p-8">
+              <h3 className="text-2xl text-brand-dark dark:text-white mb-8 poppins_semibold">
                 Send Us a Message
               </h3>
 
@@ -215,7 +206,7 @@ const ContactPage = () => {
                 isSubmitting={isSubmitting}
                 onSubmit={handleSubmit(onSubmit)}
               />
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>

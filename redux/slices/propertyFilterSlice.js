@@ -7,7 +7,7 @@ const initialState = {
   bedrooms: 0,
   bathrooms: 0,
   hasKitchen: false,
-  sort: "latest",
+  sort: "latest-first",
   activeFilters: {},
 };
 
@@ -82,7 +82,7 @@ function getActiveFilters(state) {
   if (state.bedrooms > 0) activeFilters.bedrooms = state.bedrooms;
   if (state.bathrooms > 0) activeFilters.bathrooms = state.bathrooms;
   if (state.hasKitchen) activeFilters.hasKitchen = state.hasKitchen;
-  if (state.sort !== "latest") activeFilters.sort = state.sort;
+  if (state.sort !== "latest-first") activeFilters.sort = state.sort;
 
   return activeFilters;
 }

@@ -21,7 +21,7 @@ export default function PropertyCard({ property, showSoldInfo = false }) {
   const router = useRouter();
 
   return (
-    <Card className="overflow-hidden border-0 bg-white dark:bg-brand-dark shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:shadow-brand-primary/20 transition-all duration-500 group">
+    <Card className="overflow-hidden border-0 bg-white dark:bg-brand-deepdark shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:shadow-brand-primary/20 transition-all duration-500 group">
       {/* Image Section */}
       <div className="relative h-64 overflow-hidden">
         <Image
@@ -34,21 +34,28 @@ export default function PropertyCard({ property, showSoldInfo = false }) {
 
       {/* Content Section */}
       <div className="p-5">
-        {/* Title & Location */}
-        <div className="mb-4">
-          <h3 className="text-lg poppins_semibold text-foreground line-clamp-1 capitalize group-hover:text-brand-primary transition-colors duration-300">
+        {/* Title & Price Row */}
+        <div className="flex justify-between items-start gap-3 mb-2">
+          <h3 className="text-lg poppins_semibold text-foreground line-clamp-1 capitalize group-hover:text-brand-primary transition-colors duration-300 flex-1">
             {property?.title || "No Title"}
           </h3>
-          <div className="flex items-center text-sm text-foreground-500 mt-2">
-            <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center mr-2">
-              <IoLocationOutline className="text-brand-primary text-sm shrink-0" />
-            </div>
-            <span className="truncate capitalize roboto_regular">
-              {property.location?.address
-                ? `${property.location.address}, ${property.location.city}`
-                : property.location?.city || "Location not specified"}
-            </span>
+          <div className="text-right flex-shrink-0">
+            <p className="text-lg poppins_regular dark:text-brand-light text-brand-dark whitespace-nowrap">
+              ${property?.price?.toLocaleString() || "N/A"}
+            </p>
           </div>
+        </div>
+
+        {/* Location */}
+        <div className="flex items-center text-sm text-foreground-500 mb-4">
+          <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center mr-2">
+            <IoLocationOutline className="text-brand-primary text-sm shrink-0" />
+          </div>
+          <span className="truncate capitalize roboto_regular">
+            {property.location?.address
+              ? `${property.location.address}, ${property.location.city}`
+              : property.location?.city || "Location not specified"}
+          </span>
         </div>
 
         {/* Features Grid - Simple with orange icons */}

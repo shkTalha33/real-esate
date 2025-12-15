@@ -26,7 +26,7 @@ const ContactInfoCard = ({
 
   return (
     <motion.div
-      className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 ${className}`}
+      className={`bg-brand-light dark:bg-brand-deepdark rounded-xl hover:shadow-xl transition-shadow duration-300 ${className}`}
       whileHover={{ y: -5 }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}

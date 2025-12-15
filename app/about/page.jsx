@@ -101,7 +101,7 @@ const AboutPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300"
+                className="bg-brand-light dark:bg-brand-dark p-8 rounded-xl text-center hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="flex justify-center mb-4">{stat.icon}</div>
                 <h3 className="text-4xl  text-gray-900 dark:text-white mb-2 nunito_semibold">
@@ -189,7 +189,7 @@ const AboutPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-brand-light dark:bg-brand-dark p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 text-center"
+                className="bg-brand-light dark:bg-brand-dark p-8 rounded-xl hover:shadow-xl transition-shadow duration-300 text-center"
               >
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-brand-primary/10 dark:bg-brand-primary/20 flex items-center justify-center">
                   {value.icon}
